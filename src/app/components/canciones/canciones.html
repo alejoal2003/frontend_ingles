@@ -1,1 +1,145 @@
-<p>canciones works!</p>
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">EnglishMaster</div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" (click)="navigateToProfile()">
+                    👤 Perfil
+                </button>
+                <button class="btn btn-primary" (click)="logout()">
+                    Salir
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="container">
+        <div class="nav-container">
+            <button type="button" class="nav-item" (click)="navigateToSection('inicio')">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-text">Inicio</div>
+            </button>
+            <button type="button" class="nav-item" (click)="navigateToSection('lecturas')">
+                <div class="nav-icon">📖</div>
+                <div class="nav-text">Lecturas</div>
+            </button>
+            <button type="button" class="nav-item active">
+                <div class="nav-icon">🎵</div>
+                <div class="nav-text">Música</div>
+            </button>
+            <button type="button" class="nav-item" (click)="navigateToSection('progreso')">
+                <div class="nav-icon">📊</div>
+                <div class="nav-text">Progreso</div>
+            </button>
+            <button type="button" class="nav-item" (click)="navigateToSection('lecciones')">
+                <div class="nav-icon">📚</div>
+                <div class="nav-text">Lecciones</div>
+            </button>
+            <button type="button" class="nav-item" (click)="navigateToSection('config')">
+                <div class="nav-icon">⚙️</div>
+                <div class="nav-text">Config</div>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main">
+    <div class="container">
+        <div class="canciones-grid">
+            <!-- Primera canción: Stairway to Heaven -->
+            <div class="cancion-card" data-song="stairway-to-heaven">
+                <div class="cancion-image">
+                    <img src="img1.png" alt="Led Zeppelin - Stairway to Heaven" />
+                </div>
+                <div class="cancion-info">
+                    <h3 class="cancion-titulo">Título: "Stairway to Heaven"</h3>
+                    <p class="cancion-artista">Artista: "Led Zeppelin"</p>
+                    <p class="cancion-genero">Género: Rock</p>
+                </div>
+                <button class="play-button" (click)="playSong('stairway-to-heaven')">
+                    <div class="play-icon">▶</div>
+                </button>
+            </div>
+
+            <!-- Segunda canción: Lose Yourself -->
+            <div class="cancion-card" data-song="lose-yourself">
+                <div class="cancion-image">
+                    <img src="img2.png" alt="Eminem - Lose Yourself" />
+                </div>
+                <div class="cancion-info">
+                    <h3 class="cancion-titulo">Título: "Lose Yourself"</h3>
+                    <p class="cancion-artista">Artista: "Eminem"</p>
+                    <p class="cancion-genero">Género: Hip Hop / R&B</p>
+                </div>
+                <button class="play-button" (click)="playSong('lose-yourself')">
+                    <div class="play-icon">▶</div>
+                </button>
+            </div>
+
+            <!-- Tercera canción: Bohemian Rhapsody -->
+            <div class="cancion-card" data-song="bohemian-rhapsody">
+                <div class="cancion-image">
+                    <img src="img3.png" alt="Queen - Bohemian Rhapsody" />
+                </div>
+                <div class="cancion-info">
+                    <h3 class="cancion-titulo">Título: "Bohemian Rhapsody"</h3>
+                    <p class="cancion-artista">Artista: "Queen"</p>
+                    <p class="cancion-genero">Género: Clásicos / Rock</p>
+                </div>
+                <button class="play-button" (click)="playSong('bohemian-rhapsody')">
+                    <div class="play-icon">▶</div>
+                </button>
+            </div>
+
+            <!-- Cuarta canción: Hotel California -->
+            <div class="cancion-card" data-song="hotel-california">
+                <div class="cancion-image">
+                    <img src="img4.png" alt="Eagles - Hotel California" />
+                </div>
+                <div class="cancion-info">
+                    <h3 class="cancion-titulo">Título: "Hotel California"</h3>
+                    <p class="cancion-artista">Artista: "Eagles"</p>
+                    <p class="cancion-genero">Género: Rock Clásico</p>
+                </div>
+                <button class="play-button" (click)="playSong('hotel-california')">
+                    <div class="play-icon">▶</div>
+                </button>
+            </div>
+
+            <!-- Quinta canción: Shape of You -->
+            <div class="cancion-card" data-song="shape-of-you">
+                <div class="cancion-image">
+                    <img src="img5.png" alt="Ed Sheeran - Shape of You" />
+                </div>
+                <div class="cancion-info">
+                    <h3 class="cancion-titulo">Título: "Shape of You"</h3>
+                    <p class="cancion-artista">Artista: "Ed Sheeran"</p>
+                    <p class="cancion-genero">Género: Pop</p>
+                </div>
+                <button class="play-button" (click)="playSong('shape-of-you')">
+                    <div class="play-icon">▶</div>
+                </button>
+            </div>
+
+            <!-- Sexta canción: Imagine -->
+            <div class="cancion-card" data-song="imagine">
+                <div class="cancion-image">
+                    <img src="img6.png" alt="John Lennon - Imagine" />
+                </div>
+                <div class="cancion-info">
+                    <h3 class="cancion-titulo">Título: "Imagine"</h3>
+                    <p class="cancion-artista">Artista: "John Lennon"</p>
+                    <p class="cancion-genero">Género: Rock / Pop</p>
+                </div>
+                <button class="play-button" (click)="playSong('imagine')">
+                    <div class="play-icon">▶</div>
+                </button>
+            </div>
+        </div>
+    </div>
+</main>

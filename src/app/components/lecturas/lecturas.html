@@ -1,1 +1,118 @@
-<p>lecturas works!</p>
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">EnglishMaster</div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" (click)="navigateToProfile()">
+                    👤 Perfil
+                </button>
+                <button class="btn btn-primary" (click)="logout()">
+                    Salir
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="container">
+        <div class="nav-container">
+            <button type="button" class="nav-item" (click)="navigateToSection('inicio')">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-text">Inicio</div>
+            </button>
+            <button type="button" class="nav-item active">
+                <div class="nav-icon">📖</div>
+                <div class="nav-text">Lecturas</div>
+            </button>
+            <button type="button" class="nav-item" (click)="navigateToSection('musica')">
+                <div class="nav-icon">🎵</div>
+                <div class="nav-text">Música</div>
+            </button>
+            <button type="button" class="nav-item" (click)="navigateToSection('progreso')">
+                <div class="nav-icon">📊</div>
+                <div class="nav-text">Progreso</div>
+            </button>
+            <button type="button" class="nav-item" (click)="navigateToSection('lecciones')">
+                <div class="nav-icon">📚</div>
+                <div class="nav-text">Lecciones</div>
+            </button>
+            <button type="button" class="nav-item" (click)="navigateToSection('config')">
+                <div class="nav-icon">⚙️</div>
+                <div class="nav-text">Config</div>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main">
+    <div class="container">
+        <div class="lecturas-grid">
+            <!-- Primera fila -->
+            <div class="lectura-card">
+                <div class="lectura-image-placeholder">
+                    <!-- Aquí irá la imagen del robot/IA -->
+                    <div class="emoji-placeholder">🤖</div>
+                </div>
+                <div class="lectura-content">
+                    <p>Explora los avances recientes y las implicaciones de la IA en nuestra vida diaria.</p>
+                </div>
+            </div>
+
+            <div class="lectura-card">
+                <div class="lectura-image-placeholder">
+                    <!-- Aquí irá la imagen del edificio/museo -->
+                    <div class="emoji-placeholder">🏛️</div>
+                </div>
+                <div class="lectura-content">
+                    <p>Un viaje a través de las fascinantes tradiciones y la historia del pueblo maya.</p>
+                </div>
+            </div>
+
+            <!-- Segunda fila -->
+            <div class="lectura-card">
+                <div class="lectura-image-placeholder">
+                    <!-- Aquí irá la imagen del gráfico -->
+                    <div class="emoji-placeholder">📈</div>
+                </div>
+                <div class="lectura-content">
+                    <p>Descubre cómo las empresas están adoptando modelos de negocio más sostenibles.</p>
+                </div>
+            </div>
+
+            <div class="lectura-card">
+                <div class="lectura-image-placeholder">
+                    <!-- Aquí irá la imagen del calentamiento global -->
+                    <div class="emoji-placeholder">🌍</div>
+                </div>
+                <div class="lectura-content">
+                    <p>Un análisis de las últimas noticias sobre el calentamiento global y sus efectos.</p>
+                </div>
+            </div>
+
+            <!-- Tercera fila -->
+            <div class="lectura-card">
+                <div class="lectura-image-placeholder">
+                    <!-- Aquí irá la imagen del escritor -->
+                    <div class="emoji-placeholder">✍️</div>
+                </div>
+                <div class="lectura-content">
+                    <p>Una introducción a la obra y el legado del famoso dramaturgo inglés.</p>
+                </div>
+            </div>
+
+            <div class="lectura-card">
+                <div class="lectura-image-placeholder">
+                    <!-- Aquí irá la imagen de la casa -->
+                    <div class="emoji-placeholder">🏠</div>
+                </div>
+                <div class="lectura-content">
+                    <p>Frases y vocabulario esencial para situaciones comunes del día a día.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

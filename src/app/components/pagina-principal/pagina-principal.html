@@ -1,1 +1,55 @@
-<p>pagina-principal works!</p>
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">EnglishMaster</div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" (click)="showScreen('profile')">
+                    👤 Perfil
+                </button>
+                <button class="btn btn-primary" (click)="showScreen('test')">
+                    📝 Registrarse
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="main">
+    <div class="container">
+        <!-- Home Screen -->
+        <div id="home" class="screen active">
+            <div class="hero">
+                <h1>¡Bienvenido a EnglishMaster!</h1>
+                <p>Tu compañero perfecto para dominar el inglés de manera divertida e interactiva</p>
+                <button class="btn btn-secondary" (click)="showScreen('test')">
+                    🚀 Comenzar 
+                </button>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card" (click)="showScreen('reading')">
+                    <div class="feature-icon">📖</div>
+                    <div class="feature-title">Lecturas Bilingües</div>
+                    <p>Lee historias en paralelo español-inglés con narración nativa</p>
+                </div>
+                <div class="feature-card" (click)="showScreen('songs')">
+                    <div class="feature-icon">🎵</div>
+                    <div class="feature-title">Canciones Interactivas</div>
+                    <p>Mejora tu comprensión auditiva completando letras de tus canciones favoritas</p>
+                </div>
+                <div class="feature-card" (click)="showScreen('progress')">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Seguimiento Detallado</div>
+                    <p>Monitorea tu progreso con estadísticas y gráficos motivadores</p>
+                </div>
+                <div class="feature-card" (click)="showScreen('lessons')">
+                    <div class="feature-icon">📚</div>
+                    <div class="feature-title">Lecciones Estructuradas</div>
+                    <p>Aprende paso a paso con lecciones organizadas por nivel y habilidad</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

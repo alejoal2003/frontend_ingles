@@ -1,0 +1,121 @@
+/* Estilos específicos para lecturas */
+
+/* Grid de lecturas */
+.lecturas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Tarjetas de lectura */
+.lectura-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    transition: var(--transition);
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 220px;
+}
+
+.lectura-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Placeholder para imágenes */
+.lectura-image-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    flex-shrink: 0;
+}
+
+.emoji-placeholder {
+    font-size: 2.5rem;
+    filter: grayscale(0);
+}
+
+/* Contenido de la lectura */
+.lectura-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.lectura-content p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Navegación activa */
+.nav-item.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Responsive para lecturas */
+@media (max-width: 768px) {
+    .lecturas-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+    
+    .lectura-card {
+        padding: 1.5rem;
+        min-height: 180px;
+    }
+    
+    .lectura-image-placeholder {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+    }
+    
+    .emoji-placeholder {
+        font-size: 2rem;
+    }
+    
+    .lectura-content p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .lecturas-grid {
+        gap: 1rem;
+    }
+    
+    .lectura-card {
+        padding: 1rem;
+        min-height: 160px;
+    }
+    
+    .lectura-image-placeholder {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .emoji-placeholder {
+        font-size: 1.5rem;
+    }
+}
