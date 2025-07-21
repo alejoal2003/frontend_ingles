@@ -12,7 +12,9 @@
     --success-color: #10b981;
     --warning-color: #f59e0b;
     --error-color: #ef4444;
+    --danger-color: #ef4444;
     --bg-color: #f8fafc;
+    --bg-primary: #ffffff;
     --card-bg: #ffffff;
     --text-primary: #1e293b;
     --text-secondary: #64748b;
@@ -37,6 +39,43 @@ body {
     color: var(--text-primary);
     transition: var(--transition);
     line-height: 1.6;
+}
+
+/* Estilos para navegación por teclado */
+*:focus {
+    outline: none;
+}
+
+button:focus,
+[tabindex]:focus,
+input:focus,
+select:focus,
+textarea:focus,
+[role="button"]:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.nav-item:focus,
+.feature-card:focus,
+.lectura-card:focus,
+.cancion-card:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-color);
+}
+
+/* Indicador visual para elementos clickeables con teclado */
+[role="button"]:focus,
+[tabindex]:focus {
+    background: rgba(79, 70, 229, 0.05);
+}
+
+/* Mejoras específicas para navegación */
+.nav-item:focus-visible {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
 }
 
 .container {

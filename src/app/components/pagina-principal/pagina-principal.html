@@ -2,12 +2,12 @@
 <header class="header">
     <div class="container">
         <div class="header-content">
-            <div class="logo">EnglishMaster</div>
+            <div class="logo" tabindex="1" role="banner">EnglishMaster</div>
             <div class="header-actions">
-                <button class="btn btn-secondary" (click)="showScreen('profile')">
+                <button class="btn btn-secondary" (click)="showScreen('profile')" tabindex="2">
                     👤 Perfil
                 </button>
-                <button class="btn btn-primary" (click)="showScreen('test')">
+                <button class="btn btn-primary" (click)="showScreen('test')" tabindex="3">
                     📝 Registrarse
                 </button>
             </div>
@@ -16,35 +16,35 @@
 </header>
 
 <!-- Main Content -->
-<main class="main">
+<main class="main" role="main">
     <div class="container">
         <!-- Home Screen -->
         <div id="home" class="screen active">
             <div class="hero">
                 <h1>¡Bienvenido a EnglishMaster!</h1>
                 <p>Tu compañero perfecto para dominar el inglés de manera divertida e interactiva</p>
-                <button class="btn btn-secondary" (click)="showScreen('test')">
+                <button class="btn btn-secondary" (click)="showScreen('test')" tabindex="4">
                     🚀 Comenzar 
                 </button>
             </div>
 
             <div class="features-grid">
-                <div class="feature-card" (click)="showScreen('reading')">
+                <div class="feature-card" (click)="showScreen('reading')" tabindex="5" role="button" aria-label="Acceder a Lecturas Bilingües" (keydown.enter)="showScreen('reading')" (keydown.space)="showScreen('reading')">
                     <div class="feature-icon">📖</div>
                     <div class="feature-title">Lecturas Bilingües</div>
                     <p>Lee historias en paralelo español-inglés con narración nativa</p>
                 </div>
-                <div class="feature-card" (click)="showScreen('songs')">
+                <div class="feature-card" (click)="showScreen('songs')" tabindex="6" role="button" aria-label="Acceder a Canciones Interactivas" (keydown.enter)="showScreen('songs')" (keydown.space)="showScreen('songs')">
                     <div class="feature-icon">🎵</div>
                     <div class="feature-title">Canciones Interactivas</div>
                     <p>Mejora tu comprensión auditiva completando letras de tus canciones favoritas</p>
                 </div>
-                <div class="feature-card" (click)="showScreen('progress')">
+                <div class="feature-card" (click)="showScreen('progress')" tabindex="7" role="button" aria-label="Ver Seguimiento Detallado" (keydown.enter)="showScreen('progress')" (keydown.space)="showScreen('progress')">
                     <div class="feature-icon">📊</div>
                     <div class="feature-title">Seguimiento Detallado</div>
                     <p>Monitorea tu progreso con estadísticas y gráficos motivadores</p>
                 </div>
-                <div class="feature-card" (click)="showScreen('lessons')">
+                <div class="feature-card" (click)="showScreen('lessons')" tabindex="8" role="button" aria-label="Acceder a Lecciones Estructuradas" (keydown.enter)="showScreen('lessons')" (keydown.space)="showScreen('lessons')">
                     <div class="feature-icon">📚</div>
                     <div class="feature-title">Lecciones Estructuradas</div>
                     <p>Aprende paso a paso con lecciones organizadas por nivel y habilidad</p>

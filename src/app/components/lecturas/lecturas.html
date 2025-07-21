@@ -2,12 +2,12 @@
 <header class="header">
     <div class="container">
         <div class="header-content">
-            <div class="logo">EnglishMaster</div>
+            <div class="logo" tabindex="1" role="banner">EnglishMaster</div>
             <div class="header-actions">
-                <button class="btn btn-secondary" (click)="navigateToProfile()">
+                <button class="btn btn-secondary" (click)="navigateToProfile()" tabindex="2">
                     👤 Perfil
                 </button>
-                <button class="btn btn-primary" (click)="logout()">
+                <button class="btn btn-primary" (click)="logout()" tabindex="3">
                     Salir
                 </button>
             </div>
@@ -16,30 +16,30 @@
 </header>
 
 <!-- Navigation -->
-<nav class="nav">
+<nav class="nav" role="navigation">
     <div class="container">
         <div class="nav-container">
-            <button type="button" class="nav-item" (click)="navigateToSection('inicio')">
+            <button type="button" class="nav-item" (click)="navigateToSection('inicio')" tabindex="4" aria-label="Ir a Inicio">
                 <div class="nav-icon">🏠</div>
                 <div class="nav-text">Inicio</div>
             </button>
-            <button type="button" class="nav-item active">
+            <button type="button" class="nav-item active" tabindex="5" aria-label="Sección actual: Lecturas" aria-current="page">
                 <div class="nav-icon">📖</div>
                 <div class="nav-text">Lecturas</div>
             </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('musica')">
+            <button type="button" class="nav-item" (click)="navigateToSection('musica')" tabindex="6" aria-label="Ir a Música">
                 <div class="nav-icon">🎵</div>
                 <div class="nav-text">Música</div>
             </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('progreso')">
+            <button type="button" class="nav-item" (click)="navigateToSection('progreso')" tabindex="7" aria-label="Ir a Progreso">
                 <div class="nav-icon">📊</div>
                 <div class="nav-text">Progreso</div>
             </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('lecciones')">
+            <button type="button" class="nav-item" (click)="navigateToSection('lecciones')" tabindex="8" aria-label="Ir a Lecciones">
                 <div class="nav-icon">📚</div>
                 <div class="nav-text">Lecciones</div>
             </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('config')">
+            <button type="button" class="nav-item" (click)="navigateToSection('config')" tabindex="9" aria-label="Ir a Configuraciones">
                 <div class="nav-icon">⚙️</div>
                 <div class="nav-text">Config</div>
             </button>
@@ -48,71 +48,192 @@
 </nav>
 
 <!-- Main Content -->
-<main class="main">
+<main class="main" role="main">
     <div class="container">
         <div class="lecturas-grid">
             <!-- Primera fila -->
-            <div class="lectura-card">
+            <div class="lectura-card" (click)="abrirLectura(1)" tabindex="10" role="button" aria-label="Leer sobre Inteligencia Artificial" (keydown.enter)="abrirLectura(1)" (keydown.space)="abrirLectura(1)">
                 <div class="lectura-image-placeholder">
                     <!-- Aquí irá la imagen del robot/IA -->
                     <div class="emoji-placeholder">🤖</div>
                 </div>
                 <div class="lectura-content">
+                    <h3>Inteligencia Artificial</h3>
                     <p>Explora los avances recientes y las implicaciones de la IA en nuestra vida diaria.</p>
                 </div>
             </div>
 
-            <div class="lectura-card">
+            <div class="lectura-card" (click)="abrirLectura(2)" tabindex="11" role="button" aria-label="Leer sobre Cultura Maya" (keydown.enter)="abrirLectura(2)" (keydown.space)="abrirLectura(2)">
                 <div class="lectura-image-placeholder">
                     <!-- Aquí irá la imagen del edificio/museo -->
                     <div class="emoji-placeholder">🏛️</div>
                 </div>
                 <div class="lectura-content">
+                    <h3>Cultura Maya</h3>
                     <p>Un viaje a través de las fascinantes tradiciones y la historia del pueblo maya.</p>
                 </div>
             </div>
 
             <!-- Segunda fila -->
-            <div class="lectura-card">
+            <div class="lectura-card" (click)="abrirLectura(3)" tabindex="12" role="button" aria-label="Leer sobre Negocios Sostenibles" (keydown.enter)="abrirLectura(3)" (keydown.space)="abrirLectura(3)">
                 <div class="lectura-image-placeholder">
                     <!-- Aquí irá la imagen del gráfico -->
                     <div class="emoji-placeholder">📈</div>
                 </div>
                 <div class="lectura-content">
+                    <h3>Negocios Sostenibles</h3>
                     <p>Descubre cómo las empresas están adoptando modelos de negocio más sostenibles.</p>
                 </div>
             </div>
 
-            <div class="lectura-card">
+            <div class="lectura-card" (click)="abrirLectura(4)" tabindex="13" role="button" aria-label="Leer sobre Calentamiento Global" (keydown.enter)="abrirLectura(4)" (keydown.space)="abrirLectura(4)">
                 <div class="lectura-image-placeholder">
                     <!-- Aquí irá la imagen del calentamiento global -->
                     <div class="emoji-placeholder">🌍</div>
                 </div>
                 <div class="lectura-content">
+                    <h3>Calentamiento Global</h3>
                     <p>Un análisis de las últimas noticias sobre el calentamiento global y sus efectos.</p>
                 </div>
             </div>
 
             <!-- Tercera fila -->
-            <div class="lectura-card">
+            <div class="lectura-card" (click)="abrirLectura(5)" tabindex="14" role="button" aria-label="Leer sobre Shakespeare" (keydown.enter)="abrirLectura(5)" (keydown.space)="abrirLectura(5)">
                 <div class="lectura-image-placeholder">
                     <!-- Aquí irá la imagen del escritor -->
                     <div class="emoji-placeholder">✍️</div>
                 </div>
                 <div class="lectura-content">
+                    <h3>Shakespeare</h3>
                     <p>Una introducción a la obra y el legado del famoso dramaturgo inglés.</p>
                 </div>
             </div>
 
-            <div class="lectura-card">
+            <div class="lectura-card" (click)="abrirLectura(6)" tabindex="15" role="button" aria-label="Leer sobre Vida Cotidiana" (keydown.enter)="abrirLectura(6)" (keydown.space)="abrirLectura(6)">
                 <div class="lectura-image-placeholder">
                     <!-- Aquí irá la imagen de la casa -->
                     <div class="emoji-placeholder">🏠</div>
                 </div>
                 <div class="lectura-content">
+                    <h3>Vida Cotidiana</h3>
                     <p>Frases y vocabulario esencial para situaciones comunes del día a día.</p>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+<!-- Modal del Juego -->
+<div class="modal-overlay" *ngIf="showModal" (click)="cerrarModal()" role="dialog" aria-modal="true" [attr.aria-labelledby]="'modal-title-' + currentLectura?.titulo">
+    <div class="modal-content" (click)="$event.stopPropagation()" *ngIf="currentLectura">
+        <div class="modal-header">
+            <h2 [id]="'modal-title-' + currentLectura.titulo">{{currentLectura.emoji}} {{currentLectura.titulo}}</h2>
+            <button class="close-btn" (click)="cerrarModal()" tabindex="16" aria-label="Cerrar modal">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="compact-game-container">
+                <!-- Contexto en español - Compacto -->
+                <div class="context-section">
+                    <h3>📖 {{currentLectura.emoji}} {{currentLectura.titulo}}</h3>
+                    <div class="context-text">
+                        {{currentLectura.lecturaEspanol}}
+                    </div>
+                </div>
+
+                <!-- Juego principal -->
+                <div class="game-section">
+                    <!-- Banco de palabras -->
+                    <div class="word-bank-compact">
+                        <h4>📦 Arrastra las palabras:</h4>
+                        <div class="word-bank-container">
+                            <div 
+                                *ngFor="let palabraDisp of palabrasDisponibles; let i = index"
+                                class="word-chip"
+                                [class.used]="palabraDisp.utilizada"
+                                [class.dragging]="draggedIndex === i"
+                                draggable="true"
+                                (dragstart)="onDragStart($event, palabraDisp.palabra, i)"
+                                [style.display]="palabraDisp.utilizada ? 'none' : 'inline-block'">
+                                {{palabraDisp.palabra}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Texto en inglés para completar -->
+                    <div class="english-exercise">
+                        <div class="english-paragraph-compact">
+                            <ng-container *ngFor="let parte of currentLectura.lecturaIngles.split('_____'); let i = index">
+                                {{parte}}
+                                <div 
+                                    *ngIf="i < currentLectura.palabrasCompletar.length"
+                                    class="drop-zone-compact"
+                                    [class.filled]="respuestasUsuario[i].palabraSeleccionada"
+                                    [class.correct]="juegoCompletado && esRespuestaCorrecta(i)"
+                                    [class.incorrect]="juegoCompletado && !esRespuestaCorrecta(i) && respuestasUsuario[i].palabraSeleccionada"
+                                    (dragover)="onDragOver($event)"
+                                    (drop)="onDrop($event, i)">
+                                    
+                                    <span *ngIf="!respuestasUsuario[i].palabraSeleccionada" class="placeholder-compact">
+                                        ___
+                                    </span>
+                                    
+                                    <span *ngIf="respuestasUsuario[i].palabraSeleccionada" 
+                                          class="placed-word-compact"
+                                          (click)="devolverPalabra(i)">
+                                        {{respuestasUsuario[i].palabraSeleccionada}}
+                                        <span class="remove-icon" *ngIf="!juegoCompletado">×</span>
+                                    </span>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones y resultados en línea -->
+                <div class="action-results-section">
+                    <!-- Botones de acción -->
+                    <div class="action-buttons">
+                        <button 
+                            class="btn btn-primary compact-btn" 
+                            (click)="verificarRespuestas()"
+                            *ngIf="!juegoCompletado"
+                            tabindex="17"
+                            aria-label="Verificar respuestas del ejercicio">
+                            ✅ Verificar
+                        </button>
+                        
+                        <button 
+                            class="btn btn-secondary compact-btn" 
+                            (click)="reiniciarJuego()"
+                            *ngIf="juegoCompletado"
+                            tabindex="17"
+                            aria-label="Reintentar ejercicio">
+                            🔄 Reintentar
+                        </button>
+                    </div>
+
+                    <!-- Resultados inline -->
+                    <div class="inline-results" *ngIf="mostrarResultados">
+                        <div class="score-inline" [class.excellent]="puntaje >= 80" [class.good]="puntaje >= 60 && puntaje < 80" [class.needs-improvement]="puntaje < 60">
+                            {{puntaje}}%
+                            <span class="feedback-text">
+                                <span *ngIf="puntaje >= 80">¡Excelente! 🎉</span>
+                                <span *ngIf="puntaje >= 60 && puntaje < 80">¡Bien! 👍</span>
+                                <span *ngIf="puntaje < 60">Sigue practicando 💪</span>
+                            </span>
+                        </div>
+                        
+                        <!-- Respuestas correctas en formato compacto -->
+                        <div class="answers-inline">
+                            <strong>Correctas:</strong>
+                            <span *ngFor="let palabra of currentLectura.palabrasCompletar; let last = last">
+                                {{palabra.palabra}}<span *ngIf="!last">, </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

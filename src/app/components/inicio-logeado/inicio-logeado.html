@@ -2,12 +2,12 @@
 <header class="header">
     <div class="container">
         <div class="header-content">
-            <div class="logo">EnglishMaster</div>
+            <div class="logo" tabindex="1" role="banner">EnglishMaster</div>
             <div class="header-actions">
-                <button class="btn btn-secondary" (click)="showScreen('profile')">
+                <button class="btn btn-secondary" (click)="showScreen('profile')" tabindex="2">
                     👤 Perfil
                 </button>
-                <button class="btn btn-primary" (click)="showScreen('test')">
+                <button class="btn btn-primary" (click)="showScreen('test')" tabindex="3">
                     ⬅️ Salir
                 </button>
             </div>
@@ -16,30 +16,30 @@
 </header>
 
 <!-- Navigation -->
-<nav class="nav">
+<nav class="nav" role="navigation">
     <div class="container">
         <div class="nav-container">
-            <button type="button" class="nav-item active" (click)="showScreen('home')" tabindex="0">
+            <button type="button" class="nav-item active" (click)="showScreen('home')" tabindex="4" aria-label="Ir a Inicio">
                 <div class="nav-icon">🏠</div>
                 <div class="nav-text">Inicio</div>
             </button>
-            <button type="button" class="nav-item" (click)="showScreen('reading')" tabindex="0">
+            <button type="button" class="nav-item" (click)="showScreen('reading')" tabindex="5" aria-label="Ir a Lecturas">
                 <div class="nav-icon">📖</div>
                 <div class="nav-text">Lecturas</div>
             </button>
-            <button type="button" class="nav-item" (click)="showScreen('songs')" tabindex="0">
+            <button type="button" class="nav-item" (click)="showScreen('songs')" tabindex="6" aria-label="Ir a Canciones">
                 <div class="nav-icon">🎵</div>
                 <div class="nav-text">Canciones</div>
             </button>
-            <button type="button" class="nav-item" (click)="showScreen('progress')" tabindex="0">
+            <button type="button" class="nav-item" (click)="showScreen('progress')" tabindex="7" aria-label="Ir a Progreso">
                 <div class="nav-icon">📊</div>
                 <div class="nav-text">Progreso</div>
             </button>
-            <button type="button" class="nav-item" (click)="showScreen('lessons')" tabindex="0">
+            <button type="button" class="nav-item" (click)="showScreen('lessons')" tabindex="8" aria-label="Ir a Lecciones">
                 <div class="nav-icon">📚</div>
                 <div class="nav-text">Lecciones</div>
             </button>
-            <button type="button" class="nav-item" (click)="showScreen('settings')" tabindex="0">
+            <button type="button" class="nav-item" (click)="showScreen('settings')" tabindex="9" aria-label="Ir a Configuración">
                 <div class="nav-icon">⚙️</div>
                 <div class="nav-text">Configuración</div>
             </button>
@@ -55,28 +55,25 @@
             <div class="hero">
                 <h1>¡Bienvenido a EnglishMaster!</h1>
                 <p>Tu compañero perfecto para dominar el inglés de manera divertida e interactiva</p>
-                <button class="btn btn-secondary" (click)="showScreen('test')">
-                    🚀 Comenzar 
-                </button>
             </div>
 
             <div class="features-grid">
-                <div class="feature-card" (click)="showScreen('reading')">
+                <div class="feature-card" (click)="showScreen('reading')" tabindex="10" role="button" aria-label="Acceder a Lecturas Bilingües" (keydown.enter)="showScreen('reading')" (keydown.space)="showScreen('reading')">
                     <div class="feature-icon">📖</div>
                     <div class="feature-title">Lecturas Bilingües</div>
                     <p>Lee historias en paralelo español-inglés con narración nativa</p>
                 </div>
-                <div class="feature-card" (click)="showScreen('songs')">
+                <div class="feature-card" (click)="showScreen('songs')" tabindex="11" role="button" aria-label="Acceder a Canciones Interactivas" (keydown.enter)="showScreen('songs')" (keydown.space)="showScreen('songs')">
                     <div class="feature-icon">🎵</div>
                     <div class="feature-title">Canciones Interactivas</div>
                     <p>Mejora tu comprensión auditiva completando letras de tus canciones favoritas</p>
                 </div>
-                <div class="feature-card" (click)="showScreen('progress')">
+                <div class="feature-card" (click)="showScreen('progress')" tabindex="12" role="button" aria-label="Ver Seguimiento Detallado" (keydown.enter)="showScreen('progress')" (keydown.space)="showScreen('progress')">
                     <div class="feature-icon">📊</div>
                     <div class="feature-title">Seguimiento Detallado</div>
                     <p>Monitorea tu progreso con estadísticas y gráficos motivadores</p>
                 </div>
-                <div class="feature-card" (click)="showScreen('lessons')">
+                <div class="feature-card" (click)="showScreen('lessons')" tabindex="13" role="button" aria-label="Acceder a Lecciones Estructuradas" (keydown.enter)="showScreen('lessons')" (keydown.space)="showScreen('lessons')">
                     <div class="feature-icon">📚</div>
                     <div class="feature-title">Lecciones Estructuradas</div>
                     <p>Aprende paso a paso con lecciones organizadas por nivel y habilidad</p>
@@ -96,17 +93,17 @@
                 <form class="form">
                     <div class="form-group">
                         <label class="form-label" for="username">Nombre de Usuario</label>
-                        <input type="text" id="username" class="form-input" placeholder="Tu nombre" value="Usuario Demo">
+                        <input type="text" id="username" class="form-input" placeholder="Tu nombre" value="Usuario Demo" tabindex="14">
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label" for="email">Correo Electrónico</label>
-                        <input type="email" id="email" class="form-input" placeholder="tu@email.com" value="demo@email.com">
+                        <input type="email" id="email" class="form-input" placeholder="tu@email.com" value="demo@email.com" tabindex="15">
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label" for="level">Nivel de Inglés</label>
-                        <select id="level" class="form-select">
+                        <select id="level" class="form-select" tabindex="16">
                             <option value="beginner">Principiante</option>
                             <option value="intermediate" selected>Intermedio</option>
                             <option value="advanced">Avanzado</option>
@@ -115,7 +112,7 @@
                     
                     <div class="form-group">
                         <label class="form-label" for="goal">Objetivo de Aprendizaje</label>
-                        <select id="goal" class="form-select">
+                        <select id="goal" class="form-select" tabindex="17">
                             <option value="conversation">Conversación</option>
                             <option value="business" selected>Inglés de Negocios</option>
                             <option value="academic">Académico</option>
@@ -123,7 +120,7 @@
                         </select>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" tabindex="18">
                         💾 Guardar Cambios
                     </button>
                 </form>
@@ -144,28 +141,28 @@
                         <h3>📝 Gramática</h3>
                         <p>Evalúa tu conocimiento de estructuras gramaticales</p>
                         <p><strong>15 preguntas</strong></p>
-                        <button class="btn btn-primary">Comenzar</button>
+                        <button class="btn btn-primary" tabindex="19">Comenzar</button>
                     </div>
                     
                     <div class="test-section">
                         <h3>👂 Comprensión Auditiva</h3>
                         <p>Pon a prueba tu capacidad de entender inglés hablado</p>
                         <p><strong>10 preguntas</strong></p>
-                        <button class="btn btn-primary">Comenzar</button>
+                        <button class="btn btn-primary" tabindex="20">Comenzar</button>
                     </div>
                     
                     <div class="test-section">
                         <h3>📖 Comprensión Lectora</h3>
                         <p>Mide tu habilidad para entender textos en inglés</p>
                         <p><strong>8 preguntas</strong></p>
-                        <button class="btn btn-primary">Comenzar</button>
+                        <button class="btn btn-primary" tabindex="21">Comenzar</button>
                     </div>
                     
                     <div class="test-section">
                         <h3>💬 Vocabulario</h3>
                         <p>Evalúa tu conocimiento de palabras y expresiones</p>
                         <p><strong>12 preguntas</strong></p>
-                        <button class="btn btn-primary">Comenzar</button>
+                        <button class="btn btn-primary" tabindex="22">Comenzar</button>
                     </div>
                 </div>
             </div>
@@ -176,14 +173,14 @@
             <h2>🏋️‍♀️ Ejercicios Personalizados</h2>
             
             <div class="exercises-filters">
-                <select class="filter-select">
+                <select class="filter-select" tabindex="23">
                     <option>Todos los niveles</option>
                     <option>Principiante</option>
                     <option>Intermedio</option>
                     <option>Avanzado</option>
                 </select>
                 
-                <select class="filter-select">
+                <select class="filter-select" tabindex="24">
                     <option>Todas las habilidades</option>
                     <option>Gramática</option>
                     <option>Vocabulario</option>
@@ -191,7 +188,7 @@
                     <option>Pronunciación</option>
                 </select>
                 
-                <select class="filter-select">
+                <select class="filter-select" tabindex="25">
                     <option>Ordenar por</option>
                     <option>Más recientes</option>
                     <option>Más populares</option>
@@ -200,7 +197,7 @@
             </div>
 
             <div class="exercises-grid">
-                <div class="exercise-card">
+                <div class="exercise-card" tabindex="26" role="button" aria-label="Practicar Present Perfect">
                     <div class="exercise-image">📝</div>
                     <div class="exercise-content">
                         <h3 class="exercise-title">Present Perfect Practice</h3>
@@ -212,7 +209,7 @@
                     </div>
                 </div>
                 
-                <div class="exercise-card">
+                <div class="exercise-card" tabindex="27" role="button" aria-label="Ejercicios de Pronunciación">
                     <div class="exercise-image">🗣️</div>
                     <div class="exercise-content">
                         <h3 class="exercise-title">Pronunciation Drills</h3>
@@ -224,7 +221,7 @@
                     </div>
                 </div>
                 
-                <div class="exercise-card">
+                <div class="exercise-card" tabindex="28" role="button" aria-label="Vocabulario de Negocios">
                     <div class="exercise-image">📚</div>
                     <div class="exercise-content">
                         <h3 class="exercise-title">Business Vocabulary</h3>
@@ -236,7 +233,7 @@
                     </div>
                 </div>
                 
-                <div class="exercise-card">
+                <div class="exercise-card" tabindex="29" role="button" aria-label="Oraciones Condicionales">
                     <div class="exercise-image">🎭</div>
                     <div class="exercise-content">
                         <h3 class="exercise-title">Conditional Sentences</h3>
@@ -261,23 +258,23 @@
                 </div>
                 
                 <div class="player-controls">
-                    <button class="btn btn-secondary">⏮️</button>
-                    <button class="play-btn">▶️</button>
-                    <button class="btn btn-secondary">⏭️</button>
+                    <button class="btn btn-secondary" tabindex="30" aria-label="Canción anterior">⏮️</button>
+                    <button class="play-btn" tabindex="31" aria-label="Reproducir/Pausar">▶️</button>
+                    <button class="btn btn-secondary" tabindex="32" aria-label="Siguiente canción">⏭️</button>
                 </div>
                 
                 <div class="lyrics-container">
                     <div class="lyrics-line">
-                        Imagine there's no <input type="text" class="lyrics-blank" placeholder="heaven">
+                        Imagine there's no <input type="text" class="lyrics-blank" placeholder="heaven" tabindex="33">
                     </div>
                     <div class="lyrics-line">
-                        It's easy if you <input type="text" class="lyrics-blank" placeholder="try">
+                        It's easy if you <input type="text" class="lyrics-blank" placeholder="try" tabindex="34">
                     </div>
                     <div class="lyrics-line">
-                        No hell below us, above us only <input type="text" class="lyrics-blank" placeholder="sky">
+                        No hell below us, above us only <input type="text" class="lyrics-blank" placeholder="sky" tabindex="35">
                     </div>
                     <div class="lyrics-line">
-                        Imagine all the people living for <input type="text" class="lyrics-blank" placeholder="today">
+                        Imagine all the people living for <input type="text" class="lyrics-blank" placeholder="today" tabindex="36">
                     </div>
                 </div>
             </div>
@@ -291,7 +288,7 @@
                 <div class="reading-panel">
                     <div class="reading-header">
                         <h3>🇺🇸 English Version</h3>
-                        <button class="btn btn-secondary">🔊</button>
+                        <button class="btn btn-secondary" tabindex="37" aria-label="Reproducir audio en inglés">🔊</button>
                     </div>
                     <div class="reading-content">
                         <p><strong>The Little Prince</strong></p>
@@ -303,7 +300,7 @@
                 <div class="reading-panel">
                     <div class="reading-header">
                         <h3>🇪🇸 Versión en Español</h3>
-                        <button class="btn btn-secondary">🔊</button>
+                        <button class="btn btn-secondary" tabindex="38" aria-label="Reproducir audio en español">🔊</button>
                     </div>
                     <div class="reading-content">
                         <p><strong>El Principito</strong></p>
@@ -314,9 +311,9 @@
             </div>
             
             <div class="reading-controls">
-                <button class="btn btn-primary">📖 Siguiente Capítulo</button>
-                <button class="btn btn-secondary">📝 Ejercicios</button>
-                <button class="btn btn-secondary">💾 Guardar Progreso</button>
+                <button class="btn btn-primary" tabindex="39">📖 Siguiente Capítulo</button>
+                <button class="btn btn-secondary" tabindex="40">📝 Ejercicios</button>
+                <button class="btn btn-secondary" tabindex="41">💾 Guardar Progreso</button>
             </div>
         </div>
 
@@ -361,7 +358,7 @@
                 <div class="challenge-progress">
                     <div class="challenge-progress-bar"></div>
                 </div>
-                <button class="btn btn-primary">Continuar</button>
+                <button class="btn btn-primary" tabindex="42">Continuar</button>
             </div>
 
             <div class="badges-grid">
@@ -389,14 +386,14 @@
             <h2>📚 Lecciones Estructuradas</h2>
             
             <div class="exercises-filters">
-                <select class="filter-select">
+                <select class="filter-select" tabindex="43">
                     <option>Todos los cursos</option>
                     <option>Gramática Esencial</option>
                     <option>Conversación Práctica</option>
                     <option>Inglés de Negocios</option>
                 </select>
                 
-                <select class="filter-select">
+                <select class="filter-select" tabindex="44">
                     <option>Todos los niveles</option>
                     <option>Principiante</option>
                     <option>Intermedio</option>
@@ -405,7 +402,7 @@
             </div>
 
             <div class="exercises-grid">
-                <div class="exercise-card">
+                <div class="exercise-card" tabindex="45" role="button" aria-label="Acceder a Curso 1: Fundamentos">
                     <div class="exercise-image">📖</div>
                     <div class="exercise-content">
                         <h3 class="exercise-title">Curso 1: Fundamentos</h3>
@@ -417,7 +414,7 @@
                     </div>
                 </div>
                 
-                <div class="exercise-card">
+                <div class="exercise-card" tabindex="46" role="button" aria-label="Acceder a Curso 2: Inglés de Negocios">
                     <div class="exercise-image">💼</div>
                     <div class="exercise-content">
                         <h3 class="exercise-title">Curso 2: Inglés de Negocios</h3>
@@ -429,7 +426,7 @@
                     </div>
                 </div>
                 
-                <div class="exercise-card">
+                <div class="exercise-card" tabindex="47" role="button" aria-label="Acceder a Curso 3: Conversación Avanzada">
                     <div class="exercise-image">🗣️</div>
                     <div class="exercise-content">
                         <h3 class="exercise-title">Curso 3: Conversación Avanzada</h3>

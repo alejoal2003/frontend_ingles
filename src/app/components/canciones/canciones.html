@@ -2,12 +2,12 @@
 <header class="header">
     <div class="container">
         <div class="header-content">
-            <div class="logo">EnglishMaster</div>
+            <div class="logo" tabindex="1" role="banner">EnglishMaster</div>
             <div class="header-actions">
-                <button class="btn btn-secondary" (click)="navigateToProfile()">
+                <button class="btn btn-secondary" (click)="navigateToProfile()" tabindex="2">
                     👤 Perfil
                 </button>
-                <button class="btn btn-primary" (click)="logout()">
+                <button class="btn btn-primary" (click)="logout()" tabindex="3">
                     Salir
                 </button>
             </div>
@@ -16,30 +16,30 @@
 </header>
 
 <!-- Navigation -->
-<nav class="nav">
+<nav class="nav" role="navigation">
     <div class="container">
         <div class="nav-container">
-            <button type="button" class="nav-item" (click)="navigateToSection('inicio')">
+            <button type="button" class="nav-item" (click)="navigateToSection('inicio')" tabindex="4" aria-label="Ir a Inicio">
                 <div class="nav-icon">🏠</div>
                 <div class="nav-text">Inicio</div>
             </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('lecturas')">
+            <button type="button" class="nav-item" (click)="navigateToSection('lecturas')" tabindex="5" aria-label="Ir a Lecturas">
                 <div class="nav-icon">📖</div>
                 <div class="nav-text">Lecturas</div>
             </button>
-            <button type="button" class="nav-item active">
+            <button type="button" class="nav-item active" tabindex="6" aria-label="Sección actual: Música" aria-current="page">
                 <div class="nav-icon">🎵</div>
                 <div class="nav-text">Música</div>
             </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('progreso')">
+            <button type="button" class="nav-item" (click)="navigateToSection('progreso')" tabindex="7" aria-label="Ir a Progreso">
                 <div class="nav-icon">📊</div>
                 <div class="nav-text">Progreso</div>
             </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('lecciones')">
+            <button type="button" class="nav-item" (click)="navigateToSection('lecciones')" tabindex="8" aria-label="Ir a Lecciones">
                 <div class="nav-icon">📚</div>
                 <div class="nav-text">Lecciones</div>
             </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('config')">
+            <button type="button" class="nav-item" (click)="navigateToSection('config')" tabindex="9" aria-label="Ir a Configuraciones">
                 <div class="nav-icon">⚙️</div>
                 <div class="nav-text">Config</div>
             </button>
@@ -48,11 +48,11 @@
 </nav>
 
 <!-- Main Content -->
-<main class="main">
+<main class="main" role="main">
     <div class="container">
         <div class="canciones-grid">
             <!-- Primera canción: Stairway to Heaven -->
-            <div class="cancion-card" data-song="stairway-to-heaven">
+            <div class="cancion-card" data-song="stairway-to-heaven" tabindex="10" role="button" aria-label="Reproducir Stairway to Heaven de Led Zeppelin" (keydown.enter)="playSong('stairway-to-heaven')" (keydown.space)="playSong('stairway-to-heaven')">
                 <div class="cancion-image">
                     <img src="img1.png" alt="Led Zeppelin - Stairway to Heaven" />
                 </div>
@@ -61,13 +61,13 @@
                     <p class="cancion-artista">Artista: "Led Zeppelin"</p>
                     <p class="cancion-genero">Género: Rock</p>
                 </div>
-                <button class="play-button" (click)="playSong('stairway-to-heaven')">
+                <button class="play-button" (click)="playSong('stairway-to-heaven')" tabindex="-1" aria-hidden="true">
                     <div class="play-icon">▶</div>
                 </button>
             </div>
 
             <!-- Segunda canción: Lose Yourself -->
-            <div class="cancion-card" data-song="lose-yourself">
+            <div class="cancion-card" data-song="lose-yourself" tabindex="11" role="button" aria-label="Reproducir Lose Yourself de Eminem" (keydown.enter)="playSong('lose-yourself')" (keydown.space)="playSong('lose-yourself')">
                 <div class="cancion-image">
                     <img src="img2.png" alt="Eminem - Lose Yourself" />
                 </div>
@@ -76,13 +76,13 @@
                     <p class="cancion-artista">Artista: "Eminem"</p>
                     <p class="cancion-genero">Género: Hip Hop / R&B</p>
                 </div>
-                <button class="play-button" (click)="playSong('lose-yourself')">
+                <button class="play-button" (click)="playSong('lose-yourself')" tabindex="-1" aria-hidden="true">
                     <div class="play-icon">▶</div>
                 </button>
             </div>
 
             <!-- Tercera canción: Bohemian Rhapsody -->
-            <div class="cancion-card" data-song="bohemian-rhapsody">
+            <div class="cancion-card" data-song="bohemian-rhapsody" tabindex="12" role="button" aria-label="Reproducir Bohemian Rhapsody de Queen" (keydown.enter)="playSong('bohemian-rhapsody')" (keydown.space)="playSong('bohemian-rhapsody')">
                 <div class="cancion-image">
                     <img src="img3.png" alt="Queen - Bohemian Rhapsody" />
                 </div>
@@ -91,13 +91,13 @@
                     <p class="cancion-artista">Artista: "Queen"</p>
                     <p class="cancion-genero">Género: Clásicos / Rock</p>
                 </div>
-                <button class="play-button" (click)="playSong('bohemian-rhapsody')">
+                <button class="play-button" (click)="playSong('bohemian-rhapsody')" tabindex="-1" aria-hidden="true">
                     <div class="play-icon">▶</div>
                 </button>
             </div>
 
             <!-- Cuarta canción: Hotel California -->
-            <div class="cancion-card" data-song="hotel-california">
+            <div class="cancion-card" data-song="hotel-california" tabindex="13" role="button" aria-label="Reproducir Hotel California de Eagles" (keydown.enter)="playSong('hotel-california')" (keydown.space)="playSong('hotel-california')">
                 <div class="cancion-image">
                     <img src="img4.png" alt="Eagles - Hotel California" />
                 </div>
@@ -106,13 +106,13 @@
                     <p class="cancion-artista">Artista: "Eagles"</p>
                     <p class="cancion-genero">Género: Rock Clásico</p>
                 </div>
-                <button class="play-button" (click)="playSong('hotel-california')">
+                <button class="play-button" (click)="playSong('hotel-california')" tabindex="-1" aria-hidden="true">
                     <div class="play-icon">▶</div>
                 </button>
             </div>
 
             <!-- Quinta canción: Shape of You -->
-            <div class="cancion-card" data-song="shape-of-you">
+            <div class="cancion-card" data-song="shape-of-you" tabindex="14" role="button" aria-label="Reproducir Shape of You de Ed Sheeran" (keydown.enter)="playSong('shape-of-you')" (keydown.space)="playSong('shape-of-you')">
                 <div class="cancion-image">
                     <img src="img5.png" alt="Ed Sheeran - Shape of You" />
                 </div>
@@ -121,13 +121,13 @@
                     <p class="cancion-artista">Artista: "Ed Sheeran"</p>
                     <p class="cancion-genero">Género: Pop</p>
                 </div>
-                <button class="play-button" (click)="playSong('shape-of-you')">
+                <button class="play-button" (click)="playSong('shape-of-you')" tabindex="-1" aria-hidden="true">
                     <div class="play-icon">▶</div>
                 </button>
             </div>
 
             <!-- Sexta canción: Imagine -->
-            <div class="cancion-card" data-song="imagine">
+            <div class="cancion-card" data-song="imagine" tabindex="15" role="button" aria-label="Reproducir Imagine de John Lennon" (keydown.enter)="playSong('imagine')" (keydown.space)="playSong('imagine')">
                 <div class="cancion-image">
                     <img src="img6.png" alt="John Lennon - Imagine" />
                 </div>
@@ -136,7 +136,7 @@
                     <p class="cancion-artista">Artista: "John Lennon"</p>
                     <p class="cancion-genero">Género: Rock / Pop</p>
                 </div>
-                <button class="play-button" (click)="playSong('imagine')">
+                <button class="play-button" (click)="playSong('imagine')" tabindex="-1" aria-hidden="true">
                     <div class="play-icon">▶</div>
                 </button>
             </div>
