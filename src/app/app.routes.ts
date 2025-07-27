@@ -6,6 +6,14 @@ export const routes: Routes = [
     loadComponent: () => import('./components/pagina-principal/pagina-principal').then(m => m.PaginaPrincipal)
   },
   { 
+    path: 'login',
+    loadComponent: () => import('./components/login/login').then(m => m.LoginComponent)
+  },
+  { 
+    path: 'registrarse', // RUTA CORREGIDA
+    loadComponent: () => import('./components/registro/registro').then(m => m.RegistrarseComponent)
+  },
+  { 
     path: 'inicio-logeado', 
     loadComponent: () => import('./components/inicio-logeado/inicio-logeado').then(m => m.InicioLogeado)
   },

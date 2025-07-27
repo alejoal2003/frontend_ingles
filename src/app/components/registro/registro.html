@@ -1,1 +1,64 @@
-<p>registro works!</p>
+<!-- registrarse.component.html -->
+
+<div class="register-container">
+  <!-- Columna de Promoción (Izquierda) -->
+  <div class="promo-column">
+    <img src="Promotion.png" alt="Promoción de EnglishMaster" class="promo-image-full">
+  </div>
+
+  <!-- Columna de Formulario (Derecha) -->
+  <div class="form-column">
+    <header class="form-header">
+      <button class="btn btn-link" (click)="navigateTo('/login')">Login</button>
+      <button class="btn btn-secondary" (click)="navigateTo('/')">Salir</button>
+    </header>
+
+    <div class="form-wrapper">
+      <!-- Se cambia (click) por (ngSubmit) en el formulario para mejor práctica -->
+      <form class="register-form" (ngSubmit)="register()">
+        
+        <!-- Contenedor para el mensaje de error -->
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <!-- Se añade [(ngModel)] para el enlace de datos -->
+          <input type="text" id="name" name="name" tabindex="1" [(ngModel)]="name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" tabindex="2" [(ngModel)]="email">
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" tabindex="3" [(ngModel)]="password">
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Repita la contraseña</label>
+          <input type="password" id="confirm-password" name="confirm-password" tabindex="4" [(ngModel)]="confirmPassword">
+        </div>
+
+        <!-- El botón ahora es de tipo submit para activar (ngSubmit) -->
+        <button type="submit" class="btn btn-primary btn-block" tabindex="5">Registrarse</button>
+        <button type="button" class="btn btn-secondary btn-block" (click)="navigateTo('/login')" tabindex="6">Tienes una cuenta?</button>
+      </form>
+
+      <div class="social-register">
+        <p>Registrarse con:</p>
+        <div class="social-icons">
+          <a href="#" class="social-icon facebook" aria-label="Registrarse con Facebook" tabindex="7">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.32 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+          </a>
+          <a href="#" class="social-icon google" aria-label="Registrarse con Google" tabindex="8">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.35 11.1H12.18V13.83H18.69C18.36 17.64 15.19 19.27 12.19 19.27C8.36 19.27 5.03 16.25 5.03 12.55C5.03 8.85 8.36 5.83 12.19 5.83C14.27 5.83 15.94 6.61 17.22 7.78L19.5 5.54C17.56 3.89 15.19 3 12.19 3C7.03 3 3 7.54 3 12.55C3 17.56 7.03 22.1 12.19 22.1C17.5 22.1 21.52 18.1 21.52 12.71C21.52 12.09 21.44 11.6 21.35 11.1Z"/></svg>
+          </a>
+          <a href="#" class="social-icon yahoo" aria-label="Registrarse con Yahoo" tabindex="9">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm-1.71 15.29l-3.57-3.57l1.41-1.41l2.16 2.16l4.24-4.24l1.41 1.41l-5.65 5.65z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
