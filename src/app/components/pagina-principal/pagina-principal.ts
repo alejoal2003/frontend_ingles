@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagina-principal',
-  imports: [],
   templateUrl: './pagina-principal.html',
   styleUrl: './pagina-principal.css'
 })
@@ -13,13 +12,20 @@ export class PaginaPrincipal {
   
   showScreen(screenName: string) {
     switch(screenName) {
+      case 'login': // CASO AÑADIDO
+        this.router.navigate(['/login']);
+        break;
+      case 'registrarse': // NUEVO CASO AÑADIDO
+        this.router.navigate(['/registrarse']);
+        break;
       case 'test':
-      case 'profile':
+      case 'profile': // Este caso se mantiene por si es usado por otros elementos
         this.router.navigate(['/inicio-logeado']);
         break;
       default:
-        console.log('Navegando a:', screenName);
+        // Para las otras tarjetas, podrías querer navegar a sus respectivas rutas
+        // Por ejemplo: this.router.navigate([`/${screenName}`]);
+        console.log('Navegación para:', screenName, 'no implementada aún.');
     }
   }
-
 }
