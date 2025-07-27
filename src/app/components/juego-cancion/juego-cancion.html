@@ -88,24 +88,28 @@
                     <h3>🎵 Letra Sincronizada</h3>
                     
                     <div class="subtitles-display" #subtitlesDisplay>
+                        <!-- Mostrar solo la línea actual -->
                         <div 
-                            *ngFor="let linea of letraProcesada; let i = index"
-                            class="subtitle-line"
-                            [class.active]="i === lineaActualIndex"
-                            [class.completed]="tiempoActual > linea.tiempoFin"
-                            [class.visible]="tiempoActual >= linea.tiempoInicio - 5 && tiempoActual < linea.tiempoFin + 2">
+                            *ngIf="lineaActualIndex >= 0 && letraProcesada[lineaActualIndex]"
+                            class="subtitle-line active current-line">
                             
-                            <div class="line-content" [innerHTML]="procesarLinea(linea)"></div>
+                            <div class="line-content" [innerHTML]="letraProcesada[lineaActualIndex].htmlSeguro"></div>
                             
+                        </div>
+                        
+                        <!-- Mensaje cuando no hay línea activa -->
+                        <div *ngIf="lineaActualIndex < 0" class="waiting-message">
+                            🎵 Esperando que comience la letra...
                         </div>
                     </div>
                     
                     <div class="game-instructions" *ngIf="juegoActivo">
-                        <p *ngIf="!palabraActualCompletando">
-                            🎶 Sigue la letra... ¡Prepárate!
+                        <p *ngIf="!palabraActualCompletando" class="following">
+                            🎶 Sigue la letra... ¡Prepárate para completar las palabras!
                         </p>
                         <p *ngIf="palabraActualCompletando" class="urgent">
-                            ⏰ ¡Rápido! Escribe la palabra resaltada.
+                            ⏰ ¡Completa la palabra resaltada para continuar! 
+                            <span class="word-hint">Palabra: {{palabraActualCompletando.textoNormalizado.length}} letras</span>
                         </p>
                     </div>
                 </div>
