@@ -1,0 +1,150 @@
+<!-- Header (sin cambios) -->
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo" tabindex="1" role="banner">EnglishMaster</div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" (click)="navigateToProfile()" tabindex="2">
+                    👤 Perfil
+                </button>
+                <button class="btn btn-primary" (click)="logout()" tabindex="3">
+                    Salir
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Game Header (sin cambios) -->
+<div class="game-header" *ngIf="cancionData">
+    <div class="container">
+        <div class="game-info">
+            <button class="btn btn-secondary back-btn" (click)="volverACanciones()" tabindex="4">
+                ← Volver a Canciones
+            </button>
+            <div class="song-info">
+                <h1>{{cancionData.titulo}} - {{cancionData.artista}}</h1>
+                <span class="difficulty-badge">Nivel Intermedio</span>
+            </div>
+        </div>
+        
+        <div class="game-stats">
+            <div class="stat-item score">
+                <span class="stat-label">Score</span>
+                <span class="stat-value">{{score}}</span>
+            </div>
+            <div class="stat-item hits">
+                <span class="stat-label">Hits</span>
+                <span class="stat-value">{{hits}}</span>
+            </div>
+            <div class="stat-item vida">
+                <span class="stat-label">Vida</span>
+                <div class="vida-bar">
+                    <div class="vida-fill" [style.width.%]="vida"></div>
+                </div>
+                <span class="stat-value">{{vida}}%</span>
+            </div>
+            <div class="stat-item tiempo" *ngIf="juegoActivo">
+                <span class="stat-label">Tiempo</span>
+                <span class="stat-value">{{tiempoActual | number:'1.0-0'}}s</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Status Banner (sin cambios) -->
+<div class="status-banner" *ngIf="cancionPausada && palabraActualCompletando">
+    <div class="container">
+        <div class="pause-message">
+            ⏸️ Canción pausada - ¡Completa la palabra para continuar!
+            <div class="vida-warning" *ngIf="vida < 30">
+                ⚠️ Vida baja: {{vida}}%
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Game Content -->
+<main class="main game-main" *ngIf="cancionData">
+    <div class="container">
+        <div class="game-layout">
+            <!-- Video Player -->
+            <div class="video-section">
+                <div class="video-container">
+                    <!-- ESTE ES EL CAMBIO: El iframe se reemplaza por un div contenedor -->
+                    <div id="youtube-player-container"></div>
+                    
+                    <div class="video-overlay" *ngIf="cancionPausada">
+                        <div class="pause-indicator">
+                            ⏸️ PAUSADO
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lyrics Section (sin cambios) -->
+            <div class="lyrics-section">
+                <div class="lyrics-container">
+                    <h3>🎵 Letra Sincronizada</h3>
+                    
+                    <div class="subtitles-display" #subtitlesDisplay>
+                        <div 
+                            *ngFor="let linea of letraProcesada; let i = index"
+                            class="subtitle-line"
+                            [class.active]="i === lineaActualIndex"
+                            [class.completed]="tiempoActual > linea.tiempoFin"
+                            [class.visible]="tiempoActual >= linea.tiempoInicio - 5 && tiempoActual < linea.tiempoFin + 2">
+                            
+                            <div class="line-content" [innerHTML]="procesarLinea(linea)"></div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="game-instructions" *ngIf="juegoActivo">
+                        <p *ngIf="!palabraActualCompletando">
+                            🎶 Sigue la letra... ¡Prepárate!
+                        </p>
+                        <p *ngIf="palabraActualCompletando" class="urgent">
+                            ⏰ ¡Rápido! Escribe la palabra resaltada.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Game Over/Success Screen (sin cambios) -->
+        <div class="game-results" *ngIf="!juegoActivo && (vida <= 0 || tiempoActual >= cancionData.duracion)">
+            <div class="results-container">
+                <div class="result-content">
+                    <div *ngIf="vida <= 0" class="game-over">
+                        <h2>😔 Game Over</h2>
+                        <p>Tu vida llegó a cero. ¡No te rindas, inténtalo de nuevo!</p>
+                        <div class="final-stats">
+                            <div class="stat">Score: {{score}}</div>
+                            <div class="stat">Hits: {{hits}}</div>
+                        </div>
+                    </div>
+                    
+                    <div *ngIf="vida > 0 && tiempoActual >= cancionData.duracion" class="game-success">
+                        <h2>🎉 ¡Felicitaciones!</h2>
+                        <p>Has completado la canción con éxito.</p>
+                        <div class="final-stats">
+                            <div class="stat">Puntuación Final: {{score}}</div>
+                            <div class="stat">Hits: {{hits}}</div>
+                            <div class="stat">Vida Restante: {{vida}}%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button class="btn btn-primary" (click)="reiniciarJuego()" tabindex="5">
+                            🔄 Jugar de nuevo
+                        </button>
+                        <button class="btn btn-secondary" (click)="volverACanciones()" tabindex="6">
+                            🎵 Elegir otra canción
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
