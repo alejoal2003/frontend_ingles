@@ -66,6 +66,45 @@
     transition: width 0.3s ease;
 }
 
+
+/* Estilos para el indicador de vidas */
+.stat-item.vidas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.vidas-container {
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
+}
+
+.vida-corazon {
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.vida-corazon.vida-perdida {
+    opacity: 0.3;
+    filter: grayscale(100%) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+    transform: scale(0.8);
+}
+
+/* Animación cuando se pierde una vida */
+@keyframes vida-perdida {
+    0% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.2) rotate(-10deg); opacity: 0.7; }
+    100% { transform: scale(0.8) rotate(0deg); opacity: 0.3; }
+}
+
+.vida-corazon.vida-perdida {
+    animation: vida-perdida 0.5s ease-out;
+}
+
+
 /* Banner de estado */
 .status-banner {
     background: linear-gradient(135deg, #8b5cf6, #ec4899);
@@ -233,10 +272,12 @@
   position: relative;
   display: inline-block;
   cursor: text;
-  padding: 2px 4px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
   margin: 0 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
 }
 
 .word-input-invisible {
@@ -265,48 +306,61 @@
   z-index: 1;
 }
 
-/* Estados del input */
 .word-input-wrapper.word-active {
-  background-color: rgba(255, 193, 7, 0.3) !important;
-  border: 2px solid #ffc107 !important;
-  box-shadow: 0 0 10px rgba(255, 193, 7, 0.6) !important;
-  animation: glow-active 1.5s ease-in-out infinite alternate !important;
-  padding: 4px 8px !important;
-  border-radius: 6px !important;
+  background-color: rgba(255, 193, 7, 0.4);
+  border-color: #ffc107;
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+  animation: glow-active 1.5s ease-in-out infinite alternate;
 }
+
 
 .word-input-wrapper.word-active .word-text-display {
   color: #ffc107 !important;
   animation: pulse-placeholder 2s ease-in-out infinite !important;
 }
 
-.word-input-wrapper.word-completed {
-  background-color: #28a745 !important;
-  border: 2px solid #28a745 !important;
-  padding: 6px 10px !important;
-  border-radius: 8px !important;
-  box-shadow: 0 0 15px rgba(40, 167, 69, 0.6) !important;
+/* Estado de advertencia para escritura incorrecta */
+.word-input-wrapper.word-warning {
+  background-color: rgba(255, 152, 0, 0.5);
+  border-color: #ff9800;
+  box-shadow: 0 0 15px rgba(255, 152, 0, 0.8);
+  animation: shake-warning 0.3s ease-in-out;
 }
+
+
+.word-input-wrapper.word-warning .word-text-display {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+
+/* Estado de éxito - MÁS VISIBLE */
+.word-input-wrapper.word-completed {
+  background-color: #28a745;
+  border-color: #28a745;
+  box-shadow: 0 0 20px rgba(40, 167, 69, 0.8);
+  animation: success-pulse 1s ease-in-out;
+}
+
 
 .word-input-wrapper.word-completed .word-text-display {
-  color: #ffffff !important;
-  font-weight: bold !important;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Estado de error - MÁS DRAMÁTICO */
 .word-input-wrapper.word-error {
-  background-color: #dc3545 !important;
-  border: 2px solid #dc3545 !important;
-  animation: shake-error 0.5s ease-in-out !important;
-  padding: 6px 10px !important;
-  border-radius: 8px !important;
-  box-shadow: 0 0 15px rgba(220, 53, 69, 0.6) !important;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  box-shadow: 0 0 20px rgba(220, 53, 69, 0.8);
+  animation: error-shake 0.6s ease-in-out;
 }
 
 .word-input-wrapper.word-error .word-text-display {
-  color: #ffffff !important;
-  font-weight: bold !important;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Instrucciones y pantalla de resultados */
@@ -391,14 +445,43 @@
 @keyframes pulse-banner {
     50% { opacity: 0.85; }
 }
+
+@keyframes success-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+
 @keyframes pulse-indicator {
     50% { transform: scale(1.05); opacity: 0.9; }
+}
+@keyframes shake-warning {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
 }
 @keyframes shake-error {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-4px); }
   75% { transform: translateX(4px); }
 }
+
+@keyframes error-shake {
+  0%, 100% { transform: translateX(0) scale(1); }
+  20% { transform: translateX(-8px) scale(1.05); }
+  40% { transform: translateX(8px) scale(1.05); }
+  60% { transform: translateX(-6px) scale(1.05); }
+  80% { transform: translateX(6px) scale(1.05); }
+}
+
+@keyframes shake-warning {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+
 @keyframes glow-active {
     from { box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3), 0 4px 16px rgba(245, 158, 11, 0.2); }
     to { box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.5), 0 4px 20px rgba(245, 158, 11, 0.4); }

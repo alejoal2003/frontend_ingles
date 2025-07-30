@@ -37,6 +37,18 @@
                 <span class="stat-label">Hits</span>
                 <span class="stat-value">{{hits}}</span>
             </div>
+
+            <!-- NUEVO: Indicador de vidas -->
+            <div class="stat-item vidas">
+                <span class="stat-label">Vidas</span>
+                <div class="vidas-container">
+                    <span *ngFor="let vida of [1,2,3]; let i = index" 
+                          class="vida-corazon" 
+                          [class.vida-perdida]="i >= vidas">
+                        ❤️
+                    </span>
+                </div>
+            </div>
             <div class="stat-item vida">
                 <span class="stat-label">Vida</span>
                 <div class="vida-bar">
@@ -52,17 +64,29 @@
     </div>
 </div>
 
-<!-- Status Banner (sin cambios) -->
-<div class="status-banner" *ngIf="cancionPausada && palabraActualCompletando">
+<!-- Status Banner ACTUALIZADO para reflejar el nuevo sistema -->
+<div class="status-banner" *ngIf="palabraActualCompletando && !cancionPausada">
     <div class="container">
         <div class="pause-message">
-            ⏸️ Canción pausada - ¡Completa la palabra para continuar!
+            🎯 ¡Completa la palabra mientras escuchas la canción!
             <div class="vida-warning" *ngIf="vida < 30">
                 ⚠️ Vida baja: {{vida}}%
             </div>
         </div>
     </div>
 </div>
+
+<div class="status-banner" *ngIf="palabraActualCompletando && cancionPausada">
+    <div class="container">
+        <div class="pause-message">
+            ⏸️ ¡El verso terminó! Completa la palabra para continuar
+            <div class="vida-warning" *ngIf="vida < 50">
+                ⚡ Vida: {{vida}}% - ¡Date prisa!
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Main Game Content -->
 <main class="main game-main" *ngIf="cancionData">
