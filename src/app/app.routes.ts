@@ -22,6 +22,10 @@ export const routes: Routes = [
     loadComponent: () => import('./components/lecturas/lecturas').then(m => m.Lecturas)
   },
   { 
+    path: 'juego-lectura/:id', 
+    loadComponent: () => import('./components/juego-lectura/juego-lectura').then(m => m.JuegoLectura)
+  },
+  { 
     path: 'juego-cancion/:id', 
     loadComponent: () => import('./components/juego-cancion/juego-cancion').then(m => m.JuegoCancion)
   },
