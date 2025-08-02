@@ -1,52 +1,51 @@
-<!-- Header -->
-<header class="header">
+<div class="page-wrapper">
+  
+  <!-- HEADER REPLICADO -->
+  <header class="header">
     <div class="container">
         <div class="header-content">
-            <div class="logo" tabindex="1" role="banner">EnglishMaster</div>
+            <div class="logo" role="button" tabindex="1">EnglishMaster</div>
             <div class="header-actions">
-                <button class="btn btn-secondary" (click)="navigateToSection('profile')" tabindex="2">
+                <button class="btn btn-secondary" (click)="navigateToProfile()" tabindex="2">
                     👤 Perfil
                 </button>
-                <button class="btn btn-primary" (click)="navigateToSection('test')" tabindex="3">
+                <button class="btn btn-primary" (click)="logout()" tabindex="3">
                     ⬅️ Salir
                 </button>
             </div>
         </div>
     </div>
-</header>
+  </header>
 
-  <!-- BARRA DE NAVEGACIÓN HORIZONTAL -->
-  <nav class="nav" role="navigation">
-    <div class="container">
-        <div class="nav-container">
-            <button type="button" class="nav-item active" (click)="navigateToSection('home')" tabindex="4" aria-label="Ir a Inicio">
-                <div class="nav-icon">🏠</div>
-                <div class="nav-text">Inicio</div>
-            </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('reading')" tabindex="5" aria-label="Ir a Lecturas">
-                <div class="nav-icon">📖</div>
-                <div class="nav-text">Lecturas</div>
-            </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('songs')" tabindex="6" aria-label="Ir a Canciones">
-                <div class="nav-icon">🎵</div>
-                <div class="nav-text">Canciones</div>
-            </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('progress')" tabindex="7" aria-label="Ir a Progreso">
-                <div class="nav-icon">📊</div>
-                <div class="nav-text">Progreso</div>
-            </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('lessons')" tabindex="8" aria-label="Ir a Lecciones">
-                <div class="nav-icon">📚</div>
-                <div class="nav-text">Lecciones</div>
-            </button>
-            <button type="button" class="nav-item" (click)="navigateToSection('settings')" tabindex="9" aria-label="Ir a Configuración">
-                <div class="nav-icon">⚙️</div>
-                <div class="nav-text">Configuración</div>
-            </button>
-        </div>
-    </div>
-</nav>
-  <!-- El contenido principal ahora ocupa todo el ancho debajo de la navegación -->
+  <!-- BARRA DE NAVEGACIÓN HORIZONTAL CON EMOJIS -->
+  <nav class="top-nav">
+      <button type="button" class="nav-item" (click)="navigateToSection('inicio')" aria-label="Ir a Inicio">
+          <div class="nav-icon">🏠</div>
+          <div class="nav-text">Inicio</div>
+      </button>
+      <button type="button" class="nav-item" (click)="navigateToSection('lecturas')" aria-label="Ir a Lecturas">
+          <div class="nav-icon">📖</div>
+          <div class="nav-text">Lecturas</div>
+      </button>
+      <button type="button" class="nav-item" (click)="navigateToSection('musica')" aria-label="Ir a Canciones">
+          <div class="nav-icon">🎵</div>
+          <div class="nav-text">Musica</div>
+      </button>
+      <button type="button" class="nav-item" (click)="navigateToSection('progreso')" aria-label="Ir a Progreso">
+          <div class="nav-icon">📊</div>
+          <div class="nav-text">Progreso</div>
+      </button>
+      <button type="button" class="nav-item active" (click)="navigateToSection('lecciones')" aria-label="Ir a Lecciones">
+          <div class="nav-icon">📚</div>
+          <div class="nav-text">Lecciones</div>
+      </button>
+      <button type="button" class="nav-item" (click)="navigateToSection('config')" aria-label="Ir a Configuración">
+          <div class="nav-icon">⚙️</div>
+          <div class="nav-text">Config</div>
+      </button>
+  </nav>
+
+  <!-- Contenido principal con rutas de imagen directas -->
   <main class="lessons-main-content">
     
     <div class="lessons-tabs">
@@ -88,3 +87,4 @@
 
     </div>
   </main>
+</div>
