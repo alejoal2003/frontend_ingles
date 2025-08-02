@@ -7,6 +7,7 @@
 :root {
     --primary-color: #4f46e5;
     --primary-dark: #3730a3;
+    --primary-light: #eef2ff; /* Versión más clara del color primario */
     --secondary-color: #06b6d4;
     --accent-color: #f59e0b;
     --success-color: #10b981;
@@ -78,6 +79,23 @@ textarea:focus,
     color: white;
 }
 
+/* Estilos específicos para botones en headers */
+.header .btn:focus {
+    outline: 3px solid var(--accent-color) !important;
+    outline-offset: 2px !important;
+}
+
+.header .btn-primary:focus {
+    background: var(--primary-dark) !important;
+    color: white !important;
+}
+
+.header .btn-secondary:focus {
+    background: var(--primary-light) !important;
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -108,11 +126,36 @@ textarea:focus,
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    cursor: pointer !important; /* Comportamiento de botón */
+    user-select: none; /* Prevenir selección de texto */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 6px;
 }
 
 .logo::before {
     content: "🎓";
     font-size: 2rem;
+}
+
+/* Estados hover y focus para logo clickeable */
+.logo:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+    background: rgba(79, 70, 229, 0.05);
+}
+
+.logo:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    background: rgba(79, 70, 229, 0.1);
+}
+
+.logo:active {
+    transform: scale(0.98);
 }
 
 .header-actions {
@@ -145,6 +188,14 @@ textarea:focus,
     transform: translateY(-2px);
 }
 
+.btn-primary:focus {
+    background: var(--primary-dark);
+    color: white !important; /* Asegurar que el texto sea blanco */
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+    transform: translateY(-1px);
+}
+
 .btn-secondary {
     background: var(--card-bg);
     color: var(--text-primary);
@@ -154,6 +205,15 @@ textarea:focus,
 .btn-secondary:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
+}
+
+.btn-secondary:focus {
+    border-color: var(--primary-color);
+    color: var(--primary-color) !important;
+    background: var(--primary-light);
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+    transform: translateY(-1px);
 }
 
 /* Navigation */

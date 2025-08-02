@@ -2,17 +2,25 @@
 <header class="header" role="banner">
     <div class="container">
         <div class="header-content">
-            <h1 class="logo" tabindex="1">
-                <span class="sr-only">EnglishMaster - Aplicación de aprendizaje de inglés</span>
-                <span aria-hidden="true">EnglishMaster</span>
-            </h1>
+            <!-- Logo clickeable con funcionalidad -->
+            <div class="logo" 
+                 tabindex="1" 
+                 role="button"
+                 (click)="navigateToHome()"
+                 (keydown.enter)="navigateToHome()"
+                 (keydown.space)="navigateToHome(); $event.preventDefault()"
+                 aria-label="Ir al inicio de EnglishMaster"
+                 title="Ir al inicio">
+                EnglishMaster
+            </div>
             <div class="header-actions" role="toolbar" aria-label="Acciones del usuario">
                 <button 
                     class="btn btn-secondary" 
                     (click)="navigateToProfile()" 
                     type="button"
                     tabindex="2"
-                    aria-label="Ir al perfil de usuario">
+                    aria-label="Ir al perfil de usuario"
+                    title="Ir al perfil">
                     <span aria-hidden="true">👤</span> Perfil
                 </button>
                 <button 
@@ -20,7 +28,8 @@
                     (click)="logout()" 
                     type="button"
                     tabindex="3"
-                    aria-label="Cerrar sesión y salir de la aplicación">
+                    aria-label="Cerrar sesión y salir de la aplicación"
+                    title="Cerrar sesión">
                     Salir
                 </button>
             </div>

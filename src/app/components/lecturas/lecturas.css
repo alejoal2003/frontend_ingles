@@ -194,19 +194,39 @@
     z-index: 10;
 }
 
-/* Logo accessibility */
+/* Logo accessibility - CORREGIDO para igualar otros componentes */
 .logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
+    font-size: 1.75rem !important; /* Mismo tamaño que en otros componentes */
+    font-weight: bold !important;
+    color: var(--primary-color) !important;
     text-decoration: none;
-    cursor: default;
+    cursor: pointer !important; /* Comportamiento de botón */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+    background: rgba(79, 70, 229, 0.05);
 }
 
 .logo:focus {
     outline: 3px solid var(--primary-color);
     outline-offset: 2px;
-    border-radius: 4px;
+    background: rgba(79, 70, 229, 0.1);
+}
+
+.logo:active {
+    transform: scale(0.98);
 }
 
 /* Responsive para lecturas con accesibilidad */

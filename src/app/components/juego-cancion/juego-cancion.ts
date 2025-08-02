@@ -421,12 +421,12 @@ handleGlobalInput(event: KeyboardEvent) {
             console.log('✅ PALABRA CORRECTA! Marcando como completada');
             this.forzarActualizacionHTML();
             
-            // Delay antes de continuar
+            // CAMBIO: Delay antes de continuar, pero NO limpiar palabraActualCompletando aquí
             setTimeout(() => {
               if (this.cancionPausada) {
                 this.reanudarCancion();
               } else {
-                this.palabraActualCompletando = null;
+                // SOLO limpiar si realmente necesitamos (se hará en actualizarJuego)
                 this.detenerDecrementoVida();
                 this.forzarActualizacionHTML();
               }
@@ -453,27 +453,30 @@ handleGlobalInput(event: KeyboardEvent) {
 }
 
 
-// MÉTODO FORZARACTUALIZACIONHTML MÁS AGRESIVO
+// juego-cancion.ts - MODIFICAR ESTE MÉTODO
 forzarActualizacionHTML() {
     console.log('🔄 Forzando actualización HTML...');
     
     if (this.lineaActualIndex !== -1) {
         const lineaActiva = this.letraProcesada[this.lineaActualIndex];
         if (lineaActiva) {
-            // Regenerar HTML completamente
+            // Clonar el array completo para forzar detección de cambios
+            const nuevasLineas = [...this.letraProcesada];
+            
+            // Regenerar SOLO el HTML de la línea activa
             const nuevoHtml = this.generarHtmlParaLinea(lineaActiva, this.lineaActualMostrandoHasta);
-            lineaActiva.htmlSeguro = this.sanitizer.bypassSecurityTrustHtml(nuevoHtml);
+            nuevasLineas[this.lineaActualIndex] = {
+                ...lineaActiva,
+                htmlSeguro: this.sanitizer.bypassSecurityTrustHtml(nuevoHtml)
+            };
             
-            // Múltiples ciclos de detección de cambios
+            this.letraProcesada = nuevasLineas; // Asignar nuevo array
+            
+            // Forzar detección de cambios
             this.cdRef.markForCheck();
-            this.cdRef.detectChanges();
-            
-            // Forzar en múltiples ticks para asegurar renderizado
             setTimeout(() => this.cdRef.detectChanges(), 0);
-            setTimeout(() => this.cdRef.detectChanges(), 10);
-            setTimeout(() => this.cdRef.detectChanges(), 50);
             
-            console.log('✅ HTML actualizado');
+            console.log('✅ HTML actualizado (cambio forzado)');
         }
     }
 }
@@ -506,42 +509,24 @@ generarHtmlParaLinea(linea: LineaLetra, mostrarSoloHastaPalabra: number = -1): s
     
     // LÓGICA DE ESTADOS SIMPLIFICADA Y CLARA
     let claseEstado = '';
-    
+    // Si la palabra está marcada como completada, siempre verde
     if (palabra.completada) {
-      // 🟢 COMPLETADA CORRECTAMENTE
       claseEstado = 'word-completed';
-      console.log('🟢 Aplicando word-completed a:', palabra.textoOriginal);
-      
     } else if (esPalabraActual) {
-      
       if (respuestaUsuario.length === palabraLength) {
-        // Palabra completa - verificar si es correcta
-        const esCorrecta = this.normalizarTexto(respuestaUsuario) === palabra.textoNormalizado;
-        if (esCorrecta) {
-          claseEstado = 'word-completed'; // Verde
-          console.log('🟢 Aplicando word-completed (recién completada) a:', palabra.textoOriginal);
+        // Si la respuesta es incorrecta, mostrar rojo
+        if (this.normalizarTexto(respuestaUsuario) !== palabra.textoNormalizado) {
+          claseEstado = 'word-error';
         } else {
-          claseEstado = 'word-error'; // Rojo
-          console.log('🔴 Aplicando word-error a:', palabra.textoOriginal);
+          claseEstado = 'word-completed';
         }
-        
       } else if (respuestaUsuario.length > 0) {
-        // Verificar si lo escrito es correcto hasta ahora
+        // Parcialmente correcta: amarillo, incorrecta: naranja
         const textoCorrectoParcial = palabra.textoNormalizado.substring(0, respuestaUsuario.length);
         const respuestaNormalizada = this.normalizarTexto(respuestaUsuario);
-        
-        if (respuestaNormalizada === textoCorrectoParcial) {
-          claseEstado = 'word-active'; // Amarillo
-          console.log('🟡 Aplicando word-active a:', palabra.textoOriginal, '- Parcial correcto:', respuestaUsuario);
-        } else {
-          claseEstado = 'word-warning'; // Naranja
-          console.log('🟠 Aplicando word-warning a:', palabra.textoOriginal, '- Parcial incorrecto:', respuestaUsuario);
-        }
-        
+        claseEstado = (respuestaNormalizada === textoCorrectoParcial) ? 'word-active' : 'word-warning';
       } else {
-        // Sin respuesta aún
-        claseEstado = 'word-active'; // Amarillo
-        console.log('🟡 Aplicando word-active (vacío) a:', palabra.textoOriginal);
+        claseEstado = 'word-active';
       }
     }
 
@@ -616,6 +601,19 @@ pausarCancion() {
 reanudarCancion() {
     if (!this.cancionPausada || !this.isPlayerReady) return;
     
+    console.log('▶️ Reanudando canción...');
+    
+    // NUEVO: Retroceder el video 0.3 segundos para transición suave
+    const tiempoRetroceso = 1;
+    const nuevoTiempoVideo = Math.max(0, this.tiempoActual - tiempoRetroceso);
+    
+    console.log(`⏪ Retrocediendo video de ${this.tiempoActual.toFixed(1)}s a ${nuevoTiempoVideo.toFixed(1)}s`);
+    
+    // Establecer el nuevo tiempo en el video ANTES de reanudar
+    this.youtubePlayer.seekTo(nuevoTiempoVideo, true);
+    
+    // IMPORTANTE: NO modificar this.tiempoActual - mantener sincronización de letras
+    
     this.cancionPausada = false;
     this.youtubePlayer.playVideo();
     
@@ -632,9 +630,8 @@ reanudarCancion() {
     }
     
     this.cdRef.detectChanges();
-    console.log('▶️ Canción reanudada');
+    console.log('✅ Canción reanudada con retroceso aplicado');
 }
-
 
   // --- El resto de las funciones (inicializarJuego, actualizarJuego, etc.) permanecen sin cambios significativos ---
   // ... (incluir el resto de funciones del archivo original como iniciarSimulacionTiempo, terminarJuego, etc.)
@@ -667,8 +664,7 @@ reanudarCancion() {
     }, 100);
   }
 
-// ...existing code...
-
+// MÉTODO ACTUALIZARJUEGO CORREGIDO
 actualizarJuego() {
   if (!this.juegoActivo || this.cancionPausada) return;
 
@@ -696,7 +692,7 @@ actualizarJuego() {
       this.lineaActualIndex = nuevaLineaIndex;
       this.lineaActualMostrandoHasta = -1;
       
-      // ACTIVAR palabra inmediatamente cuando aparece el verso (SIN PAUSAR)
+      // ACTIVAR palabra inmediatamente cuando aparece el verso
       const lineaActual = this.letraProcesada[this.lineaActualIndex];
       if (lineaActual.palabraCompletable && 
           !lineaActual.palabraCompletable.completada && 
@@ -705,6 +701,7 @@ actualizarJuego() {
           console.log('🎯 Nueva línea - Activando palabra para completar:', lineaActual.palabraCompletable.textoOriginal);
           this.palabraActualCompletando = lineaActual.palabraCompletable;
           this.iniciarDecrementoVida();
+          
           this.forzarActualizacionHTML();
           return;
       }
@@ -712,11 +709,27 @@ actualizarJuego() {
       this.forzarActualizacionHTML();
   }
 
-  // SIMPLIFICADA: Lógica básica - pausar cuando termine el verso y no esté completada
+  // NUEVA LÓGICA: Verificar si estamos en una línea activa sin palabra asignada
+  if (nuevaLineaIndex !== -1 && this.lineaActualIndex === nuevaLineaIndex) {
+      const lineaActual = this.letraProcesada[this.lineaActualIndex];
+      
+      // Si hay una palabra completable en esta línea y no hay palabra activa, activarla
+      if (lineaActual.palabraCompletable && 
+          !lineaActual.palabraCompletable.completada && 
+          !this.palabraActualCompletando) {
+          
+          console.log('🎯 Línea actual sin palabra activa - Activando:', lineaActual.palabraCompletable.textoOriginal);
+          this.palabraActualCompletando = lineaActual.palabraCompletable;
+          this.iniciarDecrementoVida();
+          this.forzarActualizacionHTML();
+          return;
+      }
+  }
+
+  // VERIFICACIÓN: Solo pausar si el verso YA TERMINÓ y hay palabra incompleta
   if (this.palabraActualCompletando && !this.palabraActualCompletando.completada) {
       const lineaActual = this.letraProcesada[this.lineaActualIndex];
       
-      // CAMBIO: Verificar si la línea actual ha terminado (más simple)
       if (lineaActual && this.tiempoActual > lineaActual.tiempoFin) {
           console.log('⏸️ Verso terminó y palabra NO completada - PAUSANDO');
           this.pausarCancion();
@@ -724,9 +737,6 @@ actualizarJuego() {
       }
   }
 
-  // REMOVER toda la lógica compleja de verificar siguiente línea próxima
-  // REMOVER la verificación de períodos largos entre versos
-  
   // Verificar si el juego ha terminado
   if (this.tiempoActual >= (this.cancionData?.duracion || 0)) {
       this.terminarJuego(true);
@@ -861,6 +871,17 @@ perderVida() {
     this.router.navigate(['/canciones']);
   }
 
-  navigateToProfile() { this.router.navigate(['/profile']); }
-  logout() { this.router.navigate(['/login']); }
+  // Corregir navegación del menú superior
+  navigateToProfile() { 
+    this.router.navigate(['/inicio-logeado']); // Cambiar de '/profile' a '/inicio-logeado'
+  }
+  
+  logout() { 
+    this.router.navigate(['/']); // Ir a página principal (login)
+  }
+
+  // Nueva función para navegar al inicio cuando se hace clic en el logo
+  navigateToHome() {
+    this.router.navigate(['/inicio-logeado']);
+  }
 }

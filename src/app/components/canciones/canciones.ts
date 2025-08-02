@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { CancionesService } from '../../services/canciones.service';
 import { CancionData } from '../../interfaces/cancion.interface';
 
 @Component({
   selector: 'app-canciones',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './canciones.html',
   styleUrl: './canciones.css'
 })
@@ -22,11 +23,16 @@ export class Canciones {
   }
 
   navigateToProfile() {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/inicio-logeado']);
   }
 
   logout() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
+  }
+
+  // Nueva función para el logo
+  navigateToHome() {
+    this.router.navigate(['/inicio-logeado']);
   }
 
   // Método para navegar a diferentes secciones de la aplicación

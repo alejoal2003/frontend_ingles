@@ -1,178 +1,215 @@
-<!-- Header (sin cambios) -->
-<header class="header">
+<!-- Header (ENHANCED ACCESSIBILITY) -->
+<header class="header" role="banner">
     <div class="container">
         <div class="header-content">
-            <div class="logo" tabindex="1" role="banner">EnglishMaster</div>
-            <div class="header-actions">
-                <button class="btn btn-secondary" (click)="navigateToProfile()" tabindex="2">
-                    👤 Perfil
-                </button>
-                <button class="btn btn-primary" (click)="logout()" tabindex="3">
-                    Salir
-                </button>
+            <!-- Clickable logo with enhanced accessibility -->
+            <div class="logo" 
+                 role="button" 
+                 (click)="navigateToHome()"
+                 (keydown.enter)="navigateToHome()"
+                 (keydown.space)="navigateToHome(); $event.preventDefault()"
+                 aria-label="Go to EnglishMaster home"
+                 title="Go to home"
+                 tabindex="0">
+                EnglishMaster
             </div>
+            <nav class="header-actions" role="navigation" aria-label="User navigation">
+                <!-- Profile -->
+                <button class="btn btn-secondary" 
+                        (click)="navigateToProfile()" 
+                        type="button"
+                        aria-label="Go to profile"
+                        title="Go to profile">
+                    <span aria-hidden="true">👤</span> Profile
+                </button>
+                <!-- Sign Out -->
+                <button class="btn btn-primary" 
+                        (click)="logout()" 
+                        type="button"
+                        aria-label="Sign out"
+                        title="Sign out">
+                    Sign Out
+                </button>
+            </nav>
         </div>
     </div>
 </header>
 
-<!-- Game Header (sin cambios) -->
-<div class="game-header" *ngIf="cancionData">
+<!-- Game Header (ENHANCED ACCESSIBILITY) -->
+<section class="game-header" *ngIf="cancionData" aria-labelledby="game-info-heading">
     <div class="container">
         <div class="game-info">
-            <button class="btn btn-secondary back-btn" (click)="volverACanciones()" tabindex="4">
-                ← Volver a Canciones
+            <button class="btn btn-secondary back-btn" 
+                    (click)="volverACanciones()" 
+                    type="button"
+                    aria-label="Go back to songs list">
+                <span aria-hidden="true">←</span> Back to Songs
             </button>
             <div class="song-info">
-                <h1>{{cancionData.titulo}} - {{cancionData.artista}}</h1>
-                <span class="difficulty-badge">Nivel Intermedio</span>
+                <h1 id="game-info-heading">{{cancionData.titulo}} - {{cancionData.artista}}</h1>
+                <span class="difficulty-badge" role="status" aria-label="Difficulty level: Intermediate">Intermediate Level</span>
             </div>
         </div>
         
-        <div class="game-stats">
+        <aside class="game-stats" role="region" aria-label="Game statistics">
             <div class="stat-item score">
                 <span class="stat-label">Score</span>
-                <span class="stat-value">{{score}}</span>
+                <span class="stat-value" aria-live="polite">{{score}}</span>
             </div>
             <div class="stat-item hits">
-                <span class="stat-label">Hits</span>
-                <span class="stat-value">{{hits}}</span>
+                <span class="stat-label">Correct</span>
+                <span class="stat-value" aria-live="polite">{{hits}}</span>
             </div>
 
-            <!-- NUEVO: Indicador de vidas -->
+            <!-- NEW: Lives indicator -->
             <div class="stat-item vidas">
-                <span class="stat-label">Vidas</span>
-                <div class="vidas-container">
+                <span class="stat-label">Lives</span>
+                <div class="vidas-container" role="img" [attr.aria-label]="'Lives remaining: ' + vidas + ' of 3'">
                     <span *ngFor="let vida of [1,2,3]; let i = index" 
                           class="vida-corazon" 
-                          [class.vida-perdida]="i >= vidas">
+                          [class.vida-perdida]="i >= vidas"
+                          [attr.aria-hidden]="true">
                         ❤️
                     </span>
                 </div>
             </div>
             <div class="stat-item vida">
-                <span class="stat-label">Vida</span>
-                <div class="vida-bar">
+                <span class="stat-label">Health</span>
+                <div class="vida-bar" role="progressbar" 
+                     [attr.aria-valuenow]="vida" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100"
+                     [attr.aria-label]="'Health level: ' + vida + '%'">
                     <div class="vida-fill" [style.width.%]="vida"></div>
                 </div>
-                <span class="stat-value">{{vida}}%</span>
+                <span class="stat-value" aria-live="polite">{{vida}}%</span>
             </div>
             <div class="stat-item tiempo" *ngIf="juegoActivo">
-                <span class="stat-label">Tiempo</span>
-                <span class="stat-value">{{tiempoActual | number:'1.0-0'}}s</span>
+                <span class="stat-label">Time</span>
+                <span class="stat-value" aria-live="polite" [attr.aria-label]="'Elapsed time: ' + (tiempoActual | number:'1.0-0') + ' seconds'">{{tiempoActual | number:'1.0-0'}}s</span>
             </div>
-        </div>
+        </aside>
     </div>
-</div>
+</section>
 
-<!-- Status Banner ACTUALIZADO para reflejar el nuevo sistema -->
-<div class="status-banner" *ngIf="palabraActualCompletando && !cancionPausada">
+<!-- Status Banner UPDATED with better accessibility -->
+<aside class="status-banner" *ngIf="palabraActualCompletando && !cancionPausada" role="status" aria-live="polite">
     <div class="container">
         <div class="pause-message">
-            🎯 ¡Completa la palabra mientras escuchas la canción!
-            <div class="vida-warning" *ngIf="vida < 30">
-                ⚠️ Vida baja: {{vida}}%
+            <span aria-hidden="true">🎯</span> Complete the word while listening to the song!
+            <div class="vida-warning" *ngIf="vida < 30" role="alert">
+                <span aria-hidden="true">⚠️</span> Low health: {{vida}}%
             </div>
         </div>
     </div>
-</div>
+</aside>
 
-<div class="status-banner" *ngIf="palabraActualCompletando && cancionPausada">
+<aside class="status-banner" *ngIf="palabraActualCompletando && cancionPausada" role="status" aria-live="assertive">
     <div class="container">
         <div class="pause-message">
-            ⏸️ ¡El verso terminó! Completa la palabra para continuar
-            <div class="vida-warning" *ngIf="vida < 50">
-                ⚡ Vida: {{vida}}% - ¡Date prisa!
+            <span aria-hidden="true">⏸️</span> The verse has ended! Complete the word to continue
+            <div class="vida-warning" *ngIf="vida < 50" role="alert">
+                <span aria-hidden="true">⚡</span> Health: {{vida}}% - Hurry up!
             </div>
         </div>
     </div>
-</div>
+</aside>
 
 
-<!-- Main Game Content -->
-<main class="main game-main" *ngIf="cancionData">
+<!-- Main Game Content with enhanced accessibility -->
+<main class="main game-main" *ngIf="cancionData" role="main" id="main-content">
     <div class="container">
         <div class="game-layout">
             <!-- Video Player -->
-            <div class="video-section">
+            <section class="video-section" aria-labelledby="video-heading">
+                <h2 id="video-heading" class="sr-only">Video player</h2>
                 <div class="video-container">
-                    <!-- ESTE ES EL CAMBIO: El iframe se reemplaza por un div contenedor -->
-                    <div id="youtube-player-container"></div>
+                    <!-- THIS IS THE CHANGE: The iframe is replaced by a container div -->
+                    <div id="youtube-player-container" role="application" aria-label="YouTube player"></div>
                     
-                    <div class="video-overlay" *ngIf="cancionPausada">
+                    <div class="video-overlay" *ngIf="cancionPausada" role="status" aria-live="polite">
                         <div class="pause-indicator">
-                            ⏸️ PAUSADO
+                            <span aria-hidden="true">⏸️</span> PAUSED
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Lyrics Section (sin cambios) -->
-            <div class="lyrics-section">
+            <!-- Enhanced Lyrics Section -->
+            <section class="lyrics-section" aria-labelledby="lyrics-heading">
                 <div class="lyrics-container">
-                    <h3>🎵 Letra Sincronizada</h3>
+                    <h2 id="lyrics-heading"><span aria-hidden="true">🎵</span> Synchronized Lyrics</h2>
                     
-                    <div class="subtitles-display" #subtitlesDisplay>
-                        <!-- Mostrar solo la línea actual -->
+                    <div class="subtitles-display" #subtitlesDisplay role="region" aria-live="polite" aria-label="Current song lyrics">
+                        <!-- Show only the current line -->
                         <div 
                             *ngIf="lineaActualIndex >= 0 && letraProcesada[lineaActualIndex]"
-                            class="subtitle-line active current-line">
+                            class="subtitle-line active current-line"
+                            [attr.aria-label]="'Current lyrics line'">
                             
                             <div class="line-content" [innerHTML]="letraProcesada[lineaActualIndex].htmlSeguro"></div>
                             
                         </div>
                         
-                        <!-- Mensaje cuando no hay línea activa -->
-                        <div *ngIf="lineaActualIndex < 0" class="waiting-message">
-                            🎵 Esperando que comience la letra...
+                        <!-- Message when no active line -->
+                        <div *ngIf="lineaActualIndex < 0" class="waiting-message" role="status">
+                            <span aria-hidden="true">🎵</span> Waiting for lyrics to begin...
                         </div>
                     </div>
                     
-                    <div class="game-instructions" *ngIf="juegoActivo">
+                    <div class="game-instructions" *ngIf="juegoActivo" role="region" aria-label="Game instructions">
                         <p *ngIf="!palabraActualCompletando" class="following">
-                            🎶 Sigue la letra... ¡Prepárate para completar las palabras!
+                            <span aria-hidden="true">🎶</span> Follow the lyrics... Get ready to complete the words!
                         </p>
-                        <p *ngIf="palabraActualCompletando" class="urgent">
-                            ⏰ ¡Completa la palabra resaltada para continuar! 
-                            <span class="word-hint">Palabra: {{palabraActualCompletando.textoNormalizado.length}} letras</span>
+                        <p *ngIf="palabraActualCompletando" class="urgent" role="alert">
+                            <span aria-hidden="true">⏰</span> Complete the highlighted word to continue! 
+                            <span class="word-hint">Word: {{palabraActualCompletando.textoNormalizado.length}} letters</span>
                         </p>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
         
-        <!-- Game Over/Success Screen (sin cambios) -->
-        <div class="game-results" *ngIf="!juegoActivo && (vida <= 0 || tiempoActual >= cancionData.duracion)">
+        <!-- Game Over/Success Screen with enhanced accessibility -->
+        <section class="game-results" *ngIf="!juegoActivo && (vida <= 0 || tiempoActual >= cancionData.duracion)" 
+                 role="region" aria-labelledby="results-heading">
             <div class="results-container">
                 <div class="result-content">
                     <div *ngIf="vida <= 0" class="game-over">
-                        <h2>😔 Game Over</h2>
-                        <p>Tu vida llegó a cero. ¡No te rindas, inténtalo de nuevo!</p>
-                        <div class="final-stats">
+                        <h2 id="results-heading"><span aria-hidden="true">😔</span> Game Over</h2>
+                        <p>Your health reached zero. Don't give up, try again!</p>
+                        <div class="final-stats" role="region" aria-label="Final statistics">
                             <div class="stat">Score: {{score}}</div>
-                            <div class="stat">Hits: {{hits}}</div>
+                            <div class="stat">Correct: {{hits}}</div>
                         </div>
                     </div>
                     
                     <div *ngIf="vida > 0 && tiempoActual >= cancionData.duracion" class="game-success">
-                        <h2>🎉 ¡Felicitaciones!</h2>
-                        <p>Has completado la canción con éxito.</p>
-                        <div class="final-stats">
-                            <div class="stat">Puntuación Final: {{score}}</div>
-                            <div class="stat">Hits: {{hits}}</div>
-                            <div class="stat">Vida Restante: {{vida}}%</div>
+                        <h2 id="results-heading"><span aria-hidden="true">🎉</span> Congratulations!</h2>
+                        <p>You have successfully completed the song.</p>
+                        <div class="final-stats" role="region" aria-label="Final statistics">
+                            <div class="stat">Final Score: {{score}}</div>
+                            <div class="stat">Correct: {{hits}}</div>
+                            <div class="stat">Remaining Health: {{vida}}%</div>
                         </div>
                     </div>
                     
-                    <div class="result-actions">
-                        <button class="btn btn-primary" (click)="reiniciarJuego()" tabindex="5">
-                            🔄 Jugar de nuevo
+                    <nav class="result-actions" role="navigation" aria-label="Post-game options">
+                        <button class="btn btn-primary" 
+                                (click)="reiniciarJuego()" 
+                                type="button"
+                                aria-label="Restart current game">
+                            <span aria-hidden="true">🔄</span> Play Again
                         </button>
-                        <button class="btn btn-secondary" (click)="volverACanciones()" tabindex="6">
-                            🎵 Elegir otra canción
+                        <button class="btn btn-secondary" 
+                                (click)="volverACanciones()" 
+                                type="button"
+                                aria-label="Go back to available songs list">
+                            <span aria-hidden="true">🎵</span> Choose Another Song
                         </button>
-                    </div>
+                    </nav>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 </main>
