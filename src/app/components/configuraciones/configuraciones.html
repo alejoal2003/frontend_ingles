@@ -1,1 +1,314 @@
-<p>configuraciones works!</p>
+<!-- Header -->
+<header class="header" role="banner">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        <span class="logo-icon"></span>
+        <span class="logo-text">EnglishMaster</span>
+      </div>
+      <div class="header-actions">
+        <button 
+          class="btn btn-secondary" 
+          (click)="navigateToProfile()"
+          type="button"
+          aria-label="Ir al perfil de usuario">
+          <span aria-hidden="true">👤</span> Perfil
+        </button>
+        <button 
+          class="btn btn-primary" 
+          (click)="logout()"
+          type="button"
+          aria-label="Cerrar sesión y salir de la aplicación">
+          Salir
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="container">
+    <div class="config-layout">
+      <!-- Panel Lateral -->
+      <aside class="sidebar">
+        <div class="profile-section">
+          <div class="profile-avatar">
+            <span class="avatar-icon">👤</span>
+          </div>
+          <button 
+            class="sidebar-btn" 
+            [class.active]="isActiveSection('perfil')"
+            (click)="setActiveSection('perfil')">
+            Editar Perfil
+          </button>
+          <button 
+            class="sidebar-btn" 
+            [class.active]="isActiveSection('accesibilidad')"
+            (click)="setActiveSection('accesibilidad')">
+            Accesibilidad
+          </button>
+          <button 
+            class="sidebar-btn" 
+            [class.active]="isActiveSection('notificaciones')"
+            (click)="setActiveSection('notificaciones')">
+            Notificaciones
+          </button>
+          <button 
+            class="sidebar-btn" 
+            [class.active]="isActiveSection('preferencias')"
+            (click)="setActiveSection('preferencias')">
+            Preferencias
+          </button>
+        </div>
+      </aside>
+
+      <!-- Contenido Principal -->
+      <section class="main-content">
+        <h1 class="page-title">
+          <span class="title-icon">⚙️</span>
+          Configuración de Usuario
+        </h1>
+        
+        <!-- Contenido de Perfil -->
+        <div *ngIf="activeSection === 'perfil'">
+          <!-- Información Básica -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">📝</div>
+              <h2 class="card-title">Información Básica</h2>
+            </div>
+            <div class="card-content">
+              <ul class="info-list">
+                <li class="info-item">
+                  <strong>Nombre Completo:</strong> Para identificación dentro de la plataforma.
+                </li>
+                <li class="info-item">
+                  <strong>Correo Electrónico:</strong> Para contacto y recuperación de cuenta.
+                </li>
+                <li class="info-item">
+                  <strong>Contraseña:</strong> Opción para cambiar la contraseña.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Información de Aprendizaje -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">📚</div>
+              <h2 class="card-title">Información de Aprendizaje</h2>
+            </div>
+            <div class="card-content">
+              <ul class="info-list">
+                <li class="info-item">
+                  <strong>Nivel Actual de Inglés:</strong> Para identificación de aprendizaje
+                </li>
+                <li class="info-item">
+                  <strong>Temas de Estudio:</strong> Para que el usuario seleccione temas que le interesen
+                </li>
+                <li class="info-item">
+                  <strong>Objetivos de Aprendizaje:</strong> Motivaciones del usuario
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Configuración de Cuenta -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">⚙️</div>
+              <h2 class="card-title">Configuración de Cuenta</h2>
+            </div>
+            <div class="card-content">
+              <ul class="info-list">
+                <li class="info-item">
+                  <strong>Idioma de la Interfaz:</strong> Si la aplicación está disponible en varios idiomas (ej. Español, Portugués).
+                </li>
+                <li class="info-item">
+                  <strong>Zona Horaria:</strong> Para la correcta programación de recordatorios o clases en vivo.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenido de Accesibilidad -->
+        <div *ngIf="activeSection === 'accesibilidad'">
+          <!-- Tamaño de texto -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">🔠</div>
+              <h2 class="card-title">Tamaño de texto</h2>
+            </div>
+            <div class="card-content">
+              <div class="accessibility-option">
+                <div class="option-icon">
+                  <span class="text-size-demo">Aa</span>
+                </div>
+                <div class="option-content">
+                  <p>Ajustar el tamaño de la fuente (Pequeño, Normal, Grande, Muy Grande).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contraste Alto -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">🔆</div>
+              <h2 class="card-title">Contraste Alto</h2>
+            </div>
+            <div class="card-content">
+              <div class="accessibility-option">
+                <div class="option-icon">
+                  <span class="contrast-icon">💡</span>
+                </div>
+                <div class="option-content">
+                  <p>Activar un modo de alto contraste para mejorar la legibilidad para usuarios con ciertas deficiencias visuales.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modo Oscuro/Claro -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">🌓</div>
+              <h2 class="card-title">Modo Oscuro/Claro</h2>
+            </div>
+            <div class="card-content">
+              <div class="accessibility-option">
+                <div class="option-icon">
+                  <div class="toggle-switch">
+                    <div class="toggle-slider"></div>
+                  </div>
+                </div>
+                <div class="option-content">
+                  <p>Alternar entre un tema de colores claros y un tema oscuro para reducir la fatiga visual, especialmente en entornos con poca luz.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenido de Notificaciones -->
+        <div *ngIf="activeSection === 'notificaciones'">
+          <!-- Recordatorios de Estudio -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">📚</div>
+              <h2 class="card-title">Recordatorios de Estudio</h2>
+            </div>
+            <div class="card-content">
+              <div class="notification-option">
+                <div class="option-icon">
+                  <span class="reminder-icon">📖⏰</span>
+                </div>
+                <div class="option-content">
+                  <ul class="notification-list">
+                    <li><strong>Frecuencia:</strong> Interacción del usuario con la página.</li>
+                    <li><strong>Hora del Día:</strong> Un selector de hora para los recordatorios.</li>
+                    <li><strong>Días de la Semana:</strong> Para seleccionar los días en que desea recibir recordatorios.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progreso y Logros -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">🏆</div>
+              <h2 class="card-title">Progreso y Logros:</h2>
+            </div>
+            <div class="card-content">
+              <div class="notification-option">
+                <div class="option-icon">
+                  <span class="trophy-icon">🏆</span>
+                </div>
+                <div class="option-content">
+                  <p>Para recibir notificaciones sobre el progreso semanal, hitos alcanzados</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Promociones/Actualizaciones -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">🎉</div>
+              <h2 class="card-title">Promociones/Actualizaciones de la App</h2>
+            </div>
+            <div class="card-content">
+              <div class="notification-option">
+                <div class="option-icon">
+                  <span class="promo-icon">🏷️⚙️</span>
+                </div>
+                <div class="option-content">
+                  <p>Para recibir noticias sobre ofertas especiales o nuevas características de la aplicación.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenido de Preferencias -->
+        <div *ngIf="activeSection === 'preferencias'">
+          <!-- Tipo de Contenido Preferido -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">📱</div>
+              <h2 class="card-title">Tipo de Contenido Preferido</h2>
+            </div>
+            <div class="card-content">
+              <div class="preference-option">
+                <div class="option-icon">
+                  <span class="content-icon">📊</span>
+                </div>
+                <div class="option-content">
+                  <p>Para seleccionar formatos de aprendizaje preferidos (ej. Lecciones interactivas, Videos, Audios, Artículos de lectura, Ejercicios de gramática, Juegos, Flashcards).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dificultad de los Ejercicios -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">🎯</div>
+              <h2 class="card-title">Dificultad de los Ejercicios</h2>
+            </div>
+            <div class="card-content">
+              <div class="preference-option">
+                <div class="option-icon">
+                  <span class="difficulty-icon">🎲</span>
+                </div>
+                <div class="option-content">
+                  <p>Selector para ajustar la dificultad de los ejercicios recomendados (ej. Más fácil, Adecuado a mi nivel, Más desafiante).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Temas Excluidos -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">🚫</div>
+              <h2 class="card-title">Temas Excluidos</h2>
+            </div>
+            <div class="card-content">
+              <div class="preference-option">
+                <div class="option-icon">
+                  <span class="exclude-icon">🚷</span>
+                </div>
+                <div class="option-content">
+                  <p>Permitir al usuario especificar temas que no desea ver o estudiar.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>

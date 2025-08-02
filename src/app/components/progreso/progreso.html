@@ -1,1 +1,200 @@
-<p>progreso works!</p>
+<!DOCTYPE html>
+<html lang="es">
+<!-- Header -->
+<header class="header" role="banner">
+    <div class="container">
+        <div class="header-content">
+            <h1 class="logo" tabindex="1">
+                <span class="sr-only">EnglishMaster - Aplicación de aprendizaje de inglés</span>
+                <span aria-hidden="true">EnglishMaster</span>
+            </h1>
+            <div class="header-actions" role="toolbar" aria-label="Acciones del usuario">
+                <button 
+                    class="btn btn-secondary" 
+                    (click)="navigateToProfile()" 
+                    type="button"
+                    tabindex="2"
+                    aria-label="Ir al perfil de usuario">
+                    <span aria-hidden="true">👤</span> Perfil
+                </button>
+                <button 
+                    class="btn btn-primary" 
+                    (click)="logout()" 
+                    type="button"
+                    tabindex="3"
+                    aria-label="Cerrar sesión y salir de la aplicación">
+                    Salir
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Navigation -->
+<nav class="nav" role="navigation" aria-label="Navegación principal">
+    <div class="container">
+        <div class="nav-container" role="menubar">
+            <button 
+                type="button" 
+                class="nav-item" 
+                (click)="navigateToSection('inicio')" 
+                role="menuitem"
+                tabindex="4" 
+                aria-label="Ir a la sección de Inicio">
+                <span class="nav-icon" aria-hidden="true">🏠</span>
+                <span class="nav-text">Inicio</span>
+            </button>
+            <button 
+                type="button" 
+                class="nav-item" 
+                (click)="navigateToSection('lectura')"
+                role="menuitem"
+                tabindex="5" 
+                aria-label="Ir a la sección de Lectura">
+                <span class="nav-icon" aria-hidden="true">📖</span>
+                <span class="nav-text">Lecturas</span>
+            </button>
+            <button 
+                type="button" 
+                class="nav-item" 
+                (click)="navigateToSection('musica')" 
+                role="menuitem"
+                tabindex="6" 
+                aria-label="Ir a la sección de Música">
+                <span class="nav-icon" aria-hidden="true">🎵</span>
+                <span class="nav-text">Música</span>
+            </button>
+            <button 
+                type="button" 
+                class="nav-item active" 
+                (click)="navigateToSection('progreso')" 
+                role="menuitem"
+                tabindex="7" 
+                aria-label="Sección actual: Progreso"
+                aria-current="page"
+                aria-pressed="true">
+                <span class="nav-icon" aria-hidden="true">📊</span>
+                <span class="nav-text">Progreso</span>
+            </button>
+            <button 
+                type="button" 
+                class="nav-item" 
+                (click)="navigateToSection('lecciones')" 
+                role="menuitem"
+                tabindex="8" 
+                aria-label="Ir a la sección de Lecciones">
+                <span class="nav-icon" aria-hidden="true">📚</span>
+                <span class="nav-text">Lecciones</span>
+            </button>
+            <button 
+                type="button" 
+                class="nav-item" 
+                (click)="navigateToSection('config')" 
+                role="menuitem"
+                tabindex="9" 
+                aria-label="Ir a la sección de Configuraciones">
+                <span class="nav-icon" aria-hidden="true">⚙️</span>
+                <span class="nav-text">Config</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+    <main class="main">
+        <div class="container">
+            <div class="progress-container">
+                <div class="progress-header">
+                    <div class="progress-icon">📈</div>
+                    <h2 class="progress-title">Tu Progreso</h2>
+                </div>
+                
+                <div class="progress-content">
+                    <div class="stats-section">
+                        <div class="stat-card">
+                            <div class="stat-icon">⏰</div>
+                            <div class="stat-info">
+                                <div class="stat-number">24</div>
+                                <div class="stat-label">Horas de Estudio</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">📚</div>
+                            <div class="stat-info">
+                                <div class="stat-number">342</div>
+                                <div class="stat-label">Palabras Aprendidas</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-info">
+                                <div class="stat-number">18</div>
+                                <div class="stat-label">Lecciones Completas</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-info">
+                                <div class="stat-number">87%</div>
+                                <div class="stat-label">Precisión Promedio</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="right-panel">
+                        <div class="chart-container">
+                            <div class="chart-title">Tiempo de Estudio Semanal</div>
+                            <div class="bar-chart">
+                                <div class="bar" style="height: 45%;"></div>
+                                <div class="bar" style="height: 85%;"></div>
+                                <div class="bar" style="height: 60%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="study-streak-card">
+                            <div class="streak-icon">🔥</div>
+                            <div class="streak-number">15</div>
+                            <div class="streak-label">Días consecutivos estudiando</div>
+                        </div>
+
+                        <div class="goals-achievements">
+                            <div class="goals-card">
+                                <div class="card-icon">🎯</div>
+                                <span>Metas Semanales</span>
+                            </div>
+                            <div class="achievements-card">
+                                <div class="card-icon">🏆</div>
+                                <span>Logros y Medallas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="level-progress-container">
+                    <div class="level-badge">Nivel Intermedio 1</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 68%;"></div>
+                    </div>
+                    <div class="level-xp">2,040 / 3,000 XP para el siguiente nivel</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function navigateToSection(section) {
+            console.log('Navegando a:', section);
+        }
+
+        function navigateToProfile() {
+            console.log('Navegando al perfil');
+        }
+
+        function logout() {
+            console.log('Cerrando sesión');
+        }
+    </script>
+
+</html>
