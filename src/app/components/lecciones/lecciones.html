@@ -1,6 +1,5 @@
 <div class="page-wrapper">
   
-  <!-- HEADER REPLICADO -->
   <header class="header">
     <div class="container">
         <div class="header-content">
@@ -17,7 +16,6 @@
     </div>
   </header>
 
-  <!-- BARRA DE NAVEGACIÓN HORIZONTAL CON EMOJIS -->
   <nav class="top-nav">
       <button type="button" class="nav-item" (click)="navigateToSection('inicio')" aria-label="Ir a Inicio">
           <div class="nav-icon">🏠</div>
@@ -45,7 +43,6 @@
       </button>
   </nav>
 
-  <!-- Contenido principal con rutas de imagen directas -->
   <main class="lessons-main-content">
     
     <div class="lessons-tabs">
@@ -55,7 +52,7 @@
 
     <div class="lessons-list">
       
-      <div class="lesson-card" role="button" tabindex="0">
+      <div class="lesson-card" role="button" tabindex="0" (click)="startLesson('grammar')">
         <img src="Leccion_Grammar.png" alt="Grammar Lesson" class="lesson-icon">
         <div class="lesson-info">
           <p class="lesson-description">Leccion Grammar, enfocada a la ultima semana de aprendizaje</p>
@@ -65,7 +62,7 @@
         </div>
       </div>
 
-      <div class="lesson-card" role="button" tabindex="0">
+      <div class="lesson-card" role="button" tabindex="0" (click)="startLesson('listening')">
         <img src="Leccion_Listening.png" alt="Listening Lesson" class="lesson-icon">
         <div class="lesson-info">
           <p class="lesson-description">Leccion Listening, enfocada a la ultima semana de aprendizaje</p>
@@ -75,7 +72,7 @@
         </div>
       </div>
 
-      <div class="lesson-card" role="button" tabindex="0">
+      <div class="lesson-card" role="button" tabindex="0" (click)="startLesson('vocabulary')">
         <img src="Leccion_vocabulario.png" alt="Vocabulary Lesson" class="lesson-icon">
         <div class="lesson-info">
           <p class="lesson-description">Leccion Vocabulary, enfocada a la ultima semana de aprendizaje</p>

@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
 <!-- Header -->
 <header class="header" role="banner">
     <div class="container">
@@ -100,101 +98,215 @@
     </div>
 </nav>
 
-    <main class="main">
-        <div class="container">
-            <div class="progress-container">
-                <div class="progress-header">
-                    <div class="progress-icon">📈</div>
-                    <h2 class="progress-title">Tu Progreso</h2>
-                </div>
-                
-                <div class="progress-content">
-                    <div class="stats-section">
-                        <div class="stat-card">
-                            <div class="stat-icon">⏰</div>
-                            <div class="stat-info">
-                                <div class="stat-number">24</div>
-                                <div class="stat-label">Horas de Estudio</div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-icon">📚</div>
-                            <div class="stat-info">
-                                <div class="stat-number">342</div>
-                                <div class="stat-label">Palabras Aprendidas</div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-icon">✅</div>
-                            <div class="stat-info">
-                                <div class="stat-number">18</div>
-                                <div class="stat-label">Lecciones Completas</div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-icon">🎯</div>
-                            <div class="stat-info">
-                                <div class="stat-number">87%</div>
-                                <div class="stat-label">Precisión Promedio</div>
-                            </div>
+<main class="main">
+    <div class="container">
+        <div class="progress-container" *ngIf="progressStats">
+            <div class="progress-header">
+                <div class="progress-icon">📈</div>
+                <h2 class="progress-title">Tu Progreso</h2>
+            </div>
+            
+            <div class="progress-content">
+                <div class="stats-section">
+                    <div class="stat-card">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-info">
+                            <div class="stat-number">{{formatStudyHours()}}</div>
+                            <div class="stat-label">Horas de Estudio</div>
                         </div>
                     </div>
-
-                    <div class="right-panel">
-                        <div class="chart-container">
-                            <div class="chart-title">Tiempo de Estudio Semanal</div>
-                            <div class="bar-chart">
-                                <div class="bar" style="height: 45%;"></div>
-                                <div class="bar" style="height: 85%;"></div>
-                                <div class="bar" style="height: 60%;"></div>
-                            </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <div class="stat-info">
+                            <div class="stat-number">{{progressStats.wordsLearned}}</div>
+                            <div class="stat-label">Palabras Aprendidas</div>
                         </div>
-
-                        <div class="study-streak-card">
-                            <div class="streak-icon">🔥</div>
-                            <div class="streak-number">15</div>
-                            <div class="streak-label">Días consecutivos estudiando</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <div class="stat-number">{{progressStats.lessonsCompleted}}</div>
+                            <div class="stat-label">Lecciones Completas</div>
                         </div>
-
-                        <div class="goals-achievements">
-                            <div class="goals-card">
-                                <div class="card-icon">🎯</div>
-                                <span>Metas Semanales</span>
-                            </div>
-                            <div class="achievements-card">
-                                <div class="card-icon">🏆</div>
-                                <span>Logros y Medallas</span>
-                            </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-info">
+                            <div class="stat-number">{{progressStats.averageAccuracy}}%</div>
+                            <div class="stat-label">Precisión Promedio</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="level-progress-container">
-                    <div class="level-badge">Nivel Intermedio 1</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 68%;"></div>
+                <div class="right-panel">
+                    <div class="chart-container">
+                        <div class="chart-title">Tiempo de Estudio Semanal</div>
+                        <div class="bar-chart">
+                            <div 
+                                *ngFor="let week of getWeeklyChartData()" 
+                                class="bar" 
+                                [style.height]="getBarHeight(week.hours)"
+                                [title]="'Semana: ' + (week.hours || 0) + ' horas'">
+                            </div>
+                        </div>
+                        <div class="chart-labels">
+                            <span *ngFor="let week of getWeeklyChartData()">
+                                {{(week.hours || 0).toFixed(1)}}h
+                            </span>
+                        </div>
                     </div>
-                    <div class="level-xp">2,040 / 3,000 XP para el siguiente nivel</div>
+
+                    <div class="study-streak-card">
+                        <div class="streak-icon">🔥</div>
+                        <div class="streak-number">{{progressStats.currentStreak}}</div>
+                        <div class="streak-label">Días consecutivos estudiando</div>
+                    </div>
+
+                    <div class="goals-achievements">
+                        <div class="goals-card" (click)="navigateToSection('lecciones')">
+                            <div class="card-icon">🎯</div>
+                            <span>Metas Semanales</span>
+                        </div>
+                        <div class="achievements-card" (click)="navigateToSection('lecciones')">
+                            <div class="card-icon">🏆</div>
+                            <span>Logros y Medallas</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Sección de progreso por lección -->
+            <div class="lesson-stats-section">
+                <h3 class="section-title">Rendimiento por Lección</h3>
+                <div class="lesson-stats-grid">
+                    <div class="lesson-stat-card" (click)="startLesson('grammar')">
+                        <div class="lesson-icon">📝</div>
+                        <div class="lesson-info">
+                            <h4>Gramática</h4>
+                            <div class="lesson-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">Promedio:</span>
+                                    <span class="metric-value">{{getGrammarStats().averageScore}}%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Completadas:</span>
+                                    <span class="metric-value">{{getGrammarStats().totalCompleted}}</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Mejor:</span>
+                                    <span class="metric-value">{{getGrammarStats().bestScore}}%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lesson-action">→</div>
+                    </div>
+
+                    <div class="lesson-stat-card" (click)="startLesson('listening')">
+                        <div class="lesson-icon">🎧</div>
+                        <div class="lesson-info">
+                            <h4>Listening</h4>
+                            <div class="lesson-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">Promedio:</span>
+                                    <span class="metric-value">{{getListeningStats().averageScore}}%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Completadas:</span>
+                                    <span class="metric-value">{{getListeningStats().totalCompleted}}</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Mejor:</span>
+                                    <span class="metric-value">{{getListeningStats().bestScore}}%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lesson-action">→</div>
+                    </div>
+
+                    <div class="lesson-stat-card" (click)="startLesson('vocabulary')">
+                        <div class="lesson-icon">📖</div>
+                        <div class="lesson-info">
+                            <h4>Vocabulario</h4>
+                            <div class="lesson-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">Promedio:</span>
+                                    <span class="metric-value">{{getVocabularyStats().averageScore}}%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Completadas:</span>
+                                    <span class="metric-value">{{getVocabularyStats().totalCompleted}}</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Mejor:</span>
+                                    <span class="metric-value">{{getVocabularyStats().bestScore}}%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lesson-action">→</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progreso de nivel -->
+            <div class="level-progress-container">
+                <div class="level-badge">{{progressStats.currentLevel}}</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" [style.width.%]="getLevelProgress()"></div>
+                </div>
+                <div class="level-xp">
+                    {{progressStats.currentXP}} / {{progressStats.nextLevelXP}} XP para el siguiente nivel
+                </div>
+            </div>
+
+            <!-- Resultados recientes -->
+            <div class="recent-results-section" *ngIf="progressStats.recentResults.length > 0">
+                <h3 class="section-title">Resultados Recientes</h3>
+                <div class="recent-results-list">
+                    <div 
+                        *ngFor="let result of progressStats.recentResults.slice(0, 5)" 
+                        class="result-item"
+                        [class.excellent]="result.percentage >= 90"
+                        [class.good]="result.percentage >= 70 && result.percentage < 90"
+                        [class.fair]="result.percentage >= 50 && result.percentage < 70"
+                        [class.poor]="result.percentage < 50">
+                        <div class="result-type">
+                            <span class="type-icon">
+                                {{result.lessonType === 'grammar' ? '📝' : 
+                                  result.lessonType === 'listening' ? '🎧' : '📖'}}
+                            </span>
+                            <span class="type-name">{{result.lessonType | titlecase}}</span>
+                        </div>
+                        <div class="result-score">{{result.percentage}}%</div>
+                        <div class="result-date">{{result.date | date:'short'}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mensaje si no hay datos -->
+            <div class="no-data-message" *ngIf="progressStats.recentResults.length === 0">
+                <div class="no-data-icon">🎯</div>
+                <h3>¡Comienza tu aventura de aprendizaje!</h3>
+                <p>Completa tu primera lección para ver tu progreso aquí.</p>
+                <button class="start-learning-btn" (click)="navigateToSection('lecciones')">
+                    Comenzar a Aprender
+                </button>
+            </div>
+
+            <!-- Botón de desarrollo para resetear progreso -->
+            <div class="dev-controls" *ngIf="false">
+                <button class="reset-btn" (click)="resetProgress()">
+                    🔄 Resetear Progreso (Dev)
+                </button>
+            </div>
         </div>
-    </main>
 
-    <script>
-        function navigateToSection(section) {
-            console.log('Navegando a:', section);
-        }
-
-        function navigateToProfile() {
-            console.log('Navegando al perfil');
-        }
-
-        function logout() {
-            console.log('Cerrando sesión');
-        }
-    </script>
-
-</html>
+        <!-- Loading state -->
+        <div class="loading-container" *ngIf="!progressStats">
+            <div class="loading-spinner">⏳</div>
+            <p>Cargando tu progreso...</p>
+        </div>
+    </div>
+</main>

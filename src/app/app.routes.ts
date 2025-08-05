@@ -29,7 +29,10 @@ export const routes: Routes = [
     path: 'juego-cancion/:id', 
     loadComponent: () => import('./components/juego-cancion/juego-cancion').then(m => m.JuegoCancion)
   },
-  
+  { 
+    path: 'juego-leccion/:tipo', 
+    loadComponent: () => import('./components/juego-leccion/juego-leccion').then(m => m.JuegoLeccion)
+  },
   { 
     path: 'canciones', 
     loadComponent: () => import('./components/canciones/canciones').then(m => m.Canciones)
@@ -38,7 +41,10 @@ export const routes: Routes = [
     path: 'progreso', 
     loadComponent: () => import('./components/progreso/progreso').then(m => m.Progreso)
   },
-  
+  { 
+    path: 'progress.service', 
+    loadComponent: () => import('./services/progress.service').then(m => m.ProgressService)
+  },
   { 
     path: 'lecciones', 
     loadComponent: () => import('./components/lecciones/lecciones').then(m => m.Lecciones)
