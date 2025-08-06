@@ -194,6 +194,28 @@ export class Configuraciones implements OnInit {
     });
   }
 
+  navigateToSection(section: string) {
+    switch(section) {
+      case 'inicio':
+        this.router.navigate(['/inicio-logeado']);
+        break;
+      case 'lecturas':
+        this.router.navigate(['/lecturas']);
+        break;
+      case 'musica':
+        this.router.navigate(['/canciones']);
+        break;
+      case 'progreso':
+        this.router.navigate(['/progreso']);
+        break;
+      case 'config':
+        this.router.navigate(['/configuraciones']);
+        break;
+      default:
+        console.log('Navegando a:', section);
+    }
+  }
+  
   loadUserSettings() {
     // In a real app, this would load from an API or service
     // For now, we'll use the initial values set above
