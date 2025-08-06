@@ -25,7 +25,32 @@
     </div>
   </div>
 </header>
-
+<nav class="top-nav">
+      <button type="button" class="nav-item" (click)="navigateToSection('inicio')" aria-label="Go to Home">
+          <div class="nav-icon">🏠</div>
+          <div class="nav-text">Home</div>
+      </button>
+      <button type="button" class="nav-item" (click)="navigateToSection('lecturas')" aria-label="Go to Reading">
+          <div class="nav-icon">📖</div>
+          <div class="nav-text">Reading</div>
+      </button>
+      <button type="button" class="nav-item" (click)="navigateToSection('musica')" aria-label="Go to Music">
+          <div class="nav-icon">🎵</div>
+          <div class="nav-text">Music</div>
+      </button>
+      <button type="button" class="nav-item" (click)="navigateToSection('progreso')" aria-label="Go to Progress">
+          <div class="nav-icon">📊</div>
+          <div class="nav-text">Progress</div>
+      </button>
+      <button type="button" class="nav-item active" (click)="navigateToSection('lecciones')" aria-label="Go to Lessons">
+          <div class="nav-icon">📚</div>
+          <div class="nav-text">Lessons</div>
+      </button>
+      <button type="button" class="nav-item" (click)="navigateToSection('config')" aria-label="Go to Settings">
+          <div class="nav-icon">⚙️</div>
+          <div class="nav-text">Settings</div>
+      </button>
+  </nav>
 <!-- Success Message -->
 <div class="success-message" [class.show]="showSaveMessage">
   <div class="success-content">

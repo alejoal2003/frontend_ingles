@@ -178,7 +178,33 @@ export class ConfiguracionesComponent implements OnInit {
     this.loadUserData();
   }
 
-  // Navigation methods
+  // Navigation methods between app sections
+  navigateToSection(section: string): void {
+    switch(section) {
+      case 'inicio':
+        this.router.navigate(['/inicio-logeado']);
+        break;
+      case 'lecturas':
+        this.router.navigate(['/lecturas']);
+        break;
+      case 'musica':
+        this.router.navigate(['/canciones']);
+        break;
+      case 'progreso':
+        this.router.navigate(['/progreso']);
+        break;
+      case 'lecciones':
+        this.router.navigate(['/lecciones']);
+        break;
+      case 'config':
+        this.router.navigate(['/configuraciones']);
+        break;
+      default:
+        console.log('Navegando a:', section);
+    }
+  }
+
+  // Navigation methods within configuration sections
   setActiveSection(section: string): void {
     this.activeSection = section;
   }
