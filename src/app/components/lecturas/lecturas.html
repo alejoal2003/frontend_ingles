@@ -1,0 +1,269 @@
+<!-- Header -->
+<header class="header" role="banner">
+    <div class="container">
+        <div class="header-content">
+            <!-- Logo clickeable con funcionalidad -->
+            <div class="logo" 
+                 tabindex="1" 
+                 role="button"
+                 (click)="navigateToHome()"
+                 (keydown.enter)="navigateToHome()"
+                 (keydown.space)="navigateToHome(); $event.preventDefault()"
+                 aria-label="Ir al inicio de EnglishMaster"
+                 title="Ir al inicio">
+                EnglishMaster
+            </div>
+            <div class="header-actions" role="toolbar" aria-label="Acciones del usuario">
+                <button 
+                    class="btn btn-secondary" 
+                    (click)="navigateToProfile()" 
+                    type="button"
+                    tabindex="2"
+                    aria-label="Ir al perfil de usuario"
+                    title="Ir al perfil">
+                    <span aria-hidden="true">👤</span> Perfil
+                </button>
+                <button 
+                    class="btn btn-primary" 
+                    (click)="logout()" 
+                    type="button"
+                    tabindex="3"
+                    aria-label="Cerrar sesión y salir de la aplicación"
+                    title="Cerrar sesión">
+                    Salir
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Navigation -->
+<nav class="nav" role="navigation" aria-label="Navegación principal">
+    <div class="container">
+        <div class="nav-container" role="menubar">
+            <button 
+                type="button" 
+                class="nav-item" 
+                (click)="navigateToSection('inicio')" 
+                role="menuitem"
+                tabindex="4" 
+                aria-label="Ir a la sección de Inicio">
+                <span class="nav-icon" aria-hidden="true">🏠</span>
+                <span class="nav-text">Inicio</span>
+            </button>
+            <button 
+                type="button" 
+                class="nav-item active" 
+                role="menuitem"
+                tabindex="5" 
+                aria-label="Sección actual: Lecturas" 
+                aria-current="page"
+                aria-pressed="true">
+                <span class="nav-icon" aria-hidden="true">📖</span>
+                <span class="nav-text">Lecturas</span>
+            </button>
+            <button 
+                type="button" 
+                class="nav-item" 
+                (click)="navigateToSection('musica')" 
+                role="menuitem"
+                tabindex="6" 
+                aria-label="Ir a la sección de Música">
+                <span class="nav-icon" aria-hidden="true">🎵</span>
+                <span class="nav-text">Música</span>
+            </button>
+            <button 
+                type="button" 
+                class="nav-item" 
+                (click)="navigateToSection('progreso')" 
+                role="menuitem"
+                tabindex="7" 
+                aria-label="Ir a la sección de Progreso">
+                <span class="nav-icon" aria-hidden="true">📊</span>
+                <span class="nav-text">Progreso</span>
+            </button>
+            <button 
+                type="button" 
+                class="nav-item" 
+                (click)="navigateToSection('lecciones')" 
+                role="menuitem"
+                tabindex="8" 
+                aria-label="Ir a la sección de Lecciones">
+                <span class="nav-icon" aria-hidden="true">📚</span>
+                <span class="nav-text">Lecciones</span>
+            </button>
+            <button 
+                type="button" 
+                class="nav-item" 
+                (click)="navigateToSection('config')" 
+                role="menuitem"
+                tabindex="9" 
+                aria-label="Ir a la sección de Configuraciones">
+                <span class="nav-icon" aria-hidden="true">⚙️</span>
+                <span class="nav-text">Config</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main" role="main" id="main-content">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h2 class="page-title">Lecturas Interactivas</h2>
+            <p class="page-description">
+                Selecciona una lectura para practicar comprensión y vocabulario en inglés
+            </p>
+        </div>
+
+        <!-- Lecturas Grid -->
+        <section class="lecturas-section" aria-labelledby="lecturas-heading">
+            <h3 id="lecturas-heading" class="sr-only">Lista de lecturas disponibles</h3>
+            <div class="lecturas-grid" role="grid" aria-label="Grid de lecturas interactivas">
+                <!-- Fila 1 -->
+                <article 
+                    class="lectura-card" 
+                    (click)="abrirLectura(1)" 
+                    (keydown.enter)="abrirLectura(1)" 
+                    (keydown.space)="abrirLectura(1); $event.preventDefault()"
+                    tabindex="10" 
+                    role="button" 
+                    aria-labelledby="lectura-1-title"
+                    aria-describedby="lectura-1-desc"
+                    [attr.aria-pressed]="false">
+                    <div class="lectura-image-placeholder" aria-hidden="true">
+                        <span class="emoji-placeholder">🤖</span>
+                    </div>
+                    <div class="lectura-content">
+                        <h3 id="lectura-1-title" class="lectura-title">Inteligencia Artificial</h3>
+                        <p id="lectura-1-desc" class="lectura-description">
+                            Explora los avances recientes y las implicaciones de la IA en nuestra vida diaria.
+                        </p>
+                        <span class="sr-only">Presiona Enter o Espacio para iniciar esta lectura</span>
+                    </div>
+                </article>
+
+                <article 
+                    class="lectura-card" 
+                    (click)="abrirLectura(2)" 
+                    (keydown.enter)="abrirLectura(2)" 
+                    (keydown.space)="abrirLectura(2); $event.preventDefault()"
+                    tabindex="11" 
+                    role="button" 
+                    aria-labelledby="lectura-2-title"
+                    aria-describedby="lectura-2-desc"
+                    [attr.aria-pressed]="false">
+                    <div class="lectura-image-placeholder" aria-hidden="true">
+                        <span class="emoji-placeholder">🏛️</span>
+                    </div>
+                    <div class="lectura-content">
+                        <h3 id="lectura-2-title" class="lectura-title">Cultura Maya</h3>
+                        <p id="lectura-2-desc" class="lectura-description">
+                            Un viaje a través de las fascinantes tradiciones y la historia del pueblo maya.
+                        </p>
+                        <span class="sr-only">Presiona Enter o Espacio para iniciar esta lectura</span>
+                    </div>
+                </article>
+
+                <!-- Fila 2 -->
+                <article 
+                    class="lectura-card" 
+                    (click)="abrirLectura(3)" 
+                    (keydown.enter)="abrirLectura(3)" 
+                    (keydown.space)="abrirLectura(3); $event.preventDefault()"
+                    tabindex="12" 
+                    role="button" 
+                    aria-labelledby="lectura-3-title"
+                    aria-describedby="lectura-3-desc"
+                    [attr.aria-pressed]="false">
+                    <div class="lectura-image-placeholder" aria-hidden="true">
+                        <span class="emoji-placeholder">📈</span>
+                    </div>
+                    <div class="lectura-content">
+                        <h3 id="lectura-3-title" class="lectura-title">Negocios Sostenibles</h3>
+                        <p id="lectura-3-desc" class="lectura-description">
+                            Descubre cómo las empresas están adoptando modelos de negocio más sostenibles.
+                        </p>
+                        <span class="sr-only">Presiona Enter o Espacio para iniciar esta lectura</span>
+                    </div>
+                </article>
+
+                <article 
+                    class="lectura-card" 
+                    (click)="abrirLectura(4)" 
+                    (keydown.enter)="abrirLectura(4)" 
+                    (keydown.space)="abrirLectura(4); $event.preventDefault()"
+                    tabindex="13" 
+                    role="button" 
+                    aria-labelledby="lectura-4-title"
+                    aria-describedby="lectura-4-desc"
+                    [attr.aria-pressed]="false">
+                    <div class="lectura-image-placeholder" aria-hidden="true">
+                        <span class="emoji-placeholder">🌍</span>
+                    </div>
+                    <div class="lectura-content">
+                        <h3 id="lectura-4-title" class="lectura-title">Calentamiento Global</h3>
+                        <p id="lectura-4-desc" class="lectura-description">
+                            Un análisis de las últimas noticias sobre el calentamiento global y sus efectos.
+                        </p>
+                        <span class="sr-only">Presiona Enter o Espacio para iniciar esta lectura</span>
+                    </div>
+                </article>
+
+                <!-- Fila 3 -->
+                <article 
+                    class="lectura-card" 
+                    (click)="abrirLectura(5)" 
+                    (keydown.enter)="abrirLectura(5)" 
+                    (keydown.space)="abrirLectura(5); $event.preventDefault()"
+                    tabindex="14" 
+                    role="button" 
+                    aria-labelledby="lectura-5-title"
+                    aria-describedby="lectura-5-desc"
+                    [attr.aria-pressed]="false">
+                    <div class="lectura-image-placeholder" aria-hidden="true">
+                        <span class="emoji-placeholder">✍️</span>
+                    </div>
+                    <div class="lectura-content">
+                        <h3 id="lectura-5-title" class="lectura-title">Shakespeare</h3>
+                        <p id="lectura-5-desc" class="lectura-description">
+                            Una introducción a la obra y el legado del famoso dramaturgo inglés.
+                        </p>
+                        <span class="sr-only">Presiona Enter o Espacio para iniciar esta lectura</span>
+                    </div>
+                </article>
+
+                <article 
+                    class="lectura-card" 
+                    (click)="abrirLectura(6)" 
+                    (keydown.enter)="abrirLectura(6)" 
+                    (keydown.space)="abrirLectura(6); $event.preventDefault()"
+                    tabindex="15" 
+                    role="button" 
+                    aria-labelledby="lectura-6-title"
+                    aria-describedby="lectura-6-desc"
+                    [attr.aria-pressed]="false">
+                    <div class="lectura-image-placeholder" aria-hidden="true">
+                        <span class="emoji-placeholder">🏠</span>
+                    </div>
+                    <div class="lectura-content">
+                        <h3 id="lectura-6-title" class="lectura-title">Vida Cotidiana</h3>
+                        <p id="lectura-6-desc" class="lectura-description">
+                            Frases y vocabulario esencial para situaciones comunes del día a día.
+                        </p>
+                        <span class="sr-only">Presiona Enter o Espacio para iniciar esta lectura</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Live Region for Announcements -->
+        <div 
+            class="sr-only" 
+            aria-live="polite" 
+            aria-atomic="true" 
+            id="announcements">
+        </div>
+    </div>
+</main>

@@ -1,0 +1,55 @@
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo" tabindex="1" role="banner">EnglishMaster</div>
+            <div class="header-actions">
+                 <button class="btn btn-secondary" (click)="showScreen('login')" tabindex="2">
+                    👤 Sign In
+                </button>
+                <button class="btn btn-primary" (click)="showScreen('registrarse')" tabindex="3">
+                    📝 Sign Up
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="main" role="main">
+    <div class="container">
+        <!-- Home Screen -->
+        <div id="home" class="screen active">
+            <div class="hero">
+                <h1>Welcome to EnglishMaster!</h1>
+                <p>Your perfect companion to master English in a fun and interactive way</p>
+                <button class="btn btn-secondary" (click)="showScreen('test')" tabindex="4">
+                    🚀 Get Started 
+                </button>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card" (click)="showScreen('reading')" tabindex="5" role="button" aria-label="Access Bilingual Reading" (keydown.enter)="showScreen('reading')" (keydown.space)="showScreen('reading')">
+                    <div class="feature-icon">📖</div>
+                    <div class="feature-title">Bilingual Reading</div>
+                    <p>Read stories in parallel Spanish-English with native narration</p>
+                </div>
+                <div class="feature-card" (click)="showScreen('songs')" tabindex="6" role="button" aria-label="Access Interactive Songs" (keydown.enter)="showScreen('songs')" (keydown.space)="showScreen('songs')">
+                    <div class="feature-icon">🎵</div>
+                    <div class="feature-title">Interactive Songs</div>
+                    <p>Improve your listening comprehension by completing lyrics of your favorite songs</p>
+                </div>
+                <div class="feature-card" (click)="showScreen('progress')" tabindex="7" role="button" aria-label="View Detailed Tracking" (keydown.enter)="showScreen('progress')" (keydown.space)="showScreen('progress')">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Detailed Tracking</div>
+                    <p>Monitor your progress with motivating statistics and charts</p>
+                </div>
+                <div class="feature-card" (click)="showScreen('lessons')" tabindex="8" role="button" aria-label="Access Structured Lessons" (keydown.enter)="showScreen('lessons')" (keydown.space)="showScreen('lessons')">
+                    <div class="feature-icon">📚</div>
+                    <div class="feature-title">Structured Lessons</div>
+                    <p>Learn step by step with lessons organized by level and skill</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

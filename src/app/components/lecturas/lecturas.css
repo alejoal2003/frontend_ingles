@@ -1,0 +1,321 @@
+/* Estilos específicos para lecturas con accesibilidad WCAG */
+
+/* Skip Link */
+.skip-link {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    border-radius: 0 0 8px 0;
+    font-weight: 600;
+    z-index: 9999;
+    transition: top 0.2s ease-in-out;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Screen Reader Only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Page Header */
+.page-header {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 0 1rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+}
+
+.page-description {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* Lecturas Section */
+.lecturas-section {
+    margin-top: 3rem;
+}
+
+/* Grid de lecturas */
+.lecturas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Tarjetas de lectura con accesibilidad mejorada */
+.lectura-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    transition: var(--transition);
+    cursor: pointer;
+    border: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 220px;
+    position: relative;
+}
+
+/* Estados de hover y focus */
+.lectura-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.lectura-card:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 4px;
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+/* Estados de active y pressed */
+.lectura-card:active {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.lectura-card[aria-pressed="true"] {
+    background: rgba(79, 70, 229, 0.1);
+    border-color: var(--primary-color);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .lectura-card {
+        border-width: 3px;
+        border-color: var(--text-primary);
+    }
+    
+    .lectura-card:focus {
+        outline-width: 4px;
+        outline-color: var(--text-primary);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .lectura-card {
+        transition: none;
+    }
+    
+    .lectura-card:hover,
+    .lectura-card:focus {
+        transform: none;
+    }
+}
+
+/* Placeholder para imágenes */
+.lectura-image-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    flex-shrink: 0;
+}
+
+.emoji-placeholder {
+    font-size: 2.5rem;
+    filter: grayscale(0);
+}
+
+/* Contenido de la lectura con mejor semántica */
+.lectura-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lectura-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    line-height: 1.3;
+}
+
+.lectura-description {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Focus management for keyboard navigation */
+.nav-item:focus,
+.btn:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+    z-index: 10;
+}
+
+/* Logo accessibility - CORREGIDO para igualar otros componentes */
+.logo {
+    font-size: 1.75rem !important; /* Mismo tamaño que en otros componentes */
+    font-weight: bold !important;
+    color: var(--primary-color) !important;
+    text-decoration: none;
+    cursor: pointer !important; /* Comportamiento de botón */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+    background: rgba(79, 70, 229, 0.05);
+}
+
+.logo:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+    background: rgba(79, 70, 229, 0.1);
+}
+
+.logo:active {
+    transform: scale(0.98);
+}
+
+/* Responsive para lecturas con accesibilidad */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .page-description {
+        font-size: 1rem;
+    }
+    
+    .lecturas-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+    
+    .lectura-card {
+        padding: 1.5rem;
+        min-height: 180px;
+    }
+    
+    .lectura-image-placeholder {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+    }
+    
+    .emoji-placeholder {
+        font-size: 2rem;
+    }
+    
+    .lectura-title {
+        font-size: 1rem;
+    }
+    
+    .lectura-description {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.75rem;
+    }
+    
+    .page-description {
+        font-size: 0.95rem;
+    }
+    
+    .lectura-card {
+        padding: 1rem;
+        min-height: 160px;
+    }
+    
+    .lectura-image-placeholder {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .emoji-placeholder {
+        font-size: 1.8rem;
+    }
+    
+    .lectura-title {
+        font-size: 0.9rem;
+    }
+    
+    .lectura-description {
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+    
+    /* Larger touch targets for mobile */
+    .lectura-card {
+        min-height: 180px;
+        padding: 1.25rem;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .skip-link {
+        background: var(--primary-color);
+        color: white;
+    }
+    
+    .lectura-card:focus {
+        outline-color: var(--primary-color);
+    }
+}

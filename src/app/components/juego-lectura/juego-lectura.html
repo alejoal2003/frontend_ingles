@@ -1,0 +1,248 @@
+<!-- Región de anuncios para lectores de pantalla -->
+<div aria-live="polite" aria-atomic="true" class="sr-only" role="status">
+  <div *ngFor="let announcement of announcements">{{ announcement }}</div>
+</div>
+
+<!-- Header -->
+<header class="header" role="banner">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo" tabindex="1" role="heading" aria-level="1">EnglishMaster</div>
+            <nav class="header-actions" role="navigation" aria-label="Navegación principal">
+                <button class="btn btn-secondary" 
+                        (click)="navigateToProfile()" 
+                        tabindex="2"
+                        aria-label="Ver perfil de usuario">
+                    👤 Perfil
+                </button>
+                <button class="btn btn-primary" 
+                        (click)="logout()" 
+                        tabindex="3"
+                        aria-label="Cerrar sesión">
+                    Salir
+                </button>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Game Header -->
+<section class="game-header" *ngIf="currentLectura" role="region" aria-label="Información del juego">
+    <div class="container">
+        <div class="game-info">
+            <button class="btn btn-secondary back-btn" 
+                    (click)="volverALecturas()" 
+                    tabindex="4"
+                    aria-label="Regresar a la lista de lecturas">
+                ← Volver a Lecturas
+            </button>
+            <div class="reading-info">
+                <h1 id="game-title">{{currentLectura.emoji}} {{currentLectura.titulo}}</h1>
+                <span class="difficulty-badge" role="status">Comprensión Lectora</span>
+            </div>
+        </div>
+        
+        <div class="game-stats" *ngIf="mostrarResultados" role="region" aria-label="Resultados del juego">
+            <div class="stat-item score">
+                <span class="stat-label">Puntuación</span>
+                <span class="stat-value" 
+                      [class.excellent]="puntaje >= 80" 
+                      [class.good]="puntaje >= 60 && puntaje < 80" 
+                      [class.needs-improvement]="puntaje < 60"
+                      [attr.aria-label]="'Puntuación obtenida: ' + puntaje + ' por ciento'">
+                    {{puntaje}}%
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Game Content -->
+<main class="main game-main" *ngIf="currentLectura" id="main-content" role="main">
+    <div class="container">
+        <div class="game-layout">
+            <!-- Context Section -->
+            <section class="context-section" role="region" aria-labelledby="context-title">
+                <h3 id="context-title">📖 Contexto en Español</h3>
+                <div class="context-text" role="region" aria-describedby="context-title">
+                    {{currentLectura.lecturaEspanol}}
+                </div>
+            </section>
+
+            <!-- Game Section -->
+            <section class="game-section" role="region" aria-label="Área de juego">
+                <!-- Word Bank -->
+                <div class="word-bank-section" role="region" aria-labelledby="word-bank-title">
+                    <h4 id="word-bank-title">📦 Banco de Palabras</h4>
+                    <div class="word-bank-container" 
+                         role="group" 
+                         aria-label="Palabras disponibles para arrastrar"
+                         aria-describedby="word-bank-instructions">
+                        <p id="word-bank-instructions" class="sr-only">
+                            Arrastra las palabras desde aquí hasta los espacios en blanco del texto en inglés. 
+                            También puedes usar las flechas del teclado para navegar, Enter para seleccionar palabras, 
+                            y las teclas 1-5 para saltar a espacios específicos.
+                        </p>
+                        <button 
+                            *ngFor="let palabraDisp of palabrasDisponibles; let i = index"
+                            class="word-chip"
+                            [class.used]="palabraDisp.utilizada"
+                            [class.dragging]="draggedIndex === i"
+                            [class.keyboard-selected]="selectedWordIndex === i"
+                            [class.selected]="wordSelected === palabraDisp.palabra"
+                            [attr.aria-label]="'Palabra: ' + palabraDisp.palabra"
+                            [attr.aria-pressed]="wordSelected === palabraDisp.palabra"
+                            [attr.tabindex]="palabraDisp.utilizada ? '-1' : (5 + i)"
+                            [style.display]="palabraDisp.utilizada ? 'none' : 'inline-block'"
+                            draggable="true"
+                            (click)="selectWord(palabraDisp.palabra, i)"
+                            (keydown.enter)="selectWord(palabraDisp.palabra, i)"
+                            (keydown.space)="selectWord(palabraDisp.palabra, i); $event.preventDefault()"
+                            (dragstart)="onDragStart($event, palabraDisp.palabra, i)">
+                            {{palabraDisp.palabra}}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- English Exercise -->
+                <div class="english-exercise" role="region" aria-labelledby="exercise-title">
+                    <h4 id="exercise-title">🎯 Completa el Texto en Inglés</h4>
+                    <div class="english-paragraph" 
+                         role="group" 
+                         aria-label="Texto para completar"
+                         aria-describedby="exercise-instructions">
+                        <p id="exercise-instructions" class="sr-only">
+                            Completa el texto arrastrando las palabras correctas a cada espacio en blanco.
+                            También puedes usar navegación por teclado: flechas para navegar, Enter para seleccionar,
+                            Delete para quitar palabras, y teclas 1-5 para saltar a espacios específicos.
+                        </p>
+                        <ng-container *ngFor="let parte of currentLectura.lecturaIngles.split('_____'); let i = index">
+                            {{parte}}
+                            <div 
+                                *ngIf="i < currentLectura.palabrasCompletar.length"
+                                class="drop-zone"
+                                [class.filled]="respuestasUsuario[i].palabraSeleccionada"
+                                [class.correct]="juegoCompletado && esRespuestaCorrecta(i)"
+                                [class.incorrect]="juegoCompletado && !esRespuestaCorrecta(i) && respuestasUsuario[i].palabraSeleccionada"
+                                [class.keyboard-selected]="selectedDropZoneIndex === i"
+                                [attr.aria-label]="'Espacio en blanco ' + (i + 1) + ' de ' + currentLectura.palabrasCompletar.length"
+                                [attr.aria-describedby]="'drop-instructions-' + i"
+                                [attr.data-position]="i + 1"
+                                [attr.tabindex]="10 + i"
+                                role="button"
+                                (dragover)="onDragOver($event)"
+                                (drop)="onDrop($event, i)"
+                                (click)="handleDropZoneAction(i)"
+                                (keydown.enter)="handleDropZoneAction(i)"
+                                (keydown.space)="handleDropZoneAction(i); $event.preventDefault()">>
+                                
+                                <p [id]="'drop-instructions-' + i" class="sr-only">
+                                    {{respuestasUsuario[i].palabraSeleccionada ? 
+                                      'Espacio ocupado por: ' + respuestasUsuario[i].palabraSeleccionada + '. Presiona Enter para devolver la palabra.' : 
+                                      'Espacio vacío. Arrastra una palabra aquí o presiona ' + (i + 1) + ' para navegar aquí directamente.'}}
+                                </p>
+                                
+                                <span *ngIf="!respuestasUsuario[i].palabraSeleccionada" 
+                                      class="placeholder"
+                                      aria-hidden="true">
+                                    {{i + 1}}
+                                </span>
+                                
+                                <span *ngIf="respuestasUsuario[i].palabraSeleccionada" 
+                                      class="placed-word"
+                                      [attr.aria-label]="'Palabra colocada: ' + respuestasUsuario[i].palabraSeleccionada"
+                                      (click)="devolverPalabra(i)">
+                                    {{respuestasUsuario[i].palabraSeleccionada}}
+                                    <span class="remove-icon" 
+                                          *ngIf="!juegoCompletado"
+                                          aria-label="Quitar palabra"
+                                          role="button">×</span>
+                                </span>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <!-- Game Controls -->
+                <div class="game-controls" role="region" aria-label="Controles del juego">
+                    <button 
+                        class="btn btn-primary" 
+                        (click)="verificarRespuestas()"
+                        *ngIf="!juegoCompletado"
+                        tabindex="20"
+                        aria-label="Verificar respuestas del ejercicio">
+                        ✅ Verificar Respuestas
+                    </button>
+                    
+                    <button 
+                        class="btn btn-secondary" 
+                        (click)="reiniciarJuego()"
+                        *ngIf="juegoCompletado"
+                        tabindex="21"
+                        aria-label="Reintentar ejercicio">
+                        🔄 Intentar de Nuevo
+                    </button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" 
+                     *ngIf="mostrarResultados" 
+                     role="region" 
+                     aria-labelledby="results-title">
+                <div class="results-container">
+                    <h3 id="results-title" class="sr-only">Resultados del ejercicio</h3>
+                    <div class="score-display" 
+                         [class.excellent]="puntaje >= 80" 
+                         [class.good]="puntaje >= 60 && puntaje < 80" 
+                         [class.needs-improvement]="puntaje < 60"
+                         role="status"
+                         [attr.aria-label]="'Puntuación final: ' + puntaje + ' por ciento'">
+                        <div class="score-number" aria-hidden="true">{{puntaje}}%</div>
+                        <div class="feedback-text" role="status">
+                            <span *ngIf="puntaje >= 80">¡Excelente trabajo! 🎉</span>
+                            <span *ngIf="puntaje >= 60 && puntaje < 80">¡Buen trabajo! 👍</span>
+                            <span *ngIf="puntaje < 60">Sigue practicando 💪</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Correct Answers -->
+                    <div class="correct-answers" role="region" aria-labelledby="correct-answers-title">
+                        <h4 id="correct-answers-title">📝 Respuestas Correctas:</h4>
+                        <div class="answers-list" role="list">
+                            <span *ngFor="let palabra of currentLectura.palabrasCompletar; let last = last" 
+                                  class="correct-word"
+                                  role="listitem">
+                                {{palabra.palabra}}<span *ngIf="!last">, </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="result-actions" role="group" aria-label="Acciones posteriores al juego">
+                        <button class="btn btn-primary" 
+                                (click)="reiniciarJuego()" 
+                                aria-label="Reiniciar el mismo ejercicio">
+                            🔄 Intentar de Nuevo
+                        </button>
+                        <button class="btn btn-secondary" 
+                                (click)="volverALecturas()" 
+                                aria-label="Regresar para elegir otra lectura">
+                            📚 Elegir Otra Lectura
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<!-- Loading State -->
+<div class="loading-state" *ngIf="!currentLectura">
+    <div class="container">
+        <div class="loading-content">
+            <div class="loading-spinner">📚</div>
+            <p>Cargando lectura...</p>
+        </div>
+    </div>
+</div>
