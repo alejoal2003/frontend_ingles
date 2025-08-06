@@ -5,10 +5,10 @@
             <div class="logo" tabindex="1" role="banner">EnglishMaster</div>
             <div class="header-actions">
                 <button class="btn btn-secondary" (click)="showScreen('profile')" tabindex="2">
-                    👤 Perfil
+                    👤 Profile
                 </button>
                 <button class="btn btn-primary" (click)="showScreen('test')" tabindex="3">
-                    ⬅️ Salir
+                    ⬅️ Exit
                 </button>
             </div>
         </div>
@@ -19,29 +19,29 @@
 <nav class="nav" role="navigation">
     <div class="container">
         <div class="nav-container">
-            <button type="button" class="nav-item active" (click)="showScreen('home')" tabindex="4" aria-label="Ir a Inicio">
+            <button type="button" class="nav-item active" (click)="showScreen('home')" tabindex="4" aria-label="Go to Home">
                 <div class="nav-icon">🏠</div>
-                <div class="nav-text">Inicio</div>
+                <div class="nav-text">Home</div>
             </button>
-            <button type="button" class="nav-item" (click)="showScreen('reading')" tabindex="5" aria-label="Ir a Lecturas">
+            <button type="button" class="nav-item" (click)="showScreen('reading')" tabindex="5" aria-label="Go to Reading">
                 <div class="nav-icon">📖</div>
-                <div class="nav-text">Lecturas</div>
+                <div class="nav-text">Reading</div>
             </button>
-            <button type="button" class="nav-item" (click)="showScreen('songs')" tabindex="6" aria-label="Ir a Canciones">
+            <button type="button" class="nav-item" (click)="showScreen('songs')" tabindex="6" aria-label="Go to Songs">
                 <div class="nav-icon">🎵</div>
-                <div class="nav-text">Canciones</div>
+                <div class="nav-text">Songs</div>
             </button>
-            <button type="button" class="nav-item" (click)="showScreen('progress')" tabindex="7" aria-label="Ir a Progreso">
+            <button type="button" class="nav-item" (click)="showScreen('progress')" tabindex="7" aria-label="Go to Progress">
                 <div class="nav-icon">📊</div>
-                <div class="nav-text">Progreso</div>
+                <div class="nav-text">Progress</div>
             </button>
-            <button type="button" class="nav-item" (click)="showScreen('lessons')" tabindex="8" aria-label="Ir a Lecciones">
+            <button type="button" class="nav-item" (click)="showScreen('lessons')" tabindex="8" aria-label="Go to Lessons">
                 <div class="nav-icon">📚</div>
-                <div class="nav-text">Lecciones</div>
+                <div class="nav-text">Lessons</div>
             </button>
-            <button type="button" class="nav-item" (click)="showScreen('settings')" tabindex="9" aria-label="Ir a Configuración">
+            <button type="button" class="nav-item" (click)="showScreen('settings')" tabindex="9" aria-label="Go to Settings">
                 <div class="nav-icon">⚙️</div>
-                <div class="nav-text">Configuración</div>
+                <div class="nav-text">Settings</div>
             </button>
         </div>
     </div>
@@ -53,30 +53,30 @@
         <!-- Home Screen -->
         <div id="home" class="screen active">
             <div class="hero">
-                <h1>¡Bienvenido a EnglishMaster!</h1>
-                <p>Tu compañero perfecto para dominar el inglés de manera divertida e interactiva</p>
+                <h1>Welcome to EnglishMaster!</h1>
+                <p>Your perfect companion to master English in a fun and interactive way</p>
             </div>
 
             <div class="features-grid">
-                <div class="feature-card" (click)="showScreen('reading')" tabindex="10" role="button" aria-label="Acceder a Lecturas Bilingües" (keydown.enter)="showScreen('reading')" (keydown.space)="showScreen('reading')">
+                <div class="feature-card" (click)="showScreen('reading')" tabindex="10" role="button" aria-label="Access Bilingual Reading" (keydown.enter)="showScreen('reading')" (keydown.space)="showScreen('reading')">
                     <div class="feature-icon">📖</div>
-                    <div class="feature-title">Lecturas Bilingües</div>
-                    <p>Lee historias en paralelo español-inglés con narración nativa</p>
+                    <div class="feature-title">Bilingual Reading</div>
+                    <p>Read stories in parallel Spanish-English with native narration</p>
                 </div>
-                <div class="feature-card" (click)="showScreen('songs')" tabindex="11" role="button" aria-label="Acceder a Canciones Interactivas" (keydown.enter)="showScreen('songs')" (keydown.space)="showScreen('songs')">
+                <div class="feature-card" (click)="showScreen('songs')" tabindex="11" role="button" aria-label="Access Interactive Songs" (keydown.enter)="showScreen('songs')" (keydown.space)="showScreen('songs')">
                     <div class="feature-icon">🎵</div>
-                    <div class="feature-title">Canciones Interactivas</div>
-                    <p>Mejora tu comprensión auditiva completando letras de tus canciones favoritas</p>
+                    <div class="feature-title">Interactive Songs</div>
+                    <p>Improve your listening comprehension by completing lyrics of your favorite songs</p>
                 </div>
-                <div class="feature-card" (click)="showScreen('progress')" tabindex="12" role="button" aria-label="Ver Seguimiento Detallado" (keydown.enter)="showScreen('progress')" (keydown.space)="showScreen('progress')">
+                <div class="feature-card" (click)="showScreen('progress')" tabindex="12" role="button" aria-label="View Detailed Tracking" (keydown.enter)="showScreen('progress')" (keydown.space)="showScreen('progress')">
                     <div class="feature-icon">📊</div>
-                    <div class="feature-title">Seguimiento Detallado</div>
-                    <p>Monitorea tu progreso con estadísticas y gráficos motivadores</p>
+                    <div class="feature-title">Detailed Tracking</div>
+                    <p>Monitor your progress with motivating statistics and charts</p>
                 </div>
-                <div class="feature-card" (click)="showScreen('lessons')" tabindex="13" role="button" aria-label="Acceder a Lecciones Estructuradas" (keydown.enter)="showScreen('lessons')" (keydown.space)="showScreen('lessons')">
+                <div class="feature-card" (click)="showScreen('lessons')" tabindex="13" role="button" aria-label="Access Structured Lessons" (keydown.enter)="showScreen('lessons')" (keydown.space)="showScreen('lessons')">
                     <div class="feature-icon">📚</div>
-                    <div class="feature-title">Lecciones Estructuradas</div>
-                    <p>Aprende paso a paso con lecciones organizadas por nivel y habilidad</p>
+                    <div class="feature-title">Structured Lessons</div>
+                    <p>Learn step by step with lessons organized by level and skill</p>
                 </div>
             </div>
         </div>
@@ -86,18 +86,18 @@
             <div class="profile-container">
                 <div class="profile-header">
                     <div class="profile-avatar">👤</div>
-                    <h2>Tu Perfil</h2>
-                    <p>Personaliza tu experiencia de aprendizaje</p>
+                    <h2>Your Profile</h2>
+                    <p>Customize your learning experience</p>
                 </div>
 
                 <form class="form">
                     <div class="form-group">
-                        <label class="form-label" for="username">Nombre de Usuario</label>
-                        <input type="text" id="username" class="form-input" placeholder="Tu nombre" value="Usuario Demo" tabindex="14">
+                        <label class="form-label" for="username">Username</label>
+                        <input type="text" id="username" class="form-input" placeholder="Your name" value="Demo User" tabindex="14">
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label" for="email">Correo Electrónico</label>
+                        <label class="form-label" for="email">Email Address</label>
                         <input type="email" id="email" class="form-input" placeholder="tu@email.com" value="demo@email.com" tabindex="15">
                     </div>
                     

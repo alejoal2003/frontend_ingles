@@ -6,10 +6,10 @@
             <div class="logo" role="button" tabindex="1">EnglishMaster</div>
             <div class="header-actions">
                 <button class="btn btn-secondary" (click)="navigateToProfile()" tabindex="2">
-                    👤 Perfil
+                    👤 Profile
                 </button>
                 <button class="btn btn-primary" (click)="logout()" tabindex="3">
-                    ⬅️ Salir
+                    ⬅️ Exit
                 </button>
             </div>
         </div>
@@ -17,37 +17,37 @@
   </header>
 
   <nav class="top-nav">
-      <button type="button" class="nav-item" (click)="navigateToSection('inicio')" aria-label="Ir a Inicio">
+      <button type="button" class="nav-item" (click)="navigateToSection('inicio')" aria-label="Go to Home">
           <div class="nav-icon">🏠</div>
-          <div class="nav-text">Inicio</div>
+          <div class="nav-text">Home</div>
       </button>
-      <button type="button" class="nav-item" (click)="navigateToSection('lecturas')" aria-label="Ir a Lecturas">
+      <button type="button" class="nav-item" (click)="navigateToSection('lecturas')" aria-label="Go to Reading">
           <div class="nav-icon">📖</div>
-          <div class="nav-text">Lecturas</div>
+          <div class="nav-text">Reading</div>
       </button>
-      <button type="button" class="nav-item" (click)="navigateToSection('musica')" aria-label="Ir a Canciones">
+      <button type="button" class="nav-item" (click)="navigateToSection('musica')" aria-label="Go to Music">
           <div class="nav-icon">🎵</div>
-          <div class="nav-text">Musica</div>
+          <div class="nav-text">Music</div>
       </button>
-      <button type="button" class="nav-item" (click)="navigateToSection('progreso')" aria-label="Ir a Progreso">
+      <button type="button" class="nav-item" (click)="navigateToSection('progreso')" aria-label="Go to Progress">
           <div class="nav-icon">📊</div>
-          <div class="nav-text">Progreso</div>
+          <div class="nav-text">Progress</div>
       </button>
-      <button type="button" class="nav-item active" (click)="navigateToSection('lecciones')" aria-label="Ir a Lecciones">
+      <button type="button" class="nav-item active" (click)="navigateToSection('lecciones')" aria-label="Go to Lessons">
           <div class="nav-icon">📚</div>
-          <div class="nav-text">Lecciones</div>
+          <div class="nav-text">Lessons</div>
       </button>
-      <button type="button" class="nav-item" (click)="navigateToSection('config')" aria-label="Ir a Configuración">
+      <button type="button" class="nav-item" (click)="navigateToSection('config')" aria-label="Go to Settings">
           <div class="nav-icon">⚙️</div>
-          <div class="nav-text">Config</div>
+          <div class="nav-text">Settings</div>
       </button>
   </nav>
 
   <main class="lessons-main-content">
     
     <div class="lessons-tabs">
-      <button class="tab-button active">Pendientes</button>
-      <button class="tab-button">Completadas</button>
+      <button class="tab-button active">Pending</button>
+      <button class="tab-button">Completed</button>
     </div>
 
     <div class="lessons-list">
@@ -55,7 +55,7 @@
       <div class="lesson-card" role="button" tabindex="0" (click)="startLesson('grammar')">
         <img src="Leccion_Grammar.png" alt="Grammar Lesson" class="lesson-icon">
         <div class="lesson-info">
-          <p class="lesson-description">Leccion Grammar, enfocada a la ultima semana de aprendizaje</p>
+          <p class="lesson-description">Grammar Lesson, focused on the last week of learning</p>
           <div class="progress-bar">
             <div class="progress-bar-fill" style="width: 70%;"></div>
           </div>
@@ -65,7 +65,7 @@
       <div class="lesson-card" role="button" tabindex="0" (click)="startLesson('listening')">
         <img src="Leccion_Listening.png" alt="Listening Lesson" class="lesson-icon">
         <div class="lesson-info">
-          <p class="lesson-description">Leccion Listening, enfocada a la ultima semana de aprendizaje</p>
+          <p class="lesson-description">Listening Lesson, focused on the last week of learning</p>
           <div class="progress-bar">
             <div class="progress-bar-fill" style="width: 50%;"></div>
           </div>
@@ -75,7 +75,7 @@
       <div class="lesson-card" role="button" tabindex="0" (click)="startLesson('vocabulary')">
         <img src="Leccion_vocabulario.png" alt="Vocabulary Lesson" class="lesson-icon">
         <div class="lesson-info">
-          <p class="lesson-description">Leccion Vocabulary, enfocada a la ultima semana de aprendizaje</p>
+          <p class="lesson-description">Vocabulary Lesson, focused on the last week of learning</p>
           <div class="progress-bar">
             <div class="progress-bar-fill" style="width: 35%;"></div>
           </div>
