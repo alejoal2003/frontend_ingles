@@ -40,28 +40,30 @@ interface PreferenceSettings {
   selector: 'app-configuraciones',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './configuraciones.html', 
-  styleUrl: './configuraciones.css'
+  templateUrl: './configuraciones.html',
+  styleUrls: ['./configuraciones.css']
 })
-export class Configuraciones implements OnInit {
+export class ConfiguracionesComponent implements OnInit {
   activeSection: string = 'perfil';
-  
-  // Forms
-  profileForm!: FormGroup;
-  
-  // Data models
+  profileForm: FormGroup;
+  isLoading: boolean = false;
+  showSaveMessage: boolean = false;
+  saveMessage: string = 'Changes saved successfully!';
+
+  // Profile data
   userProfile: UserProfile = {
-    fullName: 'Juan Pérez',
-    email: 'juan@email.com',
+    fullName: 'John Doe',
+    email: 'john.doe@example.com',
     currentLevel: 'intermediate',
     studyTopics: ['grammar', 'vocabulary'],
     learningGoals: ['business', 'travel'],
-    interfaceLanguage: 'es',
-    timeZone: 'America/Guayaquil'
+    interfaceLanguage: 'en',
+    timeZone: 'UTC-5'
   };
 
+  // Settings
   accessibilitySettings: AccessibilitySettings = {
-    fontSize: 'normal',
+    fontSize: 'medium',
     highContrast: false,
     darkMode: false
   };
@@ -70,7 +72,7 @@ export class Configuraciones implements OnInit {
     studyReminders: {
       enabled: true,
       frequency: 'daily',
-      time: '18:00',
+      time: '19:00',
       daysOfWeek: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
     },
     progressNotifications: true,
@@ -78,353 +80,303 @@ export class Configuraciones implements OnInit {
   };
 
   preferenceSettings: PreferenceSettings = {
-    contentTypes: ['interactive', 'videos'],
-    exerciseDifficulty: 'appropriate',
+    contentTypes: ['reading', 'listening'],
+    exerciseDifficulty: 'intermediate',
     excludedTopics: []
   };
 
-  // Options for dropdowns and selections
+  // Configuration options
   englishLevels = [
-    { value: 'beginner', label: 'Principiante' },
-    { value: 'elementary', label: 'Básico' },
-    { value: 'intermediate', label: 'Intermedio' },
-    { value: 'upper-intermediate', label: 'Intermedio Alto' },
-    { value: 'advanced', label: 'Avanzado' },
-    { value: 'proficient', label: 'Competente' }
+    { value: 'beginner', label: 'Beginner (A1-A2)' },
+    { value: 'intermediate', label: 'Intermediate (B1-B2)' },
+    { value: 'advanced', label: 'Advanced (C1-C2)' }
   ];
 
   studyTopicsOptions = [
-    { value: 'grammar', label: 'Gramática' },
-    { value: 'vocabulary', label: 'Vocabulario' },
-    { value: 'pronunciation', label: 'Pronunciación' },
-    { value: 'listening', label: 'Comprensión Auditiva' },
-    { value: 'reading', label: 'Comprensión Lectora' },
-    { value: 'writing', label: 'Escritura' },
-    { value: 'conversation', label: 'Conversación' }
+    { value: 'grammar', label: 'Grammar' },
+    { value: 'vocabulary', label: 'Vocabulary' },
+    { value: 'pronunciation', label: 'Pronunciation' },
+    { value: 'listening', label: 'Listening' },
+    { value: 'reading', label: 'Reading' },
+    { value: 'writing', label: 'Writing' },
+    { value: 'speaking', label: 'Speaking' }
   ];
 
   learningGoalsOptions = [
-    { value: 'business', label: 'Inglés de Negocios' },
-    { value: 'travel', label: 'Viajes' },
-    { value: 'academic', label: 'Académico' },
-    { value: 'general', label: 'Uso General' },
-    { value: 'exams', label: 'Preparación de Exámenes' },
-    { value: 'career', label: 'Desarrollo Profesional' }
+    { value: 'business', label: 'Business English' },
+    { value: 'travel', label: 'Travel' },
+    { value: 'academic', label: 'Academic' },
+    { value: 'social', label: 'Social Communication' },
+    { value: 'exams', label: 'Exam Preparation' },
+    { value: 'career', label: 'Career Development' }
   ];
 
   interfaceLanguages = [
-    { value: 'es', label: 'Español' },
     { value: 'en', label: 'English' },
-    { value: 'pt', label: 'Português' }
+    { value: 'es', label: 'Spanish' },
+    { value: 'fr', label: 'French' },
+    { value: 'de', label: 'German' }
   ];
 
   timeZones = [
-    { value: 'America/Guayaquil', label: 'Ecuador (GMT-5)' },
-    { value: 'America/Lima', label: 'Perú (GMT-5)' },
-    { value: 'America/Bogota', label: 'Colombia (GMT-5)' },
-    { value: 'America/Caracas', label: 'Venezuela (GMT-4)' },
-    { value: 'America/Santiago', label: 'Chile (GMT-3)' },
-    { value: 'America/Argentina/Buenos_Aires', label: 'Argentina (GMT-3)' }
+    { value: 'UTC-8', label: 'Pacific Time (UTC-8)' },
+    { value: 'UTC-7', label: 'Mountain Time (UTC-7)' },
+    { value: 'UTC-6', label: 'Central Time (UTC-6)' },
+    { value: 'UTC-5', label: 'Eastern Time (UTC-5)' },
+    { value: 'UTC', label: 'GMT (UTC)' },
+    { value: 'UTC+1', label: 'Central European Time (UTC+1)' }
   ];
 
   fontSizes = [
-    { value: 'small', label: 'Pequeño' },
-    { value: 'normal', label: 'Normal' },
-    { value: 'large', label: 'Grande' },
-    { value: 'extra-large', label: 'Muy Grande' }
+    { value: 'small', label: 'Small' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'large', label: 'Large' },
+    { value: 'extra-large', label: 'Extra Large' }
   ];
 
   reminderFrequencies = [
-    { value: 'daily', label: 'Diario' },
-    { value: 'every-other-day', label: 'Cada dos días' },
-    { value: 'weekly', label: 'Semanal' },
-    { value: 'custom', label: 'Personalizado' }
+    { value: 'daily', label: 'Daily' },
+    { value: 'every-other-day', label: 'Every Other Day' },
+    { value: 'weekly', label: 'Weekly' },
+    { value: 'custom', label: 'Custom' }
   ];
 
   daysOfWeek = [
-    { value: 'monday', label: 'Lunes' },
-    { value: 'tuesday', label: 'Martes' },
-    { value: 'wednesday', label: 'Miércoles' },
-    { value: 'thursday', label: 'Jueves' },
-    { value: 'friday', label: 'Viernes' },
-    { value: 'saturday', label: 'Sábado' },
-    { value: 'sunday', label: 'Domingo' }
+    { value: 'monday', label: 'Mon' },
+    { value: 'tuesday', label: 'Tue' },
+    { value: 'wednesday', label: 'Wed' },
+    { value: 'thursday', label: 'Thu' },
+    { value: 'friday', label: 'Fri' },
+    { value: 'saturday', label: 'Sat' },
+    { value: 'sunday', label: 'Sun' }
   ];
 
   contentTypesOptions = [
-    { value: 'interactive', label: 'Lecciones Interactivas' },
-    { value: 'videos', label: 'Videos' },
-    { value: 'audios', label: 'Audios' },
-    { value: 'reading', label: 'Artículos de Lectura' },
-    { value: 'grammar', label: 'Ejercicios de Gramática' },
-    { value: 'games', label: 'Juegos' },
-    { value: 'flashcards', label: 'Tarjetas de Memoria' }
+    { value: 'reading', label: 'Reading Comprehension' },
+    { value: 'listening', label: 'Listening Exercises' },
+    { value: 'grammar', label: 'Grammar Practice' },
+    { value: 'vocabulary', label: 'Vocabulary Building' },
+    { value: 'games', label: 'Interactive Games' },
+    { value: 'videos', label: 'Educational Videos' }
   ];
 
   difficultyLevels = [
-    { value: 'easier', label: 'Más Fácil' },
-    { value: 'appropriate', label: 'Adecuado a mi Nivel' },
-    { value: 'challenging', label: 'Más Desafiante' }
+    { value: 'easy', label: 'Easy - For beginners' },
+    { value: 'intermediate', label: 'Intermediate - Balanced challenge' },
+    { value: 'hard', label: 'Hard - For advanced learners' },
+    { value: 'adaptive', label: 'Adaptive - Adjusts to your performance' }
   ];
 
-  // State management
-  isLoading: boolean = false;
-  saveMessage: string = '';
-  showSaveMessage: boolean = false;
-
-  constructor(private router: Router, private fb: FormBuilder) {}
-
-  ngOnInit() {
-    this.initializeForms();
-    this.loadUserSettings();
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
+    this.profileForm = this.initializeForm();
   }
 
-  initializeForms() {
-    this.profileForm = this.fb.group({
-      fullName: [this.userProfile.fullName, [Validators.required, Validators.minLength(2)]],
-      email: [this.userProfile.email, [Validators.required, Validators.email]],
-      currentPassword: [''],
-      newPassword: ['', [Validators.minLength(6)]],
-      confirmPassword: [''],
-      currentLevel: [this.userProfile.currentLevel, Validators.required],
-      studyTopics: [this.userProfile.studyTopics],
-      learningGoals: [this.userProfile.learningGoals],
-      interfaceLanguage: [this.userProfile.interfaceLanguage, Validators.required],
-      timeZone: [this.userProfile.timeZone, Validators.required]
-    });
+  ngOnInit(): void {
+    this.loadUserData();
   }
 
-  loadUserSettings() {
-    // In a real app, this would load from an API or service
-    // For now, we'll use the initial values set above
-    console.log('Settings loaded');
-  }
-
-  navigateToProfile() {
-    this.router.navigate(['/perfil']);
-  }
-
-  logout() {
-    // Clear any stored data
-    this.router.navigate(['/']);
-  }
-
-  setActiveSection(section: string) {
+  // Navigation methods
+  setActiveSection(section: string): void {
     this.activeSection = section;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    console.log('Sección activa:', section);
   }
 
   isActiveSection(section: string): boolean {
     return this.activeSection === section;
   }
 
-  // Profile methods
-  onProfileSubmit() {
+  navigateToProfile(): void {
+    this.router.navigate(['/profile']);
+  }
+
+  logout(): void {
+    this.router.navigate(['/login']);
+  }
+
+  // Form initialization and validation
+  initializeForm(): FormGroup {
+    return this.formBuilder.group({
+      fullName: [this.userProfile.fullName, [Validators.required, Validators.minLength(2)]],
+      email: [this.userProfile.email, [Validators.required, Validators.email]],
+      currentPassword: [''],
+      newPassword: ['', [Validators.minLength(6)]],
+      currentLevel: [this.userProfile.currentLevel, Validators.required],
+      interfaceLanguage: [this.userProfile.interfaceLanguage, Validators.required],
+      timeZone: [this.userProfile.timeZone, Validators.required]
+    });
+  }
+
+  get fullNameInvalid(): boolean {
+    const control = this.profileForm.get('fullName');
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+
+  get emailInvalid(): boolean {
+    const control = this.profileForm.get('email');
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+
+  get newPasswordInvalid(): boolean {
+    const control = this.profileForm.get('newPassword');
+    return !!(control && control.invalid && (control.dirty || control.touched) && control.value);
+  }
+
+  onProfileSubmit(): void {
     if (this.profileForm.valid) {
       this.isLoading = true;
-      
-      // Simulate API call
       setTimeout(() => {
-        const formValue = this.profileForm.value;
-        
-        // Update user profile
-        this.userProfile = {
-          ...this.userProfile,
-          fullName: formValue.fullName,
-          email: formValue.email,
-          currentLevel: formValue.currentLevel,
-          studyTopics: formValue.studyTopics,
-          learningGoals: formValue.learningGoals,
-          interfaceLanguage: formValue.interfaceLanguage,
-          timeZone: formValue.timeZone
-        };
-
+        this.userProfile = { ...this.userProfile, ...this.profileForm.value };
         this.isLoading = false;
-        this.showSaveMessage = true;
-        this.saveMessage = 'Perfil actualizado correctamente';
-        
-        setTimeout(() => {
-          this.showSaveMessage = false;
-        }, 3000);
-      }, 1000);
+        this.showSuccessMessage('Profile updated successfully!');
+      }, 2000);
     }
-  }
-
-  onTopicChange(topic: string) {
-    const topics = this.userProfile.studyTopics;
-    const index = topics.indexOf(topic);
-    
-    if (index > -1) {
-      topics.splice(index, 1);
-    } else {
-      topics.push(topic);
-    }
-    
-    this.profileForm.patchValue({ studyTopics: topics });
-  }
-
-  onGoalChange(goal: string) {
-    const goals = this.userProfile.learningGoals;
-    const index = goals.indexOf(goal);
-    
-    if (index > -1) {
-      goals.splice(index, 1);
-    } else {
-      goals.push(goal);
-    }
-    
-    this.profileForm.patchValue({ learningGoals: goals });
-  }
-
-  // Accessibility methods
-  onFontSizeChange(size: string) {
-    this.accessibilitySettings.fontSize = size;
-    document.documentElement.style.fontSize = this.getFontSizeValue(size);
-    this.saveSettings('Tamaño de fuente actualizado');
-  }
-
-  getFontSizeValue(size: string): string {
-    const sizes: { [key: string]: string } = {
-      'small': '14px',
-      'normal': '16px',
-      'large': '18px',
-      'extra-large': '20px'
-    };
-    return sizes[size] || '16px';
-  }
-
-  onHighContrastToggle() {
-    this.accessibilitySettings.highContrast = !this.accessibilitySettings.highContrast;
-    document.body.classList.toggle('high-contrast', this.accessibilitySettings.highContrast);
-    this.saveSettings('Configuración de contraste actualizada');
-  }
-
-  onDarkModeToggle() {
-    this.accessibilitySettings.darkMode = !this.accessibilitySettings.darkMode;
-    document.body.classList.toggle('dark-mode', this.accessibilitySettings.darkMode);
-    this.saveSettings('Modo oscuro actualizado');
-  }
-
-  // Notification methods
-  onStudyRemindersToggle() {
-    this.notificationSettings.studyReminders.enabled = !this.notificationSettings.studyReminders.enabled;
-    this.saveSettings('Recordatorios de estudio actualizados');
-  }
-
-  onReminderFrequencyChange(event: Event) {
-  const selectElement = event.target as HTMLSelectElement;
-  if (selectElement) {
-    const frequency = selectElement.value;
-    // Resto de tu lógica...
-    this.notificationSettings.studyReminders.frequency = frequency;
-    this.saveSettings('Frecuencia de recordatorios actualizada');
-  }
-}
-
-  onReminderTimeChange(event: Event) {
-  const inputElement = event.target as HTMLInputElement;
-  if (inputElement) {
-    const time = inputElement.value;
-    // Resto de tu lógica...
-    this.notificationSettings.studyReminders.time = time;
-    this.saveSettings('Hora de recordatorios actualizada');
-  }
-}
-
-  onDayOfWeekToggle(day: string) {
-    const days = this.notificationSettings.studyReminders.daysOfWeek;
-    const index = days.indexOf(day);
-    
-    if (index > -1) {
-      days.splice(index, 1);
-    } else {
-      days.push(day);
-    }
-    
-    this.saveSettings('Días de recordatorio actualizados');
-  }
-
-  onProgressNotificationsToggle() {
-    this.notificationSettings.progressNotifications = !this.notificationSettings.progressNotifications;
-    this.saveSettings('Notificaciones de progreso actualizadas');
-  }
-
-  onPromotionalNotificationsToggle() {
-    this.notificationSettings.promotionalNotifications = !this.notificationSettings.promotionalNotifications;
-    this.saveSettings('Notificaciones promocionales actualizadas');
-  }
-
-  // Preference methods
-  onContentTypeToggle(contentType: string) {
-    const types = this.preferenceSettings.contentTypes;
-    const index = types.indexOf(contentType);
-    
-    if (index > -1) {
-      types.splice(index, 1);
-    } else {
-      types.push(contentType);
-    }
-    
-    this.saveSettings('Tipos de contenido actualizados');
-  }
-
-  onDifficultyChange(difficulty: string) {
-    this.preferenceSettings.exerciseDifficulty = difficulty;
-    this.saveSettings('Dificultad de ejercicios actualizada');
-  }
-
-  onExcludedTopicAdd(topic: string) {
-    if (topic && !this.preferenceSettings.excludedTopics.includes(topic)) {
-      this.preferenceSettings.excludedTopics.push(topic);
-      this.saveSettings('Tema excluido agregado');
-    }
-  }
-
-  onExcludedTopicRemove(topic: string) {
-    const index = this.preferenceSettings.excludedTopics.indexOf(topic);
-    if (index > -1) {
-      this.preferenceSettings.excludedTopics.splice(index, 1);
-      this.saveSettings('Tema excluido eliminado');
-    }
-  }
-
-  // Utility methods
-  saveSettings(message: string) {
-    this.saveMessage = message;
-    this.showSaveMessage = true;
-    
-    setTimeout(() => {
-      this.showSaveMessage = false;
-    }, 2000);
   }
 
   isTopicSelected(topic: string): boolean {
     return this.userProfile.studyTopics.includes(topic);
   }
 
+  onTopicChange(topic: string): void {
+    if (this.isTopicSelected(topic)) {
+      this.userProfile.studyTopics = this.userProfile.studyTopics.filter(t => t !== topic);
+    } else {
+      this.userProfile.studyTopics.push(topic);
+    }
+  }
+
   isGoalSelected(goal: string): boolean {
     return this.userProfile.learningGoals.includes(goal);
   }
 
-  isContentTypeSelected(contentType: string): boolean {
-    return this.preferenceSettings.contentTypes.includes(contentType);
+  onGoalChange(goal: string): void {
+    if (this.isGoalSelected(goal)) {
+      this.userProfile.learningGoals = this.userProfile.learningGoals.filter(g => g !== goal);
+    } else {
+      this.userProfile.learningGoals.push(goal);
+    }
+  }
+
+  onFontSizeChange(size: string): void {
+    this.accessibilitySettings.fontSize = size;
+    this.applyFontSize(size);
+    this.showSuccessMessage('Font size updated!');
+  }
+
+  onHighContrastToggle(): void {
+    this.accessibilitySettings.highContrast = !this.accessibilitySettings.highContrast;
+    this.applyHighContrast(this.accessibilitySettings.highContrast);
+    this.showSuccessMessage(`High contrast ${this.accessibilitySettings.highContrast ? 'enabled' : 'disabled'}!`);
+  }
+
+  onDarkModeToggle(): void {
+    this.accessibilitySettings.darkMode = !this.accessibilitySettings.darkMode;
+    this.applyDarkMode(this.accessibilitySettings.darkMode);
+    this.showSuccessMessage(`Dark mode ${this.accessibilitySettings.darkMode ? 'enabled' : 'disabled'}!`);
+  }
+
+  onStudyRemindersToggle(): void {
+    this.notificationSettings.studyReminders.enabled = !this.notificationSettings.studyReminders.enabled;
+    this.showSuccessMessage(`Study reminders ${this.notificationSettings.studyReminders.enabled ? 'enabled' : 'disabled'}!`);
+  }
+
+  onReminderFrequencyChange(event: any): void {
+    this.notificationSettings.studyReminders.frequency = event.target.value;
+    this.showSuccessMessage('Reminder frequency updated!');
+  }
+
+  onReminderTimeChange(event: any): void {
+    this.notificationSettings.studyReminders.time = event.target.value;
+    this.showSuccessMessage('Reminder time updated!');
   }
 
   isDaySelected(day: string): boolean {
     return this.notificationSettings.studyReminders.daysOfWeek.includes(day);
   }
 
-  // Form validation helpers
-  get fullNameInvalid() {
-    return this.profileForm.get('fullName')?.invalid && this.profileForm.get('fullName')?.touched;
+  onDayOfWeekToggle(day: string): void {
+    if (this.isDaySelected(day)) {
+      this.notificationSettings.studyReminders.daysOfWeek = 
+        this.notificationSettings.studyReminders.daysOfWeek.filter(d => d !== day);
+    } else {
+      this.notificationSettings.studyReminders.daysOfWeek.push(day);
+    }
+    this.showSuccessMessage('Reminder days updated!');
   }
 
-  get emailInvalid() {
-    return this.profileForm.get('email')?.invalid && this.profileForm.get('email')?.touched;
+  onProgressNotificationsToggle(): void {
+    this.notificationSettings.progressNotifications = !this.notificationSettings.progressNotifications;
+    this.showSuccessMessage(`Progress notifications ${this.notificationSettings.progressNotifications ? 'enabled' : 'disabled'}!`);
   }
 
-  get newPasswordInvalid() {
-    return this.profileForm.get('newPassword')?.invalid && this.profileForm.get('newPassword')?.touched;
+  onPromotionalNotificationsToggle(): void {
+    this.notificationSettings.promotionalNotifications = !this.notificationSettings.promotionalNotifications;
+    this.showSuccessMessage(`Promotional notifications ${this.notificationSettings.promotionalNotifications ? 'enabled' : 'disabled'}!`);
+  }
+
+  isContentTypeSelected(contentType: string): boolean {
+    return this.preferenceSettings.contentTypes.includes(contentType);
+  }
+
+  onContentTypeToggle(contentType: string): void {
+    if (this.isContentTypeSelected(contentType)) {
+      this.preferenceSettings.contentTypes = 
+        this.preferenceSettings.contentTypes.filter(ct => ct !== contentType);
+    } else {
+      this.preferenceSettings.contentTypes.push(contentType);
+    }
+    this.showSuccessMessage('Content preferences updated!');
+  }
+
+  onDifficultyChange(difficulty: string): void {
+    this.preferenceSettings.exerciseDifficulty = difficulty;
+    this.showSuccessMessage('Exercise difficulty updated!');
+  }
+
+  onExcludedTopicAdd(topic: string): void {
+    if (topic.trim() && !this.preferenceSettings.excludedTopics.includes(topic.trim())) {
+      this.preferenceSettings.excludedTopics.push(topic.trim());
+      this.showSuccessMessage('Topic excluded successfully!');
+    }
+  }
+
+  onExcludedTopicRemove(topic: string): void {
+    this.preferenceSettings.excludedTopics = 
+      this.preferenceSettings.excludedTopics.filter(t => t !== topic);
+    this.showSuccessMessage('Topic removed from exclusions!');
+  }
+
+  private loadUserData(): void {
+    console.log('Loading user configuration data...');
+  }
+
+  private showSuccessMessage(message: string): void {
+    this.saveMessage = message;
+    this.showSaveMessage = true;
+    setTimeout(() => {
+      this.showSaveMessage = false;
+    }, 3000);
+  }
+
+  private applyFontSize(size: string): void {
+    document.body.classList.remove('font-small', 'font-medium', 'font-large', 'font-extra-large');
+    document.body.classList.add(`font-${size}`);
+  }
+
+  private applyHighContrast(enabled: boolean): void {
+    if (enabled) {
+      document.body.classList.add('high-contrast');
+    } else {
+      document.body.classList.remove('high-contrast');
+    }
+  }
+
+  private applyDarkMode(enabled: boolean): void {
+    if (enabled) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
   }
 }

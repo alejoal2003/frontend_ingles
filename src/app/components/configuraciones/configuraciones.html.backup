@@ -5,10 +5,22 @@
       <div class="logo">
         <span class="logo-icon">📚</span>
         <span class="logo-text">EnglishMaster</span>
-      </div>
-      <div class="header-actions">
-        <button 
-          class="btn btn-outline" 
+        <!-- Accessibility Content -->
+                </div>
+
+                 <!-- Dark/Light Mode -->
+          <div class="config-card">
+            <div class="card-header">
+              <div class="card-icon">🌙</div>
+              <h2 class="card-title">Dark Mode</h2>
+            </div>
+            <div class="card-content">
+              <div class="accessibility-option">
+                <div class="option-icon">
+                  <span class="theme-icon">🌙</span>
+                </div>
+                <div class="option-content">
+                  <p>Switch between light and dark theme to reduce eye strain.</p> 
           (click)="navigateToProfile()"
           type="button"
           aria-label="Go to user profile">
@@ -98,15 +110,15 @@
                       class="form-input"
                       [class.error]="fullNameInvalid"
                       formControlName="fullName"
-                      placeholder="Enter your full name">
+                      placeholder="Ingresa tu nombre completo">
                     <div class="error-message" *ngIf="fullNameInvalid">
-                      Full name is required and must be at least 2 characters
+                      El nombre es requerido y debe tener al menos 2 caracteres
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="email" class="form-label">
-                      <strong>Email Address *</strong>
+                      <strong>Correo Electrónico *</strong>
                     </label>
                     <input
                       id="email"
@@ -114,27 +126,27 @@
                       class="form-input"
                       [class.error]="emailInvalid"
                       formControlName="email"
-                      placeholder="email@example.com">
+                      placeholder="correo@ejemplo.com">
                     <div class="error-message" *ngIf="emailInvalid">
-                      Please enter a valid email address
+                      Ingresa un correo electrónico válido
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="currentPassword" class="form-label">
-                      <strong>Current Password</strong>
+                      <strong>Contraseña Actual</strong>
                     </label>
                     <input
                       id="currentPassword"
                       type="password"
                       class="form-input"
                       formControlName="currentPassword"
-                      placeholder="Current password">
+                      placeholder="Contraseña actual">
                   </div>
 
                   <div class="form-group">
                     <label for="newPassword" class="form-label">
-                      <strong>New Password</strong>
+                      <strong>Nueva Contraseña</strong>
                     </label>
                     <input
                       id="newPassword"
@@ -142,9 +154,9 @@
                       class="form-input"
                       [class.error]="newPasswordInvalid"
                       formControlName="newPassword"
-                      placeholder="New password (min. 6 characters)">
+                      placeholder="Nueva contraseña (min. 6 caracteres)">
                     <div class="error-message" *ngIf="newPasswordInvalid">
-                      Password must be at least 6 characters long
+                      La contraseña debe tener al menos 6 caracteres
                     </div>
                   </div>
                 </div>
@@ -299,7 +311,7 @@
                       <span class="slider"></span>
                     </label>
                     <span class="toggle-label">
-                      {{ accessibilitySettings.highContrast ? 'Enabled' : 'Disabled' }}
+                      {{ accessibilitySettings.highContrast ? 'Activado' : 'Desactivado' }}
                     </span>
                   </div>
                 </div>
@@ -307,11 +319,11 @@
             </div>
           </div>
 
-          <!-- Dark/Light Mode -->
+          <!-- Modo Oscuro/Claro -->
           <div class="config-card">
             <div class="card-header">
               <div class="card-icon">🌓</div>
-              <h2 class="card-title">Dark Mode</h2>
+              <h2 class="card-title">Modo Oscuro</h2>
             </div>
             <div class="card-content">
               <div class="accessibility-option">
@@ -322,7 +334,7 @@
                   </div>
                 </div>
                 <div class="option-content">
-                  <p>Switch between light and dark theme to reduce eye strain.</p>
+                  <p>Cambia entre tema claro y oscuro para reducir la fatiga visual.</p>
                   <div class="toggle-container">
                     <label class="toggle-switch">
                       <input 
@@ -332,7 +344,7 @@
                       <span class="slider"></span>
                     </label>
                     <span class="toggle-label">
-                      {{ accessibilitySettings.darkMode ? 'Dark Mode' : 'Light Mode' }}
+                      {{ accessibilitySettings.darkMode ? 'Modo Oscuro' : 'Modo Claro' }}
                     </span>
                   </div>
                 </div>
@@ -341,13 +353,13 @@
           </div>
         </div>
 
-        <!-- Notifications Content -->
+        <!-- Contenido de Notificaciones -->
         <div *ngIf="activeSection === 'notificaciones'">
-          <!-- Study Reminders -->
+          <!-- Recordatorios de Estudio -->
           <div class="config-card">
             <div class="card-header">
               <div class="card-icon">📚</div>
-              <h2 class="card-title">Study Reminders</h2>
+              <h2 class="card-title">Recordatorios de Estudio</h2>
             </div>
             <div class="card-content">
               <div class="notification-option">
@@ -364,13 +376,13 @@
                       <span class="slider"></span>
                     </label>
                     <span class="toggle-label">
-                      {{ notificationSettings.studyReminders.enabled ? 'Enabled' : 'Disabled' }}
+                      {{ notificationSettings.studyReminders.enabled ? 'Activado' : 'Desactivado' }}
                     </span>
                   </div>
 
                   <div *ngIf="notificationSettings.studyReminders.enabled" class="reminder-settings">
                     <div class="form-group">
-                      <label class="form-label"><strong>Frequency:</strong></label>
+                      <label class="form-label"><strong>Frecuencia:</strong></label>
                       <select 
                         class="form-select"
                         [value]="notificationSettings.studyReminders.frequency"
@@ -382,7 +394,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label class="form-label"><strong>Time of Day:</strong></label>
+                      <label class="form-label"><strong>Hora del Día:</strong></label>
                       <input 
                         type="time"
                         class="form-input"
@@ -391,7 +403,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label class="form-label"><strong>Days of the Week:</strong></label>
+                      <label class="form-label"><strong>Días de la Semana:</strong></label>
                       <div class="checkbox-grid days-grid">
                         <label *ngFor="let day of daysOfWeek" class="checkbox-item day-item">
                           <input
@@ -408,11 +420,11 @@
             </div>
           </div>
 
-          <!-- Progress and Achievements -->
+          <!-- Progreso y Logros -->
           <div class="config-card">
             <div class="card-header">
               <div class="card-icon">🏆</div>
-              <h2 class="card-title">Progress and Achievements</h2>
+              <h2 class="card-title">Progreso y Logros</h2>
             </div>
             <div class="card-content">
               <div class="notification-option">
@@ -420,7 +432,7 @@
                   <span class="trophy-icon">🏆</span>
                 </div>
                 <div class="option-content">
-                  <p>Receive notifications about your weekly progress and milestones achieved.</p>
+                  <p>Recibe notificaciones sobre tu progreso semanal y hitos alcanzados.</p>
                   <div class="toggle-container">
                     <label class="toggle-switch">
                       <input 
@@ -430,7 +442,7 @@
                       <span class="slider"></span>
                     </label>
                     <span class="toggle-label">
-                      {{ notificationSettings.progressNotifications ? 'Enabled' : 'Disabled' }}
+                      {{ notificationSettings.progressNotifications ? 'Activado' : 'Desactivado' }}
                     </span>
                   </div>
                 </div>
@@ -438,11 +450,11 @@
             </div>
           </div>
 
-          <!-- Promotions/Updates -->
+          <!-- Promociones/Actualizaciones -->
           <div class="config-card">
             <div class="card-header">
               <div class="card-icon">🎉</div>
-              <h2 class="card-title">Promotions and Updates</h2>
+              <h2 class="card-title">Promociones y Actualizaciones</h2>
             </div>
             <div class="card-content">
               <div class="notification-option">
@@ -450,7 +462,7 @@
                   <span class="promo-icon">🏷️⚙️</span>
                 </div>
                 <div class="option-content">
-                  <p>Receive news about special offers and new app features.</p>
+                  <p>Recibe noticias sobre ofertas especiales y nuevas características de la aplicación.</p>
                   <div class="toggle-container">
                     <label class="toggle-switch">
                       <input 
@@ -460,7 +472,7 @@
                       <span class="slider"></span>
                     </label>
                     <span class="toggle-label">
-                      {{ notificationSettings.promotionalNotifications ? 'Enabled' : 'Disabled' }}
+                      {{ notificationSettings.promotionalNotifications ? 'Activado' : 'Desactivado' }}
                     </span>
                   </div>
                 </div>
@@ -469,13 +481,13 @@
           </div>
         </div>
 
-        <!-- Preferences Content -->
+        <!-- Contenido de Preferencias -->
         <div *ngIf="activeSection === 'preferencias'">
-          <!-- Preferred Content Type -->
+          <!-- Tipo de Contenido Preferido -->
           <div class="config-card">
             <div class="card-header">
               <div class="card-icon">📱</div>
-              <h2 class="card-title">Preferred Content Type</h2>
+              <h2 class="card-title">Tipo de Contenido Preferido</h2>
             </div>
             <div class="card-content">
               <div class="preference-option">
@@ -483,7 +495,7 @@
                   <span class="content-icon">📊</span>
                 </div>
                 <div class="option-content">
-                  <p>Select the learning formats you enjoy most.</p>
+                  <p>Selecciona los formatos de aprendizaje que más te gustan.</p>
                   <div class="checkbox-grid">
                     <label *ngFor="let content of contentTypesOptions" class="checkbox-item">
                       <input
@@ -498,11 +510,11 @@
             </div>
           </div>
 
-          <!-- Exercise Difficulty -->
+          <!-- Dificultad de los Ejercicios -->
           <div class="config-card">
             <div class="card-header">
               <div class="card-icon">🎯</div>
-              <h2 class="card-title">Exercise Difficulty</h2>
+              <h2 class="card-title">Dificultad de los Ejercicios</h2>
             </div>
             <div class="card-content">
               <div class="preference-option">
@@ -510,7 +522,7 @@
                   <span class="difficulty-icon">🎲</span>
                 </div>
                 <div class="option-content">
-                  <p>Adjust the exercise difficulty according to your preference.</p>
+                  <p>Ajusta la dificultad de los ejercicios según tu preferencia.</p>
                   <div class="radio-group">
                     <label *ngFor="let difficulty of difficultyLevels" class="radio-item">
                       <input 
@@ -527,11 +539,11 @@
             </div>
           </div>
 
-          <!-- Excluded Topics -->
+          <!-- Temas Excluidos -->
           <div class="config-card">
             <div class="card-header">
               <div class="card-icon">🚫</div>
-              <h2 class="card-title">Excluded Topics</h2>
+              <h2 class="card-title">Temas Excluidos</h2>
             </div>
             <div class="card-content">
               <div class="preference-option">
@@ -539,20 +551,20 @@
                   <span class="exclude-icon">🚷</span>
                 </div>
                 <div class="option-content">
-                  <p>Specify topics you don't want to see in your study content.</p>
+                  <p>Especifica temas que no deseas ver en tu contenido de estudio.</p>
                   
                   <div class="excluded-topics-input">
                     <input 
                       type="text" 
                       #excludeTopicInput
                       class="form-input" 
-                      placeholder="Enter a topic to exclude..."
+                      placeholder="Escribe un tema a excluir..."
                       (keyup.enter)="onExcludedTopicAdd(excludeTopicInput.value); excludeTopicInput.value = ''">
                     <button 
                       type="button" 
                       class="btn btn-secondary btn-small"
                       (click)="onExcludedTopicAdd(excludeTopicInput.value); excludeTopicInput.value = ''">
-                      Add
+                      Agregar
                     </button>
                   </div>
 
@@ -563,14 +575,14 @@
                         type="button" 
                         class="remove-topic-btn"
                         (click)="onExcludedTopicRemove(topic)"
-                        aria-label="Remove topic">
+                        aria-label="Eliminar tema">
                         ×
                       </button>
                     </div>
                   </div>
 
                   <p class="helper-text" *ngIf="preferenceSettings.excludedTopics.length === 0">
-                    You haven't excluded any topics yet.
+                    No has excluido ningún tema aún.
                   </p>
                 </div>
               </div>

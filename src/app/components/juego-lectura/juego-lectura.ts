@@ -12,7 +12,7 @@ interface LecturaData {
   lecturaEspanol: string;
   lecturaIngles: string;
   palabrasCompletar: { palabra: string; posicion: number }[];
-  palabrasDistractoras: string[]; // Palabras adicionales para confundir
+  palabrasDistractoras: string[]; // Additional words for confusion
 }
 
 interface PalabrasDisponibles {
@@ -35,36 +35,36 @@ interface RespuestaUsuario {
 })
 export class JuegoLectura implements OnInit, OnDestroy {
   
-  // Datos de la lectura actual
+  // Current reading data
   currentLectura: LecturaData | null = null;
   
-  // Estado del juego drag and drop
+  // Drag and drop game state
   respuestasUsuario: RespuestaUsuario[] = [];
   palabrasDisponibles: PalabrasDisponibles[] = [];
   puntaje = 0;
   juegoCompletado = false;
   mostrarResultados = false;
   
-  // Control de drag and drop
+  // Drag and drop control
   draggedWord: string = '';
   draggedIndex: number = -1;
   
-  // Propiedades para accesibilidad WCAG
+  // WCAG accessibility properties
   announcements: string[] = [];
   
-  // Control de navegación por teclado
+  // Keyboard navigation control
   selectedWordIndex: number = -1;
   selectedDropZoneIndex: number = -1;
   keyboardMode: 'words' | 'dropzones' | 'none' = 'none';
   wordSelected: string = '';
   
-  // Base de datos de lecturas
+  // Reading database
   private lecturas: LecturaData[] = [
     {
       id: 1,
-      titulo: 'Inteligencia Artificial',
+      titulo: 'Artificial Intelligence',
       emoji: '🤖',
-      descripcion: 'Explora los avances recientes y las implicaciones de la IA en nuestra vida diaria.',
+      descripcion: 'Explore recent advances and implications of AI in our daily lives.',
       lecturaEspanol: 'La inteligencia artificial está transformando rápidamente nuestro mundo. Desde asistentes virtuales hasta vehículos autónomos, la IA está presente en muchos aspectos de nuestra vida cotidiana. Las empresas utilizan algoritmos de aprendizaje automático para mejorar sus servicios y productos.',
       lecturaIngles: 'Artificial intelligence is _____ transforming our world. From virtual assistants to _____ vehicles, AI is present in many _____ of our daily life. Companies use machine _____ algorithms to improve their services and _____.',
       palabrasCompletar: [
@@ -78,9 +78,9 @@ export class JuegoLectura implements OnInit, OnDestroy {
     },
     {
       id: 2,
-      titulo: 'Cultura Maya',
+      titulo: 'Mayan Culture',
       emoji: '🏛️',
-      descripcion: 'Un viaje a través de las fascinantes tradiciones y la historia del pueblo maya.',
+      descripcion: 'A journey through the fascinating traditions and history of the Mayan people.',
       lecturaEspanol: 'La civilización maya fue una de las más avanzadas de Mesoamérica. Desarrollaron un complejo sistema de escritura, matemáticas avanzadas y un calendario preciso. Sus pirámides y templos todavía asombran a los visitantes de todo el mundo.',
       lecturaIngles: 'The Mayan _____ was one of the most advanced in Mesoamerica. They developed a complex _____ system, advanced mathematics and a _____ calendar. Their pyramids and _____ still amaze visitors from around the _____.',
       palabrasCompletar: [
@@ -94,9 +94,9 @@ export class JuegoLectura implements OnInit, OnDestroy {
     },
     {
       id: 3,
-      titulo: 'Negocios Sostenibles',
+      titulo: 'Sustainable Business',
       emoji: '📈',
-      descripcion: 'Descubre cómo las empresas están adoptando modelos de negocio más sostenibles.',
+      descripcion: 'Discover how companies are adopting more sustainable business models.',
       lecturaEspanol: 'Las empresas modernas están adoptando prácticas más sostenibles para proteger el medio ambiente. Esto incluye el uso de energías renovables, la reducción de desperdicios y el desarrollo de productos ecológicos. Los consumidores también prefieren marcas responsables.',
       lecturaIngles: 'Modern companies are _____ more sustainable practices to protect the _____. This includes the use of renewable _____, waste reduction and the development of _____ products. Consumers also prefer _____ brands.',
       palabrasCompletar: [
@@ -110,9 +110,9 @@ export class JuegoLectura implements OnInit, OnDestroy {
     },
     {
       id: 4,
-      titulo: 'Calentamiento Global',
+      titulo: 'Global Warming',
       emoji: '🌍',
-      descripcion: 'Un análisis de las últimas noticias sobre el calentamiento global y sus efectos.',
+      descripcion: 'An analysis of the latest news about global warming and its effects.',
       lecturaEspanol: 'El calentamiento global es uno de los desafíos más urgentes de nuestro tiempo. Las temperaturas están aumentando debido a las emisiones de gases de efecto invernadero. Es crucial que tomemos medidas inmediatas para reducir nuestra huella de carbono.',
       lecturaIngles: 'Global warming is one of the most _____ challenges of our time. Temperatures are _____ due to greenhouse gas _____. It is crucial that we take immediate _____ to reduce our carbon _____.',
       palabrasCompletar: [
@@ -128,7 +128,7 @@ export class JuegoLectura implements OnInit, OnDestroy {
       id: 5,
       titulo: 'Shakespeare',
       emoji: '✍️',
-      descripcion: 'Una introducción a la obra y el legado del famoso dramaturgo inglés.',
+      descripcion: 'An introduction to the work and legacy of the famous English playwright.',
       lecturaEspanol: 'William Shakespeare es considerado el mejor dramaturgo de la historia. Sus obras como Romeo y Julieta, Hamlet y Macbeth siguen siendo representadas en teatros de todo el mundo. Su influencia en la literatura inglesa es inmensa.',
       lecturaIngles: 'William Shakespeare is considered the _____ playwright in history. His works like Romeo and Juliet, Hamlet and Macbeth continue to be _____ in theaters around the world. His _____ on English literature is _____.',
       palabrasCompletar: [
@@ -141,9 +141,9 @@ export class JuegoLectura implements OnInit, OnDestroy {
     },
     {
       id: 6,
-      titulo: 'Vida Cotidiana',
+      titulo: 'Daily Life',
       emoji: '🏠',
-      descripcion: 'Frases y vocabulario esencial para situaciones comunes del día a día.',
+      descripcion: 'Essential phrases and vocabulary for common day-to-day situations.',
       lecturaEspanol: 'La vida cotidiana está llena de rutinas y actividades habituales. Nos levantamos temprano, desayunamos, vamos al trabajo o a estudiar, y por la noche regresamos a casa para descansar. Los fines de semana solemos relajarnos y pasar tiempo con la familia.',
       lecturaIngles: 'Daily life is full of _____ and habitual activities. We wake up _____, have breakfast, go to work or _____, and at night we return home to _____. On weekends we usually _____ and spend time with family.',
       palabrasCompletar: [
@@ -168,23 +168,23 @@ export class JuegoLectura implements OnInit, OnDestroy {
     const lecturaId = parseInt(this.route.snapshot.params['id']);
     this.cargarLectura(lecturaId);
     
-    // Configurar navegación por teclado si estamos en el navegador
+    // Set up keyboard navigation if we're in the browser
     if (isPlatformBrowser(this.platformId)) {
       this.setupKeyboardNavigation();
-      this.makeAnnouncement(`Juego de lectura cargado: ${this.currentLectura?.titulo || 'Desconocido'}`);
+            this.makeAnnouncement(`Reading game loaded: ${this.currentLectura?.titulo || 'Unknown'}`);
     }
   }
 
   ngOnDestroy() {
-    // Limpiar eventos de teclado si es necesario
+    // Clean up keyboard events if necessary
     if (isPlatformBrowser(this.platformId)) {
       document.removeEventListener('keydown', this.handleGlobalKeyDown.bind(this));
     }
   }
 
-  // Métodos de accesibilidad WCAG
+  // WCAG Accessibility methods
   private setupKeyboardNavigation() {
-    // Solo escuchar teclas especiales globalmente, no Enter/Espacio
+    // Only listen to special keys globally, not Enter/Space
     document.addEventListener('keydown', this.handleGlobalKeyDown.bind(this));
   }
 
@@ -209,7 +209,7 @@ export class JuegoLectura implements OnInit, OnDestroy {
   }
 
   private handleKeyDown(event: KeyboardEvent) {
-    if (this.juegoCompletado) return; // No permitir navegación si el juego terminó
+    if (this.juegoCompletado) return; // Don't allow navigation if game is finished
     
     switch (event.key) {
       case 'Escape':
@@ -218,7 +218,7 @@ export class JuegoLectura implements OnInit, OnDestroy {
         break;
         
       case 'Tab':
-        // Permitir navegación normal con Tab
+        // Allow normal Tab navigation
         return;
         
       case 'ArrowLeft':
@@ -230,7 +230,7 @@ export class JuegoLectura implements OnInit, OnDestroy {
         break;
         
       case 'Enter':
-      case ' ': // Espacio
+      case ' ': // Space
         event.preventDefault();
         this.handleSelection();
         break;
@@ -254,7 +254,7 @@ export class JuegoLectura implements OnInit, OnDestroy {
 
   private handleArrowNavigation(key: string) {
     if (this.keyboardMode === 'none') {
-      // Iniciar en modo palabras
+      // Start in words mode
       this.keyboardMode = 'words';
       this.selectedWordIndex = 0;
       this.updateKeyboardFocus();
@@ -283,22 +283,22 @@ export class JuegoLectura implements OnInit, OnDestroy {
 
   private handleSelection() {
     if (this.keyboardMode === 'words' && !this.wordSelected) {
-      // Seleccionar palabra
+      // Select word
       const availableWords = this.palabrasDisponibles.filter(p => !p.utilizada);
       if (this.selectedWordIndex >= 0 && this.selectedWordIndex < availableWords.length) {
         const palabraIndex = this.palabrasDisponibles.findIndex(p => p === availableWords[this.selectedWordIndex]);
         this.wordSelected = availableWords[this.selectedWordIndex].palabra;
         this.selectedWordIndex = palabraIndex;
         
-        // Cambiar a modo drop zones
+        // Switch to drop zones mode
         this.keyboardMode = 'dropzones';
         this.selectedDropZoneIndex = 0;
         
-        this.makeAnnouncement(`Palabra seleccionada: ${this.wordSelected}. Usa las flechas para navegar entre espacios y Enter para colocar.`);
+        this.makeAnnouncement(`Word selected: ${this.wordSelected}. Use arrow keys to navigate between spaces and Enter to place.`);
         this.updateKeyboardFocus();
       }
     } else if (this.keyboardMode === 'dropzones' && this.wordSelected) {
-      // Colocar palabra en drop zone
+      // Place word in drop zone
       this.placeWordWithKeyboard();
     }
   }
@@ -311,43 +311,43 @@ export class JuegoLectura implements OnInit, OnDestroy {
 
   private jumpToDropZone(index: number) {
     if (index >= 0 && index < this.respuestasUsuario.length) {
-      // Si hay una palabra seleccionada, colocarla directamente
+      // If there's a selected word, place it directly
       if (this.wordSelected) {
         this.placeWordInSlot(index);
-        this.makeAnnouncement(`Palabra ${this.wordSelected} colocada en el espacio ${index + 1}`);
+        this.makeAnnouncement(`Word ${this.wordSelected} placed in space ${index + 1}`);
       } else {
         this.keyboardMode = 'dropzones';
         this.selectedDropZoneIndex = index;
         this.updateKeyboardFocus();
-        this.makeAnnouncement(`Navegando al espacio ${index + 1}. Selecciona una palabra primero para colocarla aquí.`);
+        this.makeAnnouncement(`Navigating to space ${index + 1}. Select a word first to place it here.`);
       }
     }
   }
 
   private placeWordWithKeyboard() {
     if (this.wordSelected && this.selectedDropZoneIndex >= 0) {
-      // Verificar si ya hay una palabra en esta posición
+      // Check if there's already a word in this position
       const respuestaExistente = this.respuestasUsuario[this.selectedDropZoneIndex];
       if (respuestaExistente && respuestaExistente.palabraSeleccionada) {
-        // Devolver la palabra anterior al banco
+        // Return the previous word to the bank
         const palabraAnterior = this.palabrasDisponibles.find(p => p.palabra === respuestaExistente.palabraSeleccionada);
         if (palabraAnterior) {
           palabraAnterior.utilizada = false;
         }
       }
 
-      // Colocar la nueva palabra
+      // Place the new word
       respuestaExistente.palabraSeleccionada = this.wordSelected;
 
-      // Marcar la palabra como utilizada
+      // Mark the word as used
       const palabraUtilizada = this.palabrasDisponibles[this.selectedWordIndex];
       if (palabraUtilizada) {
         palabraUtilizada.utilizada = true;
       }
 
-      this.makeAnnouncement(`Palabra ${this.wordSelected} colocada en el espacio ${this.selectedDropZoneIndex + 1}`);
+      this.makeAnnouncement(`Word ${this.wordSelected} placed in space ${this.selectedDropZoneIndex + 1}`);
       
-      // Limpiar selección
+      // Clear selection
       this.clearSelection();
     }
   }
@@ -361,20 +361,20 @@ export class JuegoLectura implements OnInit, OnDestroy {
   }
 
   private updateKeyboardFocus() {
-    // Aquí se actualizaría el foco visual, se implementará en CSS
-    // Por ahora solo anunciamos el cambio
+    // Here visual focus would be updated, will be implemented in CSS
+    // For now we just announce the change
     if (this.keyboardMode === 'words') {
       const availableWords = this.palabrasDisponibles.filter(p => !p.utilizada);
       if (this.selectedWordIndex >= 0 && this.selectedWordIndex < availableWords.length) {
         const palabra = availableWords[this.selectedWordIndex].palabra;
-        this.makeAnnouncement(`Palabra enfocada: ${palabra}`);
+        this.makeAnnouncement(`Focused word: ${palabra}`);
       }
     } else if (this.keyboardMode === 'dropzones') {
       if (this.selectedDropZoneIndex >= 0) {
         const respuesta = this.respuestasUsuario[this.selectedDropZoneIndex];
         const mensaje = respuesta.palabraSeleccionada ? 
-          `Espacio ${this.selectedDropZoneIndex + 1} ocupado por: ${respuesta.palabraSeleccionada}` :
-          `Espacio ${this.selectedDropZoneIndex + 1} vacío`;
+          `Space ${this.selectedDropZoneIndex + 1} occupied by: ${respuesta.palabraSeleccionada}` :
+          `Space ${this.selectedDropZoneIndex + 1} empty`;
         this.makeAnnouncement(mensaje);
       }
     }
@@ -383,12 +383,12 @@ export class JuegoLectura implements OnInit, OnDestroy {
   private makeAnnouncement(message: string) {
     if (isPlatformBrowser(this.platformId)) {
       this.announcements.unshift(message);
-      // Mantener solo los últimos 3 anuncios
+      // Keep only the last 3 announcements
       if (this.announcements.length > 3) {
         this.announcements = this.announcements.slice(0, 3);
       }
       
-      // Anunciar a lectores de pantalla
+      // Announce to screen readers
       const announcement = document.createElement('div');
       announcement.setAttribute('aria-live', 'polite');
       announcement.setAttribute('aria-atomic', 'true');
@@ -407,33 +407,33 @@ export class JuegoLectura implements OnInit, OnDestroy {
     if (this.currentLectura) {
       this.inicializarJuego();
     } else {
-      console.error('Lectura no encontrada:', lecturaId);
+      console.error('Reading not found:', lecturaId);
       this.volverALecturas();
     }
   }
 
-  // Navegación con accesibilidad
+  // Navigation with accessibility
   navigateToHome() {
-    this.makeAnnouncement('Navegando al inicio');
+    this.makeAnnouncement('Navigating to home');
     this.router.navigate(['/inicio-logeado']);
   }
   
   navigateToProfile() {
-    this.makeAnnouncement('Navegando al perfil');
+    this.makeAnnouncement('Navigating to profile');
     this.router.navigate(['/inicio-logeado']);
   }
   
   logout() {
-    this.makeAnnouncement('Cerrando sesión');
+    this.makeAnnouncement('Logging out');
     this.router.navigate(['/']);
   }
 
   volverALecturas() {
-    this.makeAnnouncement('Regresando a la lista de lecturas');
+    this.makeAnnouncement('Returning to reading list');
     this.router.navigate(['/lecturas']);
   }
 
-  // Lógica del juego con accesibilidad
+  // Game logic with accessibility
   inicializarJuego() {
     this.respuestasUsuario = [];
     this.palabrasDisponibles = [];
@@ -447,7 +447,7 @@ export class JuegoLectura implements OnInit, OnDestroy {
     this.clearSelection();
     
     if (this.currentLectura) {
-      // Inicializar respuestas vacías
+      // Initialize empty answers
       this.respuestasUsuario = this.currentLectura.palabrasCompletar.map(p => ({
         posicion: p.posicion,
         palabraSeleccionada: ''
@@ -494,7 +494,7 @@ export class JuegoLectura implements OnInit, OnDestroy {
     // this.keyboardMode = 'dropzones';
     // this.selectedDropZoneIndex = 0;
 
-    this.makeAnnouncement(`Palabra seleccionada: ${palabra}. Ahora navega con Tab a un espacio vacío y presiona Enter para colocarla, o presiona las teclas 1-${this.respuestasUsuario.length} para saltar directamente a un espacio específico.`);
+    this.makeAnnouncement(`Word selected: ${palabra}. Now navigate with Tab to an empty space and press Enter to place it, or press keys 1-${this.respuestasUsuario.length} to jump directly to a specific space.`);
   }
 
   // Método para colocar palabras en espacios
@@ -522,7 +522,7 @@ export class JuegoLectura implements OnInit, OnDestroy {
       palabraUtilizada.utilizada = true;
     }
 
-    this.makeAnnouncement(`Palabra ${this.wordSelected} colocada en el espacio ${slotIndex + 1}`);
+    this.makeAnnouncement(`Word ${this.wordSelected} placed in space ${slotIndex + 1}`);
     
     // Limpiar selección
     this.clearSelection();
@@ -542,14 +542,14 @@ export class JuegoLectura implements OnInit, OnDestroy {
     else if (this.respuestasUsuario[slotIndex].palabraSeleccionada) {
       this.devolverPalabra(slotIndex);
     }
-    // Si no hay palabra seleccionada y el espacio está vacío, dar instrucción
+    // If no word is selected and the space is empty, give instruction
     else {
-      this.makeAnnouncement(`Espacio ${slotIndex + 1} está vacío. Primero selecciona una palabra del banco para colocarla aquí.`);
+      this.makeAnnouncement(`Space ${slotIndex + 1} is empty. First select a word from the bank to place it here.`);
     }
   }
 
   reiniciarJuego() {
-    this.makeAnnouncement('Reiniciando el juego');
+    this.makeAnnouncement('Restarting the game');
     this.inicializarJuego();
   }
 
@@ -580,12 +580,12 @@ export class JuegoLectura implements OnInit, OnDestroy {
     this.juegoCompletado = true;
     this.mostrarResultados = true;
     
-    // Anuncio de resultados para accesibilidad
-    const mensaje = `Juego completado. Has obtenido ${correctas} respuestas correctas de ${this.currentLectura.palabrasCompletar.length}. Tu puntaje es ${this.puntaje}%.`;
+    // Results announcement for accessibility
+    const mensaje = `Game completed. You got ${correctas} correct answers out of ${this.currentLectura.palabrasCompletar.length}. Your score is ${this.puntaje}%.`;
     this.makeAnnouncement(mensaje);
   }
 
-  // Métodos de Drag and Drop
+  // Drag and Drop methods
   onDragStart(event: DragEvent, palabra: string, index: number) {
     this.draggedWord = palabra;
     this.draggedIndex = index;

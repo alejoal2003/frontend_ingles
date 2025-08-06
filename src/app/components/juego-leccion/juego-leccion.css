@@ -18,7 +18,7 @@
   --error-color: #ef4444;
 }
 
-/* Estilos base - mantener los existentes y agregar nuevos */
+/* Base styles - keep existing ones and add new */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -300,7 +300,7 @@
   font-size: 1.2rem;
 }
 
-/* Nuevos estilos para estadísticas por lección */
+/* New styles for lesson statistics */
 .lesson-stats-section {
   margin: 2rem 0;
 }

@@ -55,7 +55,7 @@ export class JuegoLeccion implements OnInit {
   loadGameData(type: string) {
     switch (type) {
       case 'grammar':
-        this.title = 'Juego de Gramática';
+        this.title = 'Grammar Game';
         this.questions = [
           {
             type: 'multiple_choice',
@@ -121,7 +121,7 @@ export class JuegoLeccion implements OnInit {
         break;
 
       case 'listening':
-        this.title = 'Juego de Listening';
+        this.title = 'Listening Game';
         this.questions = [
           {
             type: 'multiple_choice',
@@ -197,7 +197,7 @@ export class JuegoLeccion implements OnInit {
         break;
 
       case 'vocabulary':
-        this.title = 'Juego de Vocabulario';
+        this.title = 'Vocabulary Game';
         this.questions = [
           {
             type: 'multiple_choice',
@@ -263,7 +263,7 @@ export class JuegoLeccion implements OnInit {
         break;
 
       default:
-        this.title = 'Juego no encontrado';
+        this.title = 'Game not found';
         this.questions = [];
         break;
     }
@@ -273,9 +273,9 @@ export class JuegoLeccion implements OnInit {
     this.gameState = 'playing';
     this.selectedAnswer = '';
     this.showFeedback = false;
-    this.startTime = new Date(); // Reiniciar cronómetro
+    this.startTime = new Date(); // Reset timer
     
-    // Inicializar estado de preguntas
+    // Initialize question status
     this.questionStatus = this.questions.map(() => ({
       answered: false,
       correct: false
@@ -295,7 +295,7 @@ export class JuegoLeccion implements OnInit {
     
     const isCorrect = this.checkAnswer(this.selectedAnswer);
     
-    // Actualizar estado de la pregunta
+    // Update question status
     this.questionStatus[this.currentQuestionIndex] = {
       answered: true,
       correct: isCorrect
@@ -325,30 +325,30 @@ export class JuegoLeccion implements OnInit {
     if (this.currentQuestionIndex < this.questions.length) {
       this.currentQuestion = this.questions[this.currentQuestionIndex];
     } else {
-      // Fin del juego - registrar resultado
+      // End of game - record result
       this.finishGame();
     }
   }
 
   private finishGame() {
     const endTime = new Date();
-    const timeSpent = Math.round((endTime.getTime() - this.startTime.getTime()) / 1000 / 60); // en minutos
+    const timeSpent = Math.floor((new Date().getTime() - this.startTime.getTime()) / 60000); // in minutes
     const percentage = Math.round((this.score / this.questions.length) * 100);
 
-    // Crear resultado de la lección
+    // Create lesson result
     const lessonResult: LessonResult = {
       lessonType: this.lessonType as 'grammar' | 'listening' | 'vocabulary',
       score: this.score,
       totalQuestions: this.questions.length,
       percentage: percentage,
-      timeSpent: Math.max(timeSpent, 1), // Mínimo 1 minuto
+      timeSpent: Math.max(timeSpent, 1), // Minimum 1 minute
       date: new Date()
     };
 
-    // Registrar el resultado en el servicio de progreso
+    // Record the result in the progress service
     this.progressService.addLessonResult(lessonResult);
 
-    // Cambiar estado del juego
+    // Change game state
     this.gameState = 'finished';
   }
 
@@ -356,15 +356,15 @@ export class JuegoLeccion implements OnInit {
     const percentage = (this.score / this.questions.length) * 100;
     
     if (percentage >= 90) {
-      return '¡Excelente! Dominas perfectamente el tema.';
+      return 'Excellent! You perfectly master the topic.';
     } else if (percentage >= 80) {
-      return '¡Muy bien! Tienes un buen dominio del tema.';
+      return 'Very good! You have a good grasp of the topic.';
     } else if (percentage >= 70) {
-      return '¡Bien! Vas por buen camino, sigue practicando.';
+      return 'Good! You\'re on the right track, keep practicing.';
     } else if (percentage >= 60) {
-      return 'Aceptable. Te recomendamos repasar el tema.';
+      return 'Acceptable. We recommend reviewing the topic.';
     } else {
-      return 'Necesitas más práctica. ¡No te desanimes!';
+      return 'You need more practice. Don\'t give up!';
     }
   }
 
@@ -388,9 +388,9 @@ export class JuegoLeccion implements OnInit {
 
   playAudio() {
     if (this.currentQuestion?.audio) {
-      console.log(`Reproduciendo audio: ${this.currentQuestion.audio}`);
-      // Aquí iría la lógica real para reproducir el archivo de audio
-      // Por ejemplo: this.audioService.play(this.currentQuestion.audio);
+      console.log(`Playing audio: ${this.currentQuestion.audio}`);
+      // Here would go the actual logic to play the audio file
+      // For example: this.audioService.play(this.currentQuestion.audio);
     }
   }
 

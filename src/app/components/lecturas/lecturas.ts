@@ -20,43 +20,43 @@ export class Lecturas implements OnInit, OnDestroy {
   private isBrowser: boolean;
   private keydownListener?: (event: KeyboardEvent) => void;
   
-  // Datos simplificados de las lecturas (solo para mostrar la lista)
+  // Simplified reading data (just for showing the list)
   lecturas: LecturaData[] = [
     {
       id: 1,
-      titulo: 'Inteligencia Artificial',
+      titulo: 'Artificial Intelligence',
       emoji: '🤖',
-      descripcion: 'Explora los avances recientes y las implicaciones de la IA en nuestra vida diaria.'
+      descripcion: 'Explore recent advances and implications of AI in our daily lives.'
     },
     {
       id: 2,
-      titulo: 'Cultura Maya',
+      titulo: 'Mayan Culture',
       emoji: '🏛️',
-      descripcion: 'Un viaje a través de las fascinantes tradiciones y la historia del pueblo maya.'
+      descripcion: 'A journey through the fascinating traditions and history of the Mayan people.'
     },
     {
       id: 3,
-      titulo: 'Negocios Sostenibles',
+      titulo: 'Sustainable Business',
       emoji: '📈',
-      descripcion: 'Descubre cómo las empresas están adoptando modelos de negocio más sostenibles.'
+      descripcion: 'Discover how companies are adopting more sustainable business models.'
     },
     {
       id: 4,
-      titulo: 'Calentamiento Global',
+      titulo: 'Global Warming',
       emoji: '🌍',
-      descripcion: 'Un análisis de las últimas noticias sobre el calentamiento global y sus efectos.'
+      descripcion: 'An analysis of the latest news about global warming and its effects.'
     },
     {
       id: 5,
       titulo: 'Shakespeare',
       emoji: '✍️',
-      descripcion: 'Una introducción a la obra y el legado del famoso dramaturgo inglés.'
+      descripcion: 'An introduction to the work and legacy of the famous English playwright.'
     },
     {
       id: 6,
-      titulo: 'Vida Cotidiana',
+      titulo: 'Daily Life',
       emoji: '🏠',
-      descripcion: 'Frases y vocabulario esencial para situaciones comunes del día a día.'
+      descripcion: 'Essential phrases and vocabulary for common day-to-day situations.'
     }
   ];
 
@@ -76,18 +76,18 @@ export class Lecturas implements OnInit, OnDestroy {
     this.removeKeyboardNavigation();
   }
 
-  // Accesibilidad: Configurar navegación por teclado
+  // Accessibility: Set up keyboard navigation
   private setupKeyboardNavigation() {
     if (!this.isBrowser) return;
 
     this.keydownListener = (event: KeyboardEvent) => {
-      // ESC para ir al inicio
+      // ESC to go to home
       if (event.key === 'Escape') {
         this.navigateToHome();
         return;
       }
 
-      // Números 1-6 para acceder directamente a las lecturas
+      // Numbers 1-6 to directly access readings
       const num = parseInt(event.key);
       if (num >= 1 && num <= 6 && !event.ctrlKey && !event.altKey) {
         event.preventDefault();
@@ -96,7 +96,7 @@ export class Lecturas implements OnInit, OnDestroy {
         return;
       }
 
-      // H para ir al inicio (Home)
+      // H to go to home
       if (event.key.toLowerCase() === 'h' && !event.ctrlKey && !event.altKey) {
         event.preventDefault();
         this.navigateToHome();
@@ -113,13 +113,13 @@ export class Lecturas implements OnInit, OnDestroy {
     }
   }
 
-  // Accesibilidad: Anuncios para lectores de pantalla
+  // Accessibility: Announcements for screen readers
   private announcePageLoad() {
     if (!this.isBrowser) return;
     
     setTimeout(() => {
       this.makeAnnouncement(
-        'Página de lecturas cargada. Hay 6 lecturas disponibles. Usa las teclas 1-6 para acceder directamente a cada lectura, o navega con Tab.'
+        'Readings page loaded. There are 6 readings available. Use keys 1-6 to directly access each reading, or navigate with Tab.'
       );
     }, 1000);
   }
@@ -128,7 +128,7 @@ export class Lecturas implements OnInit, OnDestroy {
     const lectura = this.lecturas.find(l => l.id === lecturaId);
     if (lectura) {
       this.makeAnnouncement(
-        `Abriendo lectura: ${lectura.titulo}. ${lectura.descripcion}`
+        `Opening reading: ${lectura.titulo}. ${lectura.descripcion}`
       );
     }
   }
@@ -140,7 +140,7 @@ export class Lecturas implements OnInit, OnDestroy {
     if (announcements) {
       announcements.textContent = message;
       
-      // Limpiar el anuncio después de 3 segundos
+      // Clear announcement after 3 seconds
       setTimeout(() => {
         announcements.textContent = '';
       }, 3000);
@@ -148,17 +148,17 @@ export class Lecturas implements OnInit, OnDestroy {
   }
   
   navigateToHome() {
-    this.makeAnnouncement('Navegando al inicio');
+    this.makeAnnouncement('Navigating to home');
     this.router.navigate(['/inicio-logeado']);
   }
   
   navigateToProfile() {
-    this.makeAnnouncement('Navegando al perfil');
+    this.makeAnnouncement('Navigating to profile');
     this.router.navigate(['/inicio-logeado']);
   }
   
   logout() {
-    this.makeAnnouncement('Cerrando sesión');
+    this.makeAnnouncement('Logging out');
     this.router.navigate(['/']);
   }
   
@@ -169,26 +169,26 @@ export class Lecturas implements OnInit, OnDestroy {
     switch(section) {
       case 'inicio':
         destination = '/inicio-logeado';
-        message = 'Navegando al inicio';
+        message = 'Navigating to home';
         break;
       case 'musica':
         destination = '/canciones';
-        message = 'Navegando a la sección de música';
+        message = 'Navigating to music section';
         break;
       case 'progreso':
         destination = '/progreso';
-        message = 'Navegando a la sección de progreso';
+        message = 'Navigating to progress section';
         break;
       case 'lecciones':
         destination = '/lecciones';
-        message = 'Navegando a la sección de lecciones';
+        message = 'Navigating to lessons section';
         break;
       case 'config':
         destination = '/configuraciones';
-        message = 'Navegando a configuraciones';
+        message = 'Navigating to settings';
         break;
       default:
-        console.log('Navegando a:', section);
+        console.log('Navigating to:', section);
         return;
     }
     
@@ -196,17 +196,17 @@ export class Lecturas implements OnInit, OnDestroy {
     this.router.navigate([destination]);
   }
 
-  // Nueva funcionalidad: navegar al juego de lectura con accesibilidad
+  // New functionality: navigate to reading game with accessibility
   abrirLectura(lecturaId: number) {
     const lectura = this.lecturas.find(l => l.id === lecturaId);
     
     if (lectura) {
       this.makeAnnouncement(
-        `Abriendo juego de lectura: ${lectura.titulo}. ${lectura.descripcion}`
+        `Opening reading game: ${lectura.titulo}. ${lectura.descripcion}`
       );
       this.router.navigate(['/juego-lectura', lecturaId]);
     } else {
-      this.makeAnnouncement('Error: Lectura no encontrada');
+      this.makeAnnouncement('Error: Reading not found');
     }
   }
 }

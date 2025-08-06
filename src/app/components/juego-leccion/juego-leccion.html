@@ -2,21 +2,21 @@
         <div class="header">
             <h1>{{title}}</h1>
             <div class="progress-info">
-                Pregunta {{getCurrentQuestionNumber()}} de {{getTotalQuestions()}}
+                Question {{getCurrentQuestionNumber()}} of {{getTotalQuestions()}}
             </div>
         </div>
 
         <div class="main-content" *ngIf="gameState === 'playing'">
-            <!-- Área principal del juego -->
+            <!-- Main game area -->
             <div class="game-container">
                 <div class="question-area">
-                    <!-- Reproductor de audio para preguntas de listening -->
+                    <!-- Audio player for listening questions -->
                     <div class="audio-player" *ngIf="currentQuestion?.audio">
                         <div class="audio-controls">
                             <button class="play-button" (click)="playAudio()">
                                 ▶️
                             </button>
-                            <p style="margin-top: 0.5rem; color: #6b7280;">Escucha el audio</p>
+                            <p style="margin-top: 0.5rem; color: #6b7280;">Listen to the audio</p>
                         </div>
                     </div>
 
@@ -36,41 +36,41 @@
                     </button>
                 </div>
 
-                <!-- Feedback de la respuesta -->
+                <!-- Answer feedback -->
                 <div class="feedback" 
                      [class.correct]="showFeedback && isAnswerCorrect"
                      [class.incorrect]="showFeedback && !isAnswerCorrect"
                      *ngIf="showFeedback">
                     <div *ngIf="isAnswerCorrect">
-                        ✅ ¡Correcto! Muy bien.
+                        ✅ Correct! Well done.
                     </div>
                     <div *ngIf="!isAnswerCorrect">
-                        ❌ Incorrecto. La respuesta correcta es: <strong>{{currentQuestion?.answer}}</strong>
+                        ❌ Incorrect. The correct answer is: <strong>{{currentQuestion?.answer}}</strong>
                     </div>
                 </div>
 
-                <!-- Botones de acción -->
+                <!-- Action buttons -->
                 <div class="action-buttons">
                     <button 
                         class="submit-button" 
                         (click)="submitAnswer()"
                         [disabled]="!selectedAnswer || showFeedback"
                         *ngIf="!showFeedback">
-                        Responder
+                        Answer
                     </button>
                     
                     <button 
                         class="next-button" 
                         (click)="nextQuestion()"
                         *ngIf="showFeedback">
-                        {{currentQuestionIndex < questions.length - 1 ? 'Siguiente' : 'Finalizar'}}
+                        {{currentQuestionIndex < questions.length - 1 ? 'Next' : 'Finish'}}
                     </button>
                 </div>
             </div>
 
-            <!-- Tracker de preguntas -->
+            <!-- Questions tracker -->
             <div class="questions-tracker">
-                <div class="tracker-title">Progreso</div>
+                <div class="tracker-title">Progress</div>
                 <div class="questions-grid">
                     <div 
                         *ngFor="let status of questionStatus; let i = index"
@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <!-- Modal de resultados finales -->
+        <!-- Final results modal -->
         <div class="modal-overlay" *ngIf="gameState === 'finished'">
             <div class="modal-content">
                 <div class="modal-grade">{{getFinalGrade()}}</div>
@@ -94,10 +94,10 @@
                 
                 <div class="modal-buttons">
                     <button class="modal-button primary" (click)="restartGame()">
-                        Jugar de nuevo
+                        Play Again
                     </button>
                     <button class="modal-button secondary" (click)="goToLessons()">
-                        Volver a lecciones
+                        Back to Lessons
                     </button>
                 </div>
             </div>

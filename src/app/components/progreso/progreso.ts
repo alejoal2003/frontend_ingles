@@ -21,7 +21,7 @@ export class Progreso implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Suscribirse a los cambios de progreso
+    // Subscribe to progress changes
     this.progressSubscription = this.progressService.progress$.subscribe(
       progress => {
         this.progressStats = progress;
@@ -65,18 +65,18 @@ export class Progreso implements OnInit, OnDestroy {
         this.router.navigate(['/configuraciones']);
         break;
       default:
-        console.log('Navegando a:', section);
+        console.log('Navigating to:', section);
     }
   }
 
-  // Métodos para obtener datos del gráfico semanal
+  // Methods to get weekly chart data
   getWeeklyChartData() {
     if (!this.progressStats) return [];
     
-    // Obtener las últimas 3 semanas para el gráfico
+    // Get the last 3 weeks for the chart
     const recentWeeks = this.progressStats.weeklyStudyData.slice(0, 3).reverse();
     
-    // Si no hay datos suficientes, completar con ceros
+    // If there's not enough data, fill with zeros
     while (recentWeeks.length < 3) {
       recentWeeks.unshift({ week: '', hours: 0 });
     }
@@ -84,40 +84,40 @@ export class Progreso implements OnInit, OnDestroy {
     return recentWeeks;
   }
 
-  // Calcular altura de barras del gráfico (máximo 100%)
+  // Calculate chart bar height (maximum 100%)
   getBarHeight(hours: number): string {
     if (!this.progressStats) return '0%';
     
     const maxHours = Math.max(...this.getWeeklyChartData().map(w => w.hours), 1);
     const percentage = Math.min((hours / maxHours) * 100, 100);
-    return `${Math.max(percentage, 5)}%`; // Mínimo 5% para visibilidad
+    return `${Math.max(percentage, 5)}%`; // Minimum 5% for visibility
   }
 
-  // Formatear horas de estudio
+  // Format study hours
   formatStudyHours(): string {
     if (!this.progressStats) return '0';
     return Math.round(this.progressStats.totalStudyHours).toString();
   }
 
-  // Calcular porcentaje de progreso al siguiente nivel
+  // Calculate progress percentage to next level
   getLevelProgress(): number {
     if (!this.progressStats) return 0;
     
     const currentXP = this.progressStats.currentXP;
     const nextLevelXP = this.progressStats.nextLevelXP;
     
-    // Encontrar XP del nivel actual
+    // Find current level XP
     const levels = [
-      { name: 'Principiante 1', xp: 0 },
-      { name: 'Principiante 2', xp: 500 },
-      { name: 'Principiante 3', xp: 1200 },
-      { name: 'Intermedio 1', xp: 2000 },
-      { name: 'Intermedio 2', xp: 3000 },
-      { name: 'Intermedio 3', xp: 4500 },
-      { name: 'Avanzado 1', xp: 6500 },
-      { name: 'Avanzado 2', xp: 9000 },
-      { name: 'Avanzado 3', xp: 12000 },
-      { name: 'Experto', xp: 16000 }
+      { name: 'Beginner 1', xp: 0 },
+      { name: 'Beginner 2', xp: 500 },
+      { name: 'Beginner 3', xp: 1200 },
+      { name: 'Intermediate 1', xp: 2000 },
+      { name: 'Intermediate 2', xp: 3000 },
+      { name: 'Intermediate 3', xp: 4500 },
+      { name: 'Advanced 1', xp: 6500 },
+      { name: 'Advanced 2', xp: 9000 },
+      { name: 'Advanced 3', xp: 12000 },
+      { name: 'Expert', xp: 16000 }
     ];
 
     const currentLevel = levels.find(l => l.name === this.progressStats!.currentLevel);
@@ -127,12 +127,12 @@ export class Progreso implements OnInit, OnDestroy {
     const xpInCurrentLevel = currentXP - currentLevelXP;
     const xpNeededForNextLevel = nextLevelXP - currentLevelXP;
     
-    if (xpNeededForNextLevel <= 0) return 100; // Nivel máximo
+    if (xpNeededForNextLevel <= 0) return 100; // Maximum level
     
     return Math.min((xpInCurrentLevel / xpNeededForNextLevel) * 100, 100);
   }
 
-  // Obtener estadísticas específicas por tipo de lección
+  // Get specific statistics by lesson type
   getGrammarStats() {
     return this.progressService.getLessonStats('grammar');
   }
@@ -145,14 +145,14 @@ export class Progreso implements OnInit, OnDestroy {
     return this.progressService.getLessonStats('vocabulary');
   }
 
-  // Método para reiniciar progreso (solo para desarrollo/testing)
+  // Method to reset progress (for development/testing only)
   resetProgress() {
-    if (confirm('¿Estás seguro de que quieres reiniciar todo tu progreso? Esta acción no se puede deshacer.')) {
+    if (confirm('Are you sure you want to reset all your progress? This action cannot be undone.')) {
       this.progressService.resetProgress();
     }
   }
 
-  // Navegar a una lección específica
+  // Navigate to a specific lesson
   startLesson(type: 'grammar' | 'listening' | 'vocabulary') {
     this.router.navigate(['/juego-leccion', type]);
   }
