@@ -42,10 +42,6 @@ export const routes: Routes = [
     loadComponent: () => import('./components/progreso/progreso').then(m => m.Progreso)
   },
   { 
-    path: 'progress.service', 
-    loadComponent: () => import('./services/progress.service').then(m => m.ProgressService)
-  },
-  { 
     path: 'lecciones', 
     loadComponent: () => import('./components/lecciones/lecciones').then(m => m.Lecciones)
   },
