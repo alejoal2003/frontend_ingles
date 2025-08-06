@@ -109,6 +109,51 @@ body {
   font-weight: 500;
 }
 
+.top-nav {
+  display: flex;
+  justify-content: center; /* Centra los botones */
+  align-items: center;
+  background-color: var(--card-bg);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+  gap: 1rem; /* Espacio entre botones */
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column; /* Pone el icono encima del texto */
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem; /* Espacio entre icono y texto */
+  padding: 0.5rem;
+  width: 90px; /* Ancho fijo para cada botón */
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border: 2px solid transparent; /* Borde invisible para mantener el tamaño */
+  transition: background-color 0.2s ease;
+}
+
+.nav-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.nav-item:hover {
+  background-color: #f1f3f5;
+  color: var(--text-primary);
+}
+
+.nav-item.active {
+  color: var(--primary-color);
+  font-weight: 600;
+  border: 2px solid var(--primary-color); /* Borde para el elemento activo */
+  background-color: #f8f0ff;
+}
+
+
 /* Button Styles */
 .btn {
   padding: 0.75rem 1.5rem;
