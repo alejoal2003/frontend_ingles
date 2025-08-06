@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core'; // Import HostListener
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,26 @@ import { Router } from '@angular/router';
 })
 export class Lecciones {
 
+  // --- NEW PROPERTIES ---
+  selectedLessonIndex: number | null = null;
+  private lessonTypes = ['grammar', 'listening', 'vocabulary'];
+
   constructor(private router: Router) {}
+
+  // --- NEW METHOD: KEYBOARD EVENT LISTENER ---
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    // Select lesson with keys 1, 2, 3
+    if (['1', '2', '3'].includes(event.key)) {
+      this.selectedLessonIndex = parseInt(event.key, 10) - 1;
+    } 
+    // Start lesson with Enter key
+    else if (event.key === 'Enter' && this.selectedLessonIndex !== null) {
+      event.preventDefault(); // Prevent any default browser action
+      const lessonType = this.lessonTypes[this.selectedLessonIndex];
+      this.startLesson(lessonType);
+    }
+  }
   
   navigateToHome() {
     this.router.navigate(['/inicio-logeado']);

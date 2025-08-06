@@ -52,7 +52,11 @@
 
     <div class="lessons-list">
       
-      <div class="lesson-card" role="button" tabindex="0" (click)="startLesson('grammar')">
+      <div class="lesson-card" 
+          [class.selected]="selectedLessonIndex === 0"
+          role="button" 
+          tabindex="0" 
+          (click)="startLesson('grammar')">
         <img src="Leccion_Grammar.png" alt="Grammar Lesson" class="lesson-icon">
         <div class="lesson-info">
           <p class="lesson-description">Grammar Lesson, focused on the last week of learning</p>
@@ -62,7 +66,11 @@
         </div>
       </div>
 
-      <div class="lesson-card" role="button" tabindex="0" (click)="startLesson('listening')">
+      <div class="lesson-card" 
+          [class.selected]="selectedLessonIndex === 1"
+          role="button" 
+          tabindex="0" 
+          (click)="startLesson('listening')">
         <img src="Leccion_Listening.png" alt="Listening Lesson" class="lesson-icon">
         <div class="lesson-info">
           <p class="lesson-description">Listening Lesson, focused on the last week of learning</p>
@@ -72,7 +80,11 @@
         </div>
       </div>
 
-      <div class="lesson-card" role="button" tabindex="0" (click)="startLesson('vocabulary')">
+      <div class="lesson-card"
+          [class.selected]="selectedLessonIndex === 2"
+          role="button" 
+          tabindex="0" 
+          (click)="startLesson('vocabulary')">
         <img src="Leccion_vocabulario.png" alt="Vocabulary Lesson" class="lesson-icon">
         <div class="lesson-info">
           <p class="lesson-description">Vocabulary Lesson, focused on the last week of learning</p>
@@ -81,7 +93,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </main>
 </div>
