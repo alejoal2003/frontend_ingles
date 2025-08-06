@@ -191,6 +191,17 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
+.lesson-card.selected {
+  transform: translateY(-4px);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(142, 45, 226, 0.4), 0 8px 20px rgba(0, 0, 0, 0.1); /* Adds a purple "glow" effect */
+}
+
+.lesson-icon {
+  width: 70px;
+  height: 70px;
+}
+
 .lesson-icon {
   width: 70px;
   height: 70px;
