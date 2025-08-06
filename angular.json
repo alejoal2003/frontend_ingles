@@ -32,6 +32,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/frontend_ingles/",
               "budgets": [
                 {
                   "type": "initial",
@@ -45,6 +46,7 @@
                 }
               ],
               "outputHashing": "all"
+    
             },
             "development": {
               "optimization": false,
