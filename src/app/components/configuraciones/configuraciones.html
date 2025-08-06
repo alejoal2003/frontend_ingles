@@ -3,7 +3,7 @@
   <div class="container">
     <div class="header-content">
       <div class="logo">
-        <span class="logo-icon"></span>
+        <span class="logo-icon">📚</span>
         <span class="logo-text">EnglishMaster</span>
       </div>
       <div class="header-actions">
@@ -25,6 +25,14 @@
     </div>
   </div>
 </header>
+
+<!-- Success Message -->
+<div class="success-message" [class.show]="showSaveMessage">
+  <div class="success-content">
+    <span class="success-icon">✅</span>
+    <span class="success-text">{{ saveMessage }}</span>
+  </div>
+</div>
 
 <main class="main">
   <div class="container">
@@ -71,65 +79,171 @@
         
         <!-- Contenido de Perfil -->
         <div *ngIf="activeSection === 'perfil'">
-          <!-- Información Básica -->
-          <div class="config-card">
-            <div class="card-header">
-              <div class="card-icon">📝</div>
-              <h2 class="card-title">Información Básica</h2>
-            </div>
-            <div class="card-content">
-              <ul class="info-list">
-                <li class="info-item">
-                  <strong>Nombre Completo:</strong> Para identificación dentro de la plataforma.
-                </li>
-                <li class="info-item">
-                  <strong>Correo Electrónico:</strong> Para contacto y recuperación de cuenta.
-                </li>
-                <li class="info-item">
-                  <strong>Contraseña:</strong> Opción para cambiar la contraseña.
-                </li>
-              </ul>
-            </div>
-          </div>
+          <form [formGroup]="profileForm" (ngSubmit)="onProfileSubmit()">
+            <!-- Información Básica -->
+            <div class="config-card">
+              <div class="card-header">
+                <div class="card-icon">📝</div>
+                <h2 class="card-title">Información Básica</h2>
+              </div>
+              <div class="card-content">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="fullName" class="form-label">
+                      <strong>Nombre Completo *</strong>
+                    </label>
+                    <input
+                      id="fullName"
+                      type="text"
+                      class="form-input"
+                      [class.error]="fullNameInvalid"
+                      formControlName="fullName"
+                      placeholder="Ingresa tu nombre completo">
+                    <div class="error-message" *ngIf="fullNameInvalid">
+                      El nombre es requerido y debe tener al menos 2 caracteres
+                    </div>
+                  </div>
 
-          <!-- Información de Aprendizaje -->
-          <div class="config-card">
-            <div class="card-header">
-              <div class="card-icon">📚</div>
-              <h2 class="card-title">Información de Aprendizaje</h2>
-            </div>
-            <div class="card-content">
-              <ul class="info-list">
-                <li class="info-item">
-                  <strong>Nivel Actual de Inglés:</strong> Para identificación de aprendizaje
-                </li>
-                <li class="info-item">
-                  <strong>Temas de Estudio:</strong> Para que el usuario seleccione temas que le interesen
-                </li>
-                <li class="info-item">
-                  <strong>Objetivos de Aprendizaje:</strong> Motivaciones del usuario
-                </li>
-              </ul>
-            </div>
-          </div>
+                  <div class="form-group">
+                    <label for="email" class="form-label">
+                      <strong>Correo Electrónico *</strong>
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      class="form-input"
+                      [class.error]="emailInvalid"
+                      formControlName="email"
+                      placeholder="correo@ejemplo.com">
+                    <div class="error-message" *ngIf="emailInvalid">
+                      Ingresa un correo electrónico válido
+                    </div>
+                  </div>
 
-          <!-- Configuración de Cuenta -->
-          <div class="config-card">
-            <div class="card-header">
-              <div class="card-icon">⚙️</div>
-              <h2 class="card-title">Configuración de Cuenta</h2>
+                  <div class="form-group">
+                    <label for="currentPassword" class="form-label">
+                      <strong>Contraseña Actual</strong>
+                    </label>
+                    <input
+                      id="currentPassword"
+                      type="password"
+                      class="form-input"
+                      formControlName="currentPassword"
+                      placeholder="Contraseña actual">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="newPassword" class="form-label">
+                      <strong>Nueva Contraseña</strong>
+                    </label>
+                    <input
+                      id="newPassword"
+                      type="password"
+                      class="form-input"
+                      [class.error]="newPasswordInvalid"
+                      formControlName="newPassword"
+                      placeholder="Nueva contraseña (min. 6 caracteres)">
+                    <div class="error-message" *ngIf="newPasswordInvalid">
+                      La contraseña debe tener al menos 6 caracteres
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="card-content">
-              <ul class="info-list">
-                <li class="info-item">
-                  <strong>Idioma de la Interfaz:</strong> Si la aplicación está disponible en varios idiomas (ej. Español, Portugués).
-                </li>
-                <li class="info-item">
-                  <strong>Zona Horaria:</strong> Para la correcta programación de recordatorios o clases en vivo.
-                </li>
-              </ul>
+
+            <!-- Información de Aprendizaje -->
+            <div class="config-card">
+              <div class="card-header">
+                <div class="card-icon">📚</div>
+                <h2 class="card-title">Información de Aprendizaje</h2>
+              </div>
+              <div class="card-content">
+                <div class="form-group">
+                  <label for="currentLevel" class="form-label">
+                    <strong>Nivel Actual de Inglés *</strong>
+                  </label>
+                  <select id="currentLevel" class="form-select" formControlName="currentLevel">
+                    <option *ngFor="let level of englishLevels" [value]="level.value">
+                      {{ level.label }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    <strong>Temas de Estudio</strong>
+                  </label>
+                  <div class="checkbox-grid">
+                    <label *ngFor="let topic of studyTopicsOptions" class="checkbox-item">
+                      <input
+                        type="checkbox"
+                        [checked]="isTopicSelected(topic.value)"
+                        (change)="onTopicChange(topic.value)">
+                      <span class="checkbox-label">{{ topic.label }}</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    <strong>Objetivos de Aprendizaje</strong>
+                  </label>
+                  <div class="checkbox-grid">
+                    <label *ngFor="let goal of learningGoalsOptions" class="checkbox-item">
+                      <input
+                        type="checkbox"
+                        [checked]="isGoalSelected(goal.value)"
+                        (change)="onGoalChange(goal.value)">
+                      <span class="checkbox-label">{{ goal.label }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+
+            <!-- Configuración de Cuenta -->
+            <div class="config-card">
+              <div class="card-header">
+                <div class="card-icon">⚙️</div>
+                <h2 class="card-title">Configuración de Cuenta</h2>
+              </div>
+              <div class="card-content">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="interfaceLanguage" class="form-label">
+                      <strong>Idioma de la Interfaz *</strong>
+                    </label>
+                    <select id="interfaceLanguage" class="form-select" formControlName="interfaceLanguage">
+                      <option *ngFor="let lang of interfaceLanguages" [value]="lang.value">
+                        {{ lang.label }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="timeZone" class="form-label">
+                      <strong>Zona Horaria *</strong>
+                    </label>
+                    <select id="timeZone" class="form-select" formControlName="timeZone">
+                      <option *ngFor="let tz of timeZones" [value]="tz.value">
+                        {{ tz.label }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button 
+                type="submit" 
+                class="btn btn-primary btn-large"
+                [disabled]="profileForm.invalid || isLoading">
+                <span *ngIf="isLoading" class="loading-spinner"></span>
+                {{ isLoading ? 'Guardando...' : 'Guardar Cambios' }}
+              </button>
+            </div>
+          </form>
         </div>
 
         <!-- Contenido de Accesibilidad -->
@@ -138,7 +252,7 @@
           <div class="config-card">
             <div class="card-header">
               <div class="card-icon">🔠</div>
-              <h2 class="card-title">Tamaño de texto</h2>
+              <h2 class="card-title">Tamaño de Texto</h2>
             </div>
             <div class="card-content">
               <div class="accessibility-option">
@@ -146,7 +260,18 @@
                   <span class="text-size-demo">Aa</span>
                 </div>
                 <div class="option-content">
-                  <p>Ajustar el tamaño de la fuente (Pequeño, Normal, Grande, Muy Grande).</p>
+                  <p>Selecciona el tamaño de fuente más cómodo para ti.</p>
+                  <div class="radio-group">
+                    <label *ngFor="let size of fontSizes" class="radio-item">
+                      <input 
+                        type="radio" 
+                        name="fontSize"
+                        [value]="size.value"
+                        [checked]="accessibilitySettings.fontSize === size.value"
+                        (change)="onFontSizeChange(size.value)">
+                      <span class="radio-label">{{ size.label }}</span>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -164,7 +289,19 @@
                   <span class="contrast-icon">💡</span>
                 </div>
                 <div class="option-content">
-                  <p>Activar un modo de alto contraste para mejorar la legibilidad para usuarios con ciertas deficiencias visuales.</p>
+                  <p>Mejora la legibilidad aumentando el contraste de colores.</p>
+                  <div class="toggle-container">
+                    <label class="toggle-switch">
+                      <input 
+                        type="checkbox"
+                        [checked]="accessibilitySettings.highContrast"
+                        (change)="onHighContrastToggle()">
+                      <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">
+                      {{ accessibilitySettings.highContrast ? 'Activado' : 'Desactivado' }}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -174,17 +311,30 @@
           <div class="config-card">
             <div class="card-header">
               <div class="card-icon">🌓</div>
-              <h2 class="card-title">Modo Oscuro/Claro</h2>
+              <h2 class="card-title">Modo Oscuro</h2>
             </div>
             <div class="card-content">
               <div class="accessibility-option">
                 <div class="option-icon">
-                  <div class="toggle-switch">
-                    <div class="toggle-slider"></div>
+                  <div class="theme-preview">
+                    <div class="theme-light" [class.active]="!accessibilitySettings.darkMode"></div>
+                    <div class="theme-dark" [class.active]="accessibilitySettings.darkMode"></div>
                   </div>
                 </div>
                 <div class="option-content">
-                  <p>Alternar entre un tema de colores claros y un tema oscuro para reducir la fatiga visual, especialmente en entornos con poca luz.</p>
+                  <p>Cambia entre tema claro y oscuro para reducir la fatiga visual.</p>
+                  <div class="toggle-container">
+                    <label class="toggle-switch">
+                      <input 
+                        type="checkbox"
+                        [checked]="accessibilitySettings.darkMode"
+                        (change)="onDarkModeToggle()">
+                      <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">
+                      {{ accessibilitySettings.darkMode ? 'Modo Oscuro' : 'Modo Claro' }}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -205,11 +355,54 @@
                   <span class="reminder-icon">📖⏰</span>
                 </div>
                 <div class="option-content">
-                  <ul class="notification-list">
-                    <li><strong>Frecuencia:</strong> Interacción del usuario con la página.</li>
-                    <li><strong>Hora del Día:</strong> Un selector de hora para los recordatorios.</li>
-                    <li><strong>Días de la Semana:</strong> Para seleccionar los días en que desea recibir recordatorios.</li>
-                  </ul>
+                  <div class="toggle-container">
+                    <label class="toggle-switch">
+                      <input 
+                        type="checkbox"
+                        [checked]="notificationSettings.studyReminders.enabled"
+                        (change)="onStudyRemindersToggle()">
+                      <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">
+                      {{ notificationSettings.studyReminders.enabled ? 'Activado' : 'Desactivado' }}
+                    </span>
+                  </div>
+
+                  <div *ngIf="notificationSettings.studyReminders.enabled" class="reminder-settings">
+                    <div class="form-group">
+                      <label class="form-label"><strong>Frecuencia:</strong></label>
+                      <select 
+                        class="form-select"
+                        [value]="notificationSettings.studyReminders.frequency"
+                        (change)="onReminderFrequencyChange($event)">
+                        <option *ngFor="let freq of reminderFrequencies" [value]="freq.value">
+                          {{ freq.label }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label"><strong>Hora del Día:</strong></label>
+                      <input 
+                        type="time"
+                        class="form-input"
+                        [value]="notificationSettings.studyReminders.time"
+                        (change)="onReminderTimeChange($event)">
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label"><strong>Días de la Semana:</strong></label>
+                      <div class="checkbox-grid days-grid">
+                        <label *ngFor="let day of daysOfWeek" class="checkbox-item day-item">
+                          <input
+                            type="checkbox"
+                            [checked]="isDaySelected(day.value)"
+                            (change)="onDayOfWeekToggle(day.value)">
+                          <span class="checkbox-label">{{ day.label }}</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -219,7 +412,7 @@
           <div class="config-card">
             <div class="card-header">
               <div class="card-icon">🏆</div>
-              <h2 class="card-title">Progreso y Logros:</h2>
+              <h2 class="card-title">Progreso y Logros</h2>
             </div>
             <div class="card-content">
               <div class="notification-option">
@@ -227,7 +420,19 @@
                   <span class="trophy-icon">🏆</span>
                 </div>
                 <div class="option-content">
-                  <p>Para recibir notificaciones sobre el progreso semanal, hitos alcanzados</p>
+                  <p>Recibe notificaciones sobre tu progreso semanal y hitos alcanzados.</p>
+                  <div class="toggle-container">
+                    <label class="toggle-switch">
+                      <input 
+                        type="checkbox"
+                        [checked]="notificationSettings.progressNotifications"
+                        (change)="onProgressNotificationsToggle()">
+                      <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">
+                      {{ notificationSettings.progressNotifications ? 'Activado' : 'Desactivado' }}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -237,7 +442,7 @@
           <div class="config-card">
             <div class="card-header">
               <div class="card-icon">🎉</div>
-              <h2 class="card-title">Promociones/Actualizaciones de la App</h2>
+              <h2 class="card-title">Promociones y Actualizaciones</h2>
             </div>
             <div class="card-content">
               <div class="notification-option">
@@ -245,7 +450,19 @@
                   <span class="promo-icon">🏷️⚙️</span>
                 </div>
                 <div class="option-content">
-                  <p>Para recibir noticias sobre ofertas especiales o nuevas características de la aplicación.</p>
+                  <p>Recibe noticias sobre ofertas especiales y nuevas características de la aplicación.</p>
+                  <div class="toggle-container">
+                    <label class="toggle-switch">
+                      <input 
+                        type="checkbox"
+                        [checked]="notificationSettings.promotionalNotifications"
+                        (change)="onPromotionalNotificationsToggle()">
+                      <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">
+                      {{ notificationSettings.promotionalNotifications ? 'Activado' : 'Desactivado' }}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -266,7 +483,16 @@
                   <span class="content-icon">📊</span>
                 </div>
                 <div class="option-content">
-                  <p>Para seleccionar formatos de aprendizaje preferidos (ej. Lecciones interactivas, Videos, Audios, Artículos de lectura, Ejercicios de gramática, Juegos, Flashcards).</p>
+                  <p>Selecciona los formatos de aprendizaje que más te gustan.</p>
+                  <div class="checkbox-grid">
+                    <label *ngFor="let content of contentTypesOptions" class="checkbox-item">
+                      <input
+                        type="checkbox"
+                        [checked]="isContentTypeSelected(content.value)"
+                        (change)="onContentTypeToggle(content.value)">
+                      <span class="checkbox-label">{{ content.label }}</span>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -284,7 +510,18 @@
                   <span class="difficulty-icon">🎲</span>
                 </div>
                 <div class="option-content">
-                  <p>Selector para ajustar la dificultad de los ejercicios recomendados (ej. Más fácil, Adecuado a mi nivel, Más desafiante).</p>
+                  <p>Ajusta la dificultad de los ejercicios según tu preferencia.</p>
+                  <div class="radio-group">
+                    <label *ngFor="let difficulty of difficultyLevels" class="radio-item">
+                      <input 
+                        type="radio" 
+                        name="exerciseDifficulty"
+                        [value]="difficulty.value"
+                        [checked]="preferenceSettings.exerciseDifficulty === difficulty.value"
+                        (change)="onDifficultyChange(difficulty.value)">
+                      <span class="radio-label">{{ difficulty.label }}</span>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -302,7 +539,39 @@
                   <span class="exclude-icon">🚷</span>
                 </div>
                 <div class="option-content">
-                  <p>Permitir al usuario especificar temas que no desea ver o estudiar.</p>
+                  <p>Especifica temas que no deseas ver en tu contenido de estudio.</p>
+                  
+                  <div class="excluded-topics-input">
+                    <input 
+                      type="text" 
+                      #excludeTopicInput
+                      class="form-input" 
+                      placeholder="Escribe un tema a excluir..."
+                      (keyup.enter)="onExcludedTopicAdd(excludeTopicInput.value); excludeTopicInput.value = ''">
+                    <button 
+                      type="button" 
+                      class="btn btn-secondary btn-small"
+                      (click)="onExcludedTopicAdd(excludeTopicInput.value); excludeTopicInput.value = ''">
+                      Agregar
+                    </button>
+                  </div>
+
+                  <div class="excluded-topics-list" *ngIf="preferenceSettings.excludedTopics.length > 0">
+                    <div *ngFor="let topic of preferenceSettings.excludedTopics" class="excluded-topic-tag">
+                      <span class="topic-text">{{ topic }}</span>
+                      <button 
+                        type="button" 
+                        class="remove-topic-btn"
+                        (click)="onExcludedTopicRemove(topic)"
+                        aria-label="Eliminar tema">
+                        ×
+                      </button>
+                    </div>
+                  </div>
+
+                  <p class="helper-text" *ngIf="preferenceSettings.excludedTopics.length === 0">
+                    No has excluido ningún tema aún.
+                  </p>
                 </div>
               </div>
             </div>
