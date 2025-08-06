@@ -45,4 +45,12 @@ export class Lecciones {
     }
   }
 
+  /**
+   * Navega a la pantalla del juego, pasando el tipo de lección como un parámetro en la URL.
+   * @param lessonType El tipo de lección ('grammar', 'listening', 'vocabulary').
+   */
+  startLesson(lessonType: string) {
+    this.router.navigate(['/juego-leccion', lessonType]);
+  }
+
 }
